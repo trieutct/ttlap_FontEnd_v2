@@ -20,7 +20,7 @@ export const useAuthUserStore=defineStore('authUser',{
         getAccessToken:(state): string | undefined => state.user.token
     },
     actions:{
-        async login(userDetails: Partial<IAuthUserInterface>):Promise<void>{
+        async login(userDetails: Partial<IAuthUserInterface>){
             // console.log(userDetails)
             const { email: email, password: password } = userDetails
             // console.log(user,pwd)
@@ -28,21 +28,22 @@ export const useAuthUserStore=defineStore('authUser',{
             try {
                 const {data} = await axios.post('/user/login', JSON.stringify({ email, password }))
                 // set the current user
-                console.log(data)
+                // console.log(data)
                 if(data.code===200)
                 {
                   this.user = {
-                      user: email,
+                    user: email,
                     isUserLoggedIn: true,
                     token: data.data.accessToken
                   }
                   localStorageAuthService.setAccessToken(data.data.accessToken)
                   this.loadingSession = false
                   router.push('/admin/product')
+                  return true
                 }
-               
+                return false
               } catch (error: unknown) {
-                console.log(error)
+                return false
               } finally {
                 this.loadingSession = false
               }

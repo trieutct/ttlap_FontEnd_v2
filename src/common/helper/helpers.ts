@@ -6,9 +6,9 @@ import {
   DEFAULT_FIRST_PAGE,
   DEFAULT_LIMIT_FOR_PAGINATION,
   OrderDirection,
-} from '../contant.ts/contants';
+} from '../contant/contants';
 import { type IOption, type IOrderDirection } from '../interface/interfaces';
-
+import { useToast } from 'vue-toastification';
 export function isValidJSON(str: string) {
   try {
     const object = JSON.parse(str);
@@ -43,23 +43,23 @@ export function isStringify<T>(obj: T | Record<string, unknown>): boolean {
   return true;
 }
 
-// export function showErrorNotification(message: string, title?: string, duration = 2) {
-//   if (!message) return;
-//   const { appendToast } = useToasts();
-//   appendToast({ message, type: ToastType.ERROR, title: title || '', duration });
-// }
+export function showErrorNotification(message: string, title?: string, duration = 2) {
+  if (!message) return;
+  const toast = useToast();
+  toast.error(message);
+}
 
-// export function showSuccessNotification(message: string, title?: string, duration = 2) {
-//   if (!message) return;
-//   const { appendToast } = useToasts();
-//   appendToast({ message, type: ToastType.SUCCESS, title: title || '', duration });
-// }
+export function showSuccessNotification(message: string, title?: string, duration = 2) {
+  if (!message) return;
+  const toast = useToast();
+  toast.success(message);
+}
 
-// export function showWarningsNotification(message: string, title?: string, duration = 2) {
-//   if (!message) return;
-//   const { appendToast } = useToasts();
-//   appendToast({ message, type: ToastType.WARNING, title: title || '', duration });
-// }
+export function showWarningsNotification(message: string) {
+  if (!message) return;
+  const toast = useToast();
+  toast.warning(message);
+}
 
 export function maskPhone(value: string, pattern = '### #### ###') {
   let i = 0;
