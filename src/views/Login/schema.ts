@@ -1,6 +1,6 @@
-import {Regex} from '@/common/contants';
-import {FORM_VALIDATION} from '@/common/contants'
-import {MESSAGE_ERROR} from '@/common/contants'
+import {Regex} from '@/common/contant.ts/contants';
+import {FORM_VALIDATION} from '@/common/contant.ts/contants'
+import {MESSAGE_ERROR} from '@/common/contant.ts/contants'
 import * as yup from 'yup';
 
 const emailSchema=yup.string().required(MESSAGE_ERROR.REQUIRE).matches(Regex.EMAIL,MESSAGE_ERROR.REGEX_EMAIL);
