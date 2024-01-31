@@ -3,6 +3,7 @@ import router from '@/router'
 import axios from '@/plugins/axios/axios'
 import { IAuthUserInterface,IEmployees,IUserInterface,TokenResponse } from '@/common/interface/interfaces'
 import localStorageAuthService from '@/common/storages/authStorage'
+import { showErrorNotification } from '@/common/helper/helpers'
 
 const initalUserState: Partial<IUserInterface> = {
     user: '',
@@ -20,29 +21,28 @@ export const useAuthUserStore=defineStore('authUser',{
         getAccessToken:(state): string | undefined => state.user.token
     },
     actions:{
-        async login(userDetails: Partial<IAuthUserInterface>){
+        async login(userDetails: Partial<IAuthUserInterface>):Promise<boolean>{
             // console.log(userDetails)
             const { email: email, password: password } = userDetails
             // console.log(user,pwd)
             // //this.loadingSession = true
             try {
                 const {data} = await axios.post('/user/login', JSON.stringify({ email, password }))
-                // set the current user
-                // console.log(data)
                 if(data.code===200)
                 {
                   this.user = {
-                    user: email,
+                      user: email,
                     isUserLoggedIn: true,
-                    token: data.data.accessToken
+                    token: data.data?.accessToken
                   }
-                  localStorageAuthService.setAccessToken(data.data.accessToken)
-                  this.loadingSession = false
+                  localStorageAuthService.setAccessToken(data.data?.accessToken)
+                  // this.loadingSession = false
                   router.push('/admin/product')
                   return true
                 }
                 return false
               } catch (error: unknown) {
+                console.log(error)
                 return false
               } finally {
                 this.loadingSession = false

@@ -42,7 +42,13 @@ export enum PageName {
   DASHBOARD_PAGE = 'dashboard_page',
   NOT_FOUND_PAGE = 'not_found_page',
   FORBIDDEN_PAGE = 'forbidden_page',
+  TRANG_CHU='Trang chu',
+  ADMIN='admin',
+  ADMIN_PRODUCT='product',
+  ADMIN_USER='user',
+  BLOG='blog'
 }
+
 
 export enum SupportLanguage {
   EN = 'en',

@@ -2,6 +2,7 @@ import { useField, useForm } from 'vee-validate';
 import { loginWithPasswordSchema } from './schema';
 import { computed } from 'vue';
 import { useAuthUserStore } from '@/store/auth/useAuthUserStore';
+import { showErrorNotification, showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 const {login} =useAuthUserStore()
 export const userLoginForm=()=>{
     const {
@@ -26,7 +27,15 @@ export const userLoginForm=()=>{
       const handleLogin = handleSubmit(async (values) => {
         //console.log(values)
         // alert(process.env.VUE_APP_API_URL)
-        login(values)
+        const res=await login(values)
+        if(res)
+        {
+          showSuccessNotification("Đăng nhập thành công")
+        }
+        else
+        {
+          showWarningsNotification("Sai tài khoản mật khẩu")
+        }
       });
     const isValidForm = computed(() => meta.value.valid);
 
