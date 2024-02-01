@@ -2,7 +2,8 @@ import { useField, useForm } from 'vee-validate';
 import { loginWithPasswordSchema } from './schema';
 import { computed } from 'vue';
 import { useAuthUserStore } from '@/store/auth/useAuthUserStore';
-import { showErrorNotification, showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
+import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
+import router from '@/router';
 const {login} =useAuthUserStore()
 export const userLoginForm=()=>{
     const {
@@ -31,14 +32,14 @@ export const userLoginForm=()=>{
         if(res)
         {
           showSuccessNotification("Đăng nhập thành công")
+          router.push('/admin/product')
         }
         else
         {
-          showWarningsNotification("Sai tài khoản mật khẩu")
+          showWarningsNotification("Đăng nhập thất bại. Vui lòng thử lại")
         }
       });
     const isValidForm = computed(() => meta.value.valid);
-
     return {
         handleLogin,
         formValue,

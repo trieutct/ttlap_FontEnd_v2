@@ -42,16 +42,26 @@ export interface IUser {
   name?: string;
 }
 
+export type IBodyLogin = {
+  // provider: LoginProvider;
+  email?: string;
+  password?: string;
+  code?: string;
+  redirectUri?: string;
+};
 export interface ILoginResponse {
-  accessToken: {
-    token: string;
-    expiresIn: number;
-  };
-  refreshToken: {
-    token: string;
-    expiresIn: number;
-  };
-  profile: IUser;
+  // accessToken: {
+  //   token: string;
+  //   expiresIn: number;
+  // };
+  // refreshToken: {
+  //   token: string;
+  //   expiresIn: number;
+  // };
+  // profile: IUser;
+  accessToken:string,
+  refreshToken:string,
+  expiresIn:string
 }
 
 export interface IGetListResponse<T> {

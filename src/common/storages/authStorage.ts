@@ -1,4 +1,5 @@
 import { storage } from "./localStorage";
+const BUFFER_TIME = 60 * 1000; // 60s
 
 export const enum AUTH_SERVICE_KEY {
   ACCESS_TOKEN = "ACCESS_TOKEN",
@@ -15,6 +16,25 @@ class LocalStorageAuthService {
   }
   getAccessToken(): string {
     return storage.getLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN);
+  }
+  getAccessTokenExpiredAt(): number {
+    return +storage.getLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN_EXPIRED_AT);
+  }
+  setAccessTokenExpiredAt(expiredIn: number): void {
+    const expiredAt = new Date().getTime() + expiredIn * 1000 - BUFFER_TIME;
+    storage.setLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN_EXPIRED_AT, String(expiredAt));
+  }
+  resetAccessToken(): void {
+    storage.setLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN, '');
+  }
+  resetAccessTokenExpiredAt(): void {
+    storage.setLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN_EXPIRED_AT, '');
+  }
+
+  resetAll(): void {
+    this.resetAccessToken();
+    this.resetAccessTokenExpiredAt();
+    // this.setLoginUser(null, null);
   }
 }
 export const localStorageAuthService = new LocalStorageAuthService();
