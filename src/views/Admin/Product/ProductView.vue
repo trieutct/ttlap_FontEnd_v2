@@ -36,16 +36,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="i in 10" :key="i">
-              <td>Sản phẩm {{ i }}</td>
-              <td>$6,000</td>
-              <td>1</td>
+            <tr v-for="(item,index) in products" :key="index">
+              <td>{{ item.name }}</td>
+              <td>{{ item.price }}</td>
+              <td>{{ item.quantity }}</td>
               <td style="width: 250px;" class="v-text-truncate">
-                Lorem ipsum dolor sit amet
+                {{ item.description }}
               </td>
               <td>
                 <v-img width="36" height="36"
-                  src="https://tse2.mm.bing.net/th?id=OIP.HPtW3Kl-1qvIjhcfNg7eZwHaFX&pid=Api&P=0&h=220"></v-img>
+                  :src="item.imageUrl"></v-img>
               </td>
               <td class="text-center">
                 <v-btn icon="mdi-pencil"  density="compact" variant="text"></v-btn>
@@ -75,10 +75,30 @@
   <DialogViewVue v-model="showDialog" />
 </template>
 <script setup>
-import { ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import DialogViewVue from '@/components/Admin/Product/DialogView.vue';
 const showDialog = ref(false);
 const seletedValue=ref(10)
+
+
+
+import {useProduct} from '../Product/product'
+const {fetchProducts,products}=useProduct()
+
+if (fetchProducts) {
+  // Gọi fetchProducts để lấy dữ liệu sản phẩm
+  fetchProducts()
+    .then((result) => {
+      // Gán kết quả vào products nếu thành công
+      products.value = result;
+    })
+    .catch((error) => {
+      // Xử lý lỗi nếu cần thiết
+      console.error('Error fetching products:', error);
+    });
+} else {
+  console.error('fetchProducts is not defined');
+}
 </script>
 
 <style scoped>

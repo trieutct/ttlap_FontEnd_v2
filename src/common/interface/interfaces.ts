@@ -25,6 +25,7 @@ export interface IBodyResponse<T> extends AxiosResponse {
   message: string;
   error: string;
   data: T;
+  items:T;
   errors?: IResponseError<any>[];
 }
 
@@ -41,19 +42,6 @@ export interface IUser {
   email: string;
   name?: string;
 }
-
-export interface ILoginResponse {
-  accessToken: {
-    token: string;
-    expiresIn: number;
-  };
-  refreshToken: {
-    token: string;
-    expiresIn: number;
-  };
-  profile: IUser;
-}
-
 export interface IGetListResponse<T> {
   items: T[];
   totalItems: number;

@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { PageName } from '../common/contant/contants';
+// import VueRouteMiddleware, { GLOBAL_MIDDLEWARE_NAME } from './middleware';
+// import AuthMiddleware from './authMiddleware';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -36,13 +38,13 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'product',
         name:PageName.ADMIN_PRODUCT,
-        component: () => import('../views/Admin/ProductView.vue'),
+        component: () => import('../views/Admin/Product/ProductView.vue'),
         props: true 
       },
       {
         path: 'user',
         name:PageName.ADMIN_USER,
-        component: () => import('../views/Admin/UserView.vue'),
+        component: () => import('../views/Admin/User/UserView.vue'),
         props: true 
       }
     ]
@@ -57,5 +59,11 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+// router.beforeEach(
+//   VueRouteMiddleware({
+//     [GLOBAL_MIDDLEWARE_NAME]: AuthMiddleware,
+//   }) as NavigationGuardWithThis<unknown>,
+// );
 
 export default router

@@ -50,18 +50,15 @@ export type IBodyLogin = {
   redirectUri?: string;
 };
 export interface ILoginResponse {
-  // accessToken: {
-  //   token: string;
-  //   expiresIn: number;
-  // };
-  // refreshToken: {
-  //   token: string;
-  //   expiresIn: number;
-  // };
-  // profile: IUser;
-  accessToken:string,
-  refreshToken:string,
-  expiresIn:string
+  accessToken: {
+    token: string;
+    expiresIn: number;
+  };
+  refreshToken: {
+    token: string;
+    expiresIn: number;
+  };
+  profile: IUser;
 }
 
 export interface IGetListResponse<T> {

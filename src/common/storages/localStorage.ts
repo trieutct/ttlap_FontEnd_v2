@@ -21,5 +21,11 @@ export class LocalStorage {
     }
     return {};
   }
+  removeLocalStorage(key: string): void {
+    if (!localStorage) {
+      return;
+    }
+    localStorage.removeItem(key);
+  }
 }
 export const storage = new LocalStorage();

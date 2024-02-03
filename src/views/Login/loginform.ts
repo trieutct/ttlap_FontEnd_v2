@@ -4,8 +4,10 @@ import { computed } from 'vue';
 import { useAuthUserStore } from '@/store/auth/useAuthUserStore';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import router from '@/router';
-const {login} =useAuthUserStore()
+// const {login} =useAuthUserStore()
+import { AuthStore } from '@/store/auth/authStore';
 export const userLoginForm=()=>{
+  const authStore=AuthStore()
     const {
         handleSubmit,
         values: formValue,
@@ -28,7 +30,12 @@ export const userLoginForm=()=>{
       const handleLogin = handleSubmit(async (values) => {
         //console.log(values)
         // alert(process.env.VUE_APP_API_URL)
-        const res=await login(values)
+        // const res=await login(values)
+        const res=await authStore.login(
+          {
+            email:values.email,
+            password:values.password
+          });
         if(res)
         {
           showSuccessNotification("Đăng nhập thành công")
