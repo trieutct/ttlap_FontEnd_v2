@@ -10,26 +10,8 @@ import {formatNumberWithCommas} from '../../../common/helper/helpers'
 import {useProduct} from '../Product/product'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
 const {fetchProducts,products,query,getAll}=useProduct()
-// 
-onMounted(()=>{
-    fetchProducts()
-    .then((result) => {
-      products.value = result;
-    })
-    .catch((error) => {
-      console.error('Error fetching products:', error);
-    });
-})
-watch(seletedValue,(newval,oldval)=>{
-  console.log(getAll)
-  // query.limit=newval
-  // fetchProducts()
-  //   .then((result) => {
-  //     products.value = result;
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error fetching products:', error);
-  //   });
+onMounted(async()=>{
+    products.value=await fetchProducts();
 })
 
 </script>

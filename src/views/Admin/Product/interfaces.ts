@@ -7,7 +7,14 @@ export type IBodyUser = {
     avatar?: string;
     birthday?: string;
 };
-
+export type IProduct={
+    id:string
+    name:string;
+    price:number;
+    quantity:number;
+    description:string;
+    imageUrl:string;
+}
 export type  IProductGetAll= {
     items: [];
     totalItems: number;
