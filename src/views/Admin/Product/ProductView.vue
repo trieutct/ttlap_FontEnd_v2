@@ -1,3 +1,38 @@
+
+<script setup>
+import { computed, onMounted, reactive, ref, watch, watchEffect } from 'vue';
+import DialogViewVue from '@/components/Admin/Product/DialogView.vue';
+const showDialog = ref(false);
+const seletedValue=ref(DEFAULT_LIMIT_FOR_PAGINATION)
+
+
+import {formatNumberWithCommas} from '../../../common/helper/helpers'
+import {useProduct} from '../Product/product'
+import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
+const {fetchProducts,products,query,getAll}=useProduct()
+// 
+onMounted(()=>{
+    fetchProducts()
+    .then((result) => {
+      products.value = result;
+    })
+    .catch((error) => {
+      console.error('Error fetching products:', error);
+    });
+})
+watch(seletedValue,(newval,oldval)=>{
+  console.log(getAll)
+  // query.limit=newval
+  // fetchProducts()
+  //   .then((result) => {
+  //     products.value = result;
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error fetching products:', error);
+  //   });
+})
+
+</script>
 <template>
   <div style="margin: 1.5%;">
     <v-row>
@@ -38,7 +73,7 @@
           <tbody>
             <tr v-for="(item,index) in products" :key="index">
               <td>{{ item.name }}</td>
-              <td>{{ item.price }}</td>
+              <td>{{ formatNumberWithCommas(item.price) }}</td>
               <td>{{ item.quantity }}</td>
               <td style="width: 250px;" class="v-text-truncate">
                 {{ item.description }}
@@ -74,33 +109,6 @@
   </div>
   <DialogViewVue v-model="showDialog" />
 </template>
-<script setup>
-import { computed, reactive, ref } from 'vue';
-import DialogViewVue from '@/components/Admin/Product/DialogView.vue';
-const showDialog = ref(false);
-const seletedValue=ref(10)
-
-
-
-import {useProduct} from '../Product/product'
-const {fetchProducts,products}=useProduct()
-
-if (fetchProducts) {
-  // Gọi fetchProducts để lấy dữ liệu sản phẩm
-  fetchProducts()
-    .then((result) => {
-      // Gán kết quả vào products nếu thành công
-      products.value = result;
-    })
-    .catch((error) => {
-      // Xử lý lỗi nếu cần thiết
-      console.error('Error fetching products:', error);
-    });
-} else {
-  console.error('fetchProducts is not defined');
-}
-</script>
-
 <style scoped>
 .text-truncate {
   overflow: hidden;

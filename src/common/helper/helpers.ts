@@ -178,3 +178,7 @@ export const scrollToIdElement = (id: string) => {
     element.scrollIntoView({ behavior: 'smooth' });
   }
 };
+
+export const formatNumberWithCommas=(value:string)=> {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
