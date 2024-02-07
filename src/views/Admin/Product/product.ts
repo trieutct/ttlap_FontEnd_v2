@@ -3,7 +3,7 @@ import { productServiceApi } from "@/service/product.api";
 import { DEFAULT_COMMON_LIST_QUERY } from "@/common/contant/contants";
 import { IProduct } from "./interfaces";
 export const useProduct = () => {
-    const products = ref([]);
+    const products = ref<IProduct[]>([])
     const query=DEFAULT_COMMON_LIST_QUERY
     const fetchProducts = async () => {
       try {
