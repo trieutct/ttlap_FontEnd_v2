@@ -1,9 +1,8 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, NavigationGuardWithThis, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import { PageName } from '../common/contant/contants';
-// import VueRouteMiddleware, { GLOBAL_MIDDLEWARE_NAME } from './middleware';
-// import AuthMiddleware from './authMiddleware';
-
+import { PageName, Role } from '../common/contant/contants';
+import authMiddleware from './authMiddleware';
+import VueRouteMiddleware, { GLOBAL_MIDDLEWARE_NAME } from './middleware';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -23,7 +22,11 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: PageName.LOGIN_PAGE,
-    component: () => import('../views/Login/LoginView.vue')
+    component: () => import('../views/Login/LoginView.vue'),
+    meta: {
+      // onlyWhenLoggedOut: true,
+      public: true,
+    },
   },
   {
     path: '/404',
@@ -39,13 +42,19 @@ const routes: Array<RouteRecordRaw> = [
         path: 'product',
         name:PageName.ADMIN_PRODUCT,
         component: () => import('../views/Admin/Product/ProductView.vue'),
-        props: true 
+        props: true,
+        meta: {
+          role:Role.ADMIN
+        },
       },
       {
         path: 'user',
         name:PageName.ADMIN_USER,
         component: () => import('../views/Admin/User/UserView.vue'),
-        props: true 
+        props: true ,
+        meta: {
+          role:Role.ADMIN
+        },
       }
     ]
   },
@@ -60,10 +69,10 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach(
-//   VueRouteMiddleware({
-//     [GLOBAL_MIDDLEWARE_NAME]: AuthMiddleware,
-//   }) as NavigationGuardWithThis<unknown>,
-// );
+router.beforeEach(
+  VueRouteMiddleware({
+    [GLOBAL_MIDDLEWARE_NAME]: authMiddleware,
+  }) as NavigationGuardWithThis<unknown>,
+);
 
 export default router

@@ -9,9 +9,7 @@ export const useProduct = () => {
       try {
         const res = await productServiceApi._getList<IProduct>(query);
         if(res.success)
-        {
             return res.items
-        }
         return null
       } catch (error) {
         console.error('Error fetching products:', error);

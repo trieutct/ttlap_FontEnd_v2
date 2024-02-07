@@ -17,13 +17,22 @@ class LocalStorageAuthService {
   getAccessToken(): string {
     return storage.getLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN);
   }
-  getAccessTokenExpiredAt(): number {
-    return +storage.getLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN_EXPIRED_AT);
-  }
+
   setAccessTokenExpiredAt(expiredIn: number): void {
     const expiredAt = new Date().getTime() + expiredIn * 1000 - BUFFER_TIME;
     storage.setLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN_EXPIRED_AT, String(expiredAt));
   }
+  getAccessTokenExpiredAt(): number {
+    return +storage.getLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN_EXPIRED_AT);
+  }
+
+  setUserRole(role: string): void {
+    storage.setLocalStorage(AUTH_SERVICE_KEY.ROLE, role);
+  }
+  getUserRole():string{
+    return storage.getLocalStorage(AUTH_SERVICE_KEY.ROLE); 
+  }
+
   resetAccessToken(): void {
     storage.setLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN, '');
   }
