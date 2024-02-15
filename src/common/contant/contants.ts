@@ -133,7 +133,7 @@ export const DEFAULT_LIMIT_FOR_PAGINATION = 10;
 export const DEFAULT_FIRST_PAGE = 1;
 
 export enum Role {
-  USER = 'USER',
+  USER = 'User',
   MANAGER = 'MANAGER',
   MASTER = 'MASTER',
   ADMIN='Admin',

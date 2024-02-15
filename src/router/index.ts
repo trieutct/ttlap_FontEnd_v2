@@ -44,7 +44,8 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../views/Admin/Product/ProductView.vue'),
         props: true,
         meta: {
-          role:Role.ADMIN
+          role:Role.ADMIN,
+          public:false,
         },
       },
       {
@@ -53,7 +54,8 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../views/Admin/User/UserView.vue'),
         props: true ,
         meta: {
-          role:Role.ADMIN
+          role:Role.ADMIN,
+          public:false,
         },
       }
     ]
