@@ -61,7 +61,8 @@ import * as yup from 'yup';
 import { ref } from 'vue';
 import { productServiceApi } from '@/service/product.api';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
-
+import { useLoadingStore } from '@/store/loading';
+const loading=useLoadingStore()
 
 const { handleSubmit,resetForm } = useForm();
 
@@ -102,15 +103,16 @@ const { value: description, errorMessage: descriptionError } = useField(
 );
 const submit = handleSubmit(async () => {
     // alert(name.value + "   " + price.value)
+    loading.setLoading(true)
     const formData = new FormData();
     formData.append('name', name.value);
     formData.append('price', price.value);
     formData.append('quantity', quantity.value);
     formData.append('description', description.value);
     formData.append('file', imageFile.value); // imageFile là biến lưu trữ file ảnh được chọn
-    
     const data= await productServiceApi.createProduct(formData); // Gọi API để tạo sản phẩm mới
-    console.log(data)
+    // console.log(data)
+    loading.setLoading(false)
     if(!data.success)
     {
         showWarningsNotification(data.message)
@@ -118,7 +120,6 @@ const submit = handleSubmit(async () => {
     else
     {
         showSuccessNotification("Thêm thành công")
-        
     }
 });
 const imageFile = ref(null);
