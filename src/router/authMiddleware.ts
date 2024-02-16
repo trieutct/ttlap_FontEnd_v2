@@ -24,6 +24,7 @@ export default async (
     // console.log("tokenExpiredAt: "+tokenExpiredAt)
 
     const isExpired = dayjs().isAfter(dayjs(tokenExpiredAt), 'second');
+    // alert(isExpired)
     // console.log("isExpired: "+isExpired)
     const RoleRouter=to?.meta?.role || Role.USER
     const IS_AUTHENTICATED = tokenExpiredAt && !isExpired && hasToken;
@@ -32,13 +33,32 @@ export default async (
     {
       return next()
     }
-    
+    if(isExpired)
+    {
+      // alert("hết hạn rồi")
+      if(localStorageAuthService.getAccessToken()!==localStorageAuthService.getRefreshToken())
+      {
+        // alert("khác")
+        localStorageAuthService.setAccessToken(localStorageAuthService.getRefreshToken())
+        localStorageAuthService.setAccessTokenExpiredAt(localStorageAuthService.getRefresh_TokenExpiredAt())
+        return next()
+      }
+      else(localStorageAuthService.getAccessToken()===localStorageAuthService.getRefreshToken())
+      {
+        // alert("giống")
+        localStorageAuthService.removeAll()
+        return next({ name: PageName.LOGIN_PAGE });
+      }
+    }
     if (!IS_AUTHENTICATED && to.name !== PageName.LOGIN_PAGE) {
       // sessionStorage.setItem('redirect', to.fullPath);
+      // alert("Hết hạn và ko có quyền")
+      localStorageAuthService.removeAll()
       return next({ name: PageName.LOGIN_PAGE });
     }
     if (role===RoleRouter) {
       if (!IS_PUBLIC && !IS_AUTHENTICATED) {
+        localStorageAuthService.removeAll()
         return next({
           name: PageName.LOGIN_PAGE,
         });
@@ -49,6 +69,7 @@ export default async (
     {
       // alert("Bạn ko có quyền")
       //tạm thời là vào trang 404
+      localStorageAuthService.removeAll()
       return next({ name: PageName.NOT_FOUND_PAGE });
     }
 };
