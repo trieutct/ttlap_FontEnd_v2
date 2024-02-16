@@ -8,12 +8,12 @@ export type IBodyUser = {
     birthday?: string;
 };
 export type IProduct={
-    id:string
+    // id:string
     name:string;
     price:number;
     quantity:number;
     description:string;
-    imageUrl:string;
+    // file:File;
 }
 export type  IProductGetAll= {
     items: [];

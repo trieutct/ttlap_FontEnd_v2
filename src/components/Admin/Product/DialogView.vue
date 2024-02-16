@@ -1,6 +1,6 @@
 <template>
     <v-dialog max-width="500px">
-        <v-form @submit.prevent="login">
+        <v-form @submit.prevent="submit">
             <v-card>
                 <v-card-title style="font-weight: bold;">
                     <h4>Tạo mới</h4>
@@ -36,9 +36,11 @@
                             <span style="color:red">{{ descriptionError }}</span>
                         </v-col>
                         <v-col cols="12" style="font-size: 13px;">
-                            <span>Ảnh sản phẩm</span><span class="text-blue ml-2">*</span>
-                            <v-text-field placeholder="Nhập link ảnh" style="background-color: white;" density="compact"
-                                single-line hide-details variant="outlined"></v-text-field>
+                            <span>Ảnh sản phẩm</span><span class="text-blue ml-2">*</span><br>
+                            <input @change="handleImageChange" type="file"  class="custom-file-input"/>
+                            <!-- <v-text-field placeholder="Nhập link ảnh" style="background-color: white;" density="compact"
+                                single-line hide-details variant="outlined"></v-text-field> -->
+                            <!-- <v-file-input single-line hide-details variant="outlined" label="Chọn ảnh" density="compact" color="white" style="background-color: white;"></v-file-input> -->
                         </v-col>
                     </v-row>
                 </v-container>
@@ -57,6 +59,8 @@
 import { useForm, useField } from 'vee-validate';
 import * as yup from 'yup';
 import { ref } from 'vue';
+import { productServiceApi } from '@/service/product.api';
+import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 
 
 const { handleSubmit,resetForm } = useForm();
@@ -96,11 +100,52 @@ const { value: description, errorMessage: descriptionError } = useField(
         .min(10, 'Mô tả phải có ít nhất 10 ký tự')
         .max(500, 'Mô tả không được quá 500 ký tự')
 );
-const login = handleSubmit(async () => {
-    alert(name.value + "   " + price.value)
+const submit = handleSubmit(async () => {
+    // alert(name.value + "   " + price.value)
+    const formData = new FormData();
+    formData.append('name', name.value);
+    formData.append('price', price.value);
+    formData.append('quantity', quantity.value);
+    formData.append('description', description.value);
+    formData.append('file', imageFile.value); // imageFile là biến lưu trữ file ảnh được chọn
+    
+    const data= await productServiceApi.createProduct(formData); // Gọi API để tạo sản phẩm mới
+    console.log(data)
+    if(!data.success)
+    {
+        showWarningsNotification(data.message)
+    }
+    else
+    {
+        showSuccessNotification("Thêm thành công")
+        
+    }
 });
+const imageFile = ref(null);
+const handleImageChange = (event) => {
+  const file = event.target.files[0]; 
+  imageFile.value = file; 
+};
 const close=()=>{
     resetForm()
 }
 </script>
-<style></style>
+<style>
+.custom-file-input {
+  display: inline-block;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-input:hover {
+  background-color: #e0e0e0;
+}
+</style>
