@@ -9,7 +9,7 @@
                     <v-row>
                         <v-col cols="12" style="font-size: 13px;">
                             <span>Tên sản phẩm </span> <span class="text-blue ml-2">*</span>
-                            <v-text-field v-model="name" :text="name.value" placeholder="Nhập tên sản phẩm" :error-messages="nameError"
+                            <v-text-field v-model="name" placeholder="Nhập tên sản phẩm" :error-messages="nameError"
                                 style="background-color: white;" density="compact" single-line hide-details
                                 variant="outlined"></v-text-field>
                             <span style="color:red">{{ nameError }}</span>
@@ -37,7 +37,7 @@
                         </v-col>
                         <v-col cols="12" style="font-size: 13px;">
                             <span>Ảnh sản phẩm</span><span class="text-blue ml-2">*</span><br>
-                            <input @change="handleImageChange" type="file"  class="custom-file-input"/>
+                            <input @change="handleImageChange" type="file" class="custom-file-input" />
                             <!-- <v-text-field placeholder="Nhập link ảnh" style="background-color: white;" density="compact"
                                 single-line hide-details variant="outlined"></v-text-field> -->
                             <!-- <v-file-input single-line hide-details variant="outlined" label="Chọn ảnh" density="compact" color="white" style="background-color: white;"></v-file-input> -->
@@ -46,7 +46,7 @@
                 </v-container>
                 <v-card-actions class="pr-4">
                     <v-spacer></v-spacer>
-                    <v-btn @click="close" class="text-capitalize" text="Hủy"></v-btn>
+                    <v-btn @click="emit('close')" class="text-capitalize" text="Hủy"></v-btn>
                     <v-btn type="submit" color="primary" class="text-capitalize" variant="elevated">Tạo<span
                             class="text-lowercase">mới</span></v-btn>
                 </v-card-actions>
@@ -62,23 +62,23 @@ import { ref, watch } from 'vue';
 import { productServiceApi } from '@/service/product.api';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import { useLoadingStore } from '@/store/loading';
-const loading=useLoadingStore()
+const loading = useLoadingStore()
 
 
 
 const props = defineProps(['idEdit'])
-const emit=defineEmits(['close','loadData'])
-let id=props.idEdit
+const emit = defineEmits(['close', 'loadData'])
+let id = props.idEdit
 watch(() => props.idEdit, (newValue, oldValue) => {
-    id=newValue
-    // console.log(id)
+    resetForm()
+    id = newValue
     getProductById(id)
 });
 
 
 
 
-const { handleSubmit,resetForm } = useForm();
+const { handleSubmit, resetForm } = useForm();
 
 const { value: name, errorMessage: nameError } = useField(
     'name',
@@ -115,6 +115,8 @@ const { value: description, errorMessage: descriptionError } = useField(
         .min(10, 'Mô tả phải có ít nhất 10 ký tự')
         .max(500, 'Mô tả không được quá 500 ký tự')
 );
+
+
 const submit = handleSubmit(async () => {
     // alert(name.value + "   " + price.value)
     loading.setLoading(true)
@@ -123,62 +125,86 @@ const submit = handleSubmit(async () => {
     formData.append('price', price.value);
     formData.append('quantity', quantity.value);
     formData.append('description', description.value);
-    formData.append('file', imageFile.value); // imageFile là biến lưu trữ file ảnh được chọn
-    const data= await productServiceApi.createProduct(formData); // Gọi API để tạo sản phẩm mới
-    // console.log(data)
-    if(!data.success)
-    {
-        emit('close')
-        loading.setLoading(false)
-        showWarningsNotification(data.message)
+    formData.append('file', imageFile.value);
+    if (id == null) {
+        const data = await productServiceApi.createProduct(formData);
+        // console.log(data)
+        if (!data.success) {
+            emit('close')
+            loading.setLoading(false)
+            showWarningsNotification(data.message)
+            empty()
+        }
+        else {
+            emit('close')
+            emit('loadData')
+            loading.setLoading(false)
+            showSuccessNotification("Thêm thành công")
+            empty()
+        }
     }
-    else
-    {
-        emit('close')
-        emit('loadData')
-        loading.setLoading(false)
-        showSuccessNotification("Thêm thành công")
+    else {
+        const data = await productServiceApi.updateProduct(id, formData);
+        if (!data.success) {
+            emit('close')
+            loading.setLoading(false)
+            showWarningsNotification(data.message)
+            empty()
+        }
+        else {
+            emit('close')
+            emit('loadData')
+            loading.setLoading(false)
+            showSuccessNotification("cập nhật thành công")
+            empty()
+        }
     }
 });
 
-
-const getProductById=async (id)=>{
+const getProductById = async (id) => {
     try {
         const data = await productServiceApi._getDetail(id);
-        name.value = data.name;
+        name.value = data.data.name;
+        price.value = data.data.price;
+        description.value = data.data.description;
+        quantity.value = data.data.quantity;
     } catch (error) {
         console.error('Error fetching product detail:', error);
     }
 }
-
+const empty = () => {
+    imageFile.value = null;
+    id = null;
+    props.idEdit = null
+}
 
 
 const imageFile = ref(null);
 const handleImageChange = (event) => {
-  const file = event.target.files[0]; 
-  imageFile.value = file; 
+    const file = event.target.files[0];
+    imageFile.value = file;
 };
-const close=()=>{
+const close = () => {
     resetForm()
 }
 
 </script>
 <style>
 .custom-file-input {
-  display: inline-block;
-  width: 100%;
-  padding: 8px 12px;
-  font-size: 14px;
-  font-family: Arial, sans-serif;
-  color: #333;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    display: inline-block;
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .custom-file-input:hover {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
 </style>
