@@ -7,18 +7,23 @@ const isShowDialog = ref(false);
 const isDialogDelete=ref(false)
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
 let idEdit = ref(null)
-
+let idDelete = ref(null)
+const search=ref('')
 import { formatNumberWithCommas, showErrorNotification, showSuccessNotification } from '../../../common/helper/helpers'
 import { useProduct } from '../Product/product'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
 import { productServiceApi } from '@/service/product.api';
-const { fetchProducts, products, query, getAll } = useProduct()
+const { fetchProducts, products, query, getAll,searchProducts } = useProduct()
 onMounted(async () => {
   loadData()
 })
 
 const loadData = async () => {
   products.value = await fetchProducts();
+}
+
+const searchData = async () => {
+  products.value = await searchProducts();
 }
 const addProduct = () => {
   isShowDialog.value = true
@@ -33,14 +38,17 @@ const deleteProductById = async (id) => {
   // console.log(data)
   if (data.success) {
     loadData()
+    isDialogDelete.value=false
     showSuccessNotification("Xóa thành công")
   }
   else {
+    isDialogDelete.value=false
     showErrorNotification(data.message)
   }
 }
 const close = () => {
   isShowDialog.value = false
+  isDialogDelete.value=false
 }
 
 watch(seletedValue,(newval)=>{
@@ -48,12 +56,16 @@ watch(seletedValue,(newval)=>{
   query.limit=newval
   loadData()
 })
+watch(search,(newval)=>{
+  query.keyword=newval
+  searchData()
+})
 </script>
 <template>
   <div style="margin: 1.5%;">
     <v-row>
       <v-col cols="3">
-        <v-text-field style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
+        <v-text-field v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
           append-inner-icon="mdi mdi-magnify" single-line hide-details class="mr-2"></v-text-field>
       </v-col>
       <v-col cols="9" class="text-right">
@@ -99,7 +111,7 @@ watch(seletedValue,(newval)=>{
                 </td>
                 <td class="text-center">
                   <v-btn icon="mdi-pencil" @click="updateProductById(item.id)" density="compact" variant="text"></v-btn>
-                  <v-btn icon="mdi-delete" @click="isDialogDelete=true" density="compact" variant="text"></v-btn>
+                  <v-btn icon="mdi-delete" @click="{isDialogDelete=true;idDelete=item.id}" density="compact" variant="text"></v-btn>
                 </td>
               </tr>
             </tbody>
@@ -124,7 +136,7 @@ watch(seletedValue,(newval)=>{
     </v-row>
   </div>
   <DialogViewVue v-model="isShowDialog" :idEdit="idEdit" @close="close()" @loadData="loadData()" />
-  <ConfirmVue v-model="isDialogDelete"/>
+  <ConfirmVue v-model="isDialogDelete" :idDelete="idDelete" @delete="deleteProductById"/>
 </template>
 <style scoped>
 .text-truncate {

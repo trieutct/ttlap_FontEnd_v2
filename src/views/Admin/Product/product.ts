@@ -20,9 +20,20 @@ export const useProduct = () => {
         console.error('Error fetching products:', error);
       }
     };
+    const searchProducts = async () => {
+      try {
+        const res = await productServiceApi._getList<IProduct>(query);
+        if(res.success)
+            return res.items
+        return null
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
   return {
     products,
     fetchProducts,
-    query
+    query,
+    searchProducts
   };
 };

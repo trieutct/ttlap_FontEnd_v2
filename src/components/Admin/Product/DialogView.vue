@@ -85,7 +85,7 @@ const { value: name, errorMessage: nameError } = useField(
     yup
         .string()
         .required('Không được bỏ trống')
-        .matches(/^[a-zA-Z0-9\s]+$/, 'Tên sản phẩm chỉ được chứa ký tự chữ cái, số và khoảng trắng')
+        .matches(/^[a-zA-Z0-9\sÀ-ỹ]+$/u, 'Tên sản phẩm chỉ được chứa ký tự chữ cái, số và khoảng trắng')
 );
 
 
