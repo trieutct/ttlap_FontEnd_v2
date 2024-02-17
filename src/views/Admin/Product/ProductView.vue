@@ -4,16 +4,30 @@ import { computed, onMounted, reactive, ref, watch, watchEffect } from 'vue';
 import DialogViewVue from '@/components/Admin/Product/DialogView.vue';
 const showDialog = ref(false);
 const seletedValue=ref(DEFAULT_LIMIT_FOR_PAGINATION)
-
+let idEdit=ref(null)
 
 import {formatNumberWithCommas} from '../../../common/helper/helpers'
 import {useProduct} from '../Product/product'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
 const {fetchProducts,products,query,getAll}=useProduct()
 onMounted(async()=>{
-    products.value=await fetchProducts();
+  loadData()
 })
 
+const loadData= async()=>{
+  products.value=await fetchProducts();
+}
+const addProduct=()=>{
+  showDialog.value=true
+  idEdit=null
+}
+const updateProductById=id=>{
+  showDialog.value=true
+  idEdit=id
+}
+const close=()=>{
+  showDialog.value=false
+}
 </script>
 <template>
   <div style="margin: 1.5%;">
@@ -23,7 +37,7 @@ onMounted(async()=>{
         append-inner-icon="mdi mdi-magnify" single-line hide-details class="mr-2"></v-text-field>
     </v-col>
     <v-col cols="9" class="text-right">
-      <v-btn @click="showDialog = true" color="primary" prepend-icon="mdi mdi-plus" class="text-uppercase">Thêm</v-btn>
+      <v-btn @click="addProduct()" color="primary" prepend-icon="mdi mdi-plus" class="text-uppercase">Thêm</v-btn>
     </v-col>
   </v-row>
   <v-row>
@@ -65,7 +79,7 @@ onMounted(async()=>{
                   :src="item.imageUrl"></v-img>
               </td>
               <td class="text-center">
-                <v-btn icon="mdi-pencil"  density="compact" variant="text"></v-btn>
+                <v-btn icon="mdi-pencil" @click="updateProductById(item.id)"  density="compact" variant="text"></v-btn>
                 <v-btn icon="mdi-delete"  density="compact" variant="text"></v-btn>
               </td>
             </tr>
@@ -89,7 +103,7 @@ onMounted(async()=>{
     </v-col>
   </v-row>
   </div>
-  <DialogViewVue v-model="showDialog" />
+  <DialogViewVue v-model="showDialog" :idEdit="idEdit" @close="close()" @loadData="loadData()" />
 </template>
 <style scoped>
 .text-truncate {

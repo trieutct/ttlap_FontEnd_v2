@@ -9,7 +9,7 @@
                     <v-row>
                         <v-col cols="12" style="font-size: 13px;">
                             <span>Tên sản phẩm </span> <span class="text-blue ml-2">*</span>
-                            <v-text-field v-model="name" placeholder="Nhập tên sản phẩm" :error-messages="nameError"
+                            <v-text-field v-model="name" :text="name.value" placeholder="Nhập tên sản phẩm" :error-messages="nameError"
                                 style="background-color: white;" density="compact" single-line hide-details
                                 variant="outlined"></v-text-field>
                             <span style="color:red">{{ nameError }}</span>
@@ -58,11 +58,25 @@
 <script setup>
 import { useForm, useField } from 'vee-validate';
 import * as yup from 'yup';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { productServiceApi } from '@/service/product.api';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import { useLoadingStore } from '@/store/loading';
 const loading=useLoadingStore()
+
+
+
+const props = defineProps(['idEdit'])
+const emit=defineEmits(['close','loadData'])
+let id=props.idEdit
+watch(() => props.idEdit, (newValue, oldValue) => {
+    id=newValue
+    // console.log(id)
+    getProductById(id)
+});
+
+
+
 
 const { handleSubmit,resetForm } = useForm();
 
@@ -112,16 +126,33 @@ const submit = handleSubmit(async () => {
     formData.append('file', imageFile.value); // imageFile là biến lưu trữ file ảnh được chọn
     const data= await productServiceApi.createProduct(formData); // Gọi API để tạo sản phẩm mới
     // console.log(data)
-    loading.setLoading(false)
     if(!data.success)
     {
+        emit('close')
+        loading.setLoading(false)
         showWarningsNotification(data.message)
     }
     else
     {
+        emit('close')
+        emit('loadData')
+        loading.setLoading(false)
         showSuccessNotification("Thêm thành công")
     }
 });
+
+
+const getProductById=async (id)=>{
+    try {
+        const data = await productServiceApi._getDetail(id);
+        name.value = data.name;
+    } catch (error) {
+        console.error('Error fetching product detail:', error);
+    }
+}
+
+
+
 const imageFile = ref(null);
 const handleImageChange = (event) => {
   const file = event.target.files[0]; 
@@ -130,6 +161,7 @@ const handleImageChange = (event) => {
 const close=()=>{
     resetForm()
 }
+
 </script>
 <style>
 .custom-file-input {

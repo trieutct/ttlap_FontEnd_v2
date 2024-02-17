@@ -14,7 +14,7 @@ const loadingStore = useLoadingStore()
 <style scoped>
 .loading-overlay {
   position: fixed;
-  z-index: 1000;
+  z-index: 1000000000;
   top: 0;
   left: 0;
   width: 100%;
