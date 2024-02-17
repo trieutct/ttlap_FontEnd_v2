@@ -7,24 +7,32 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: PageName.TRANG_CHU,
-    component: HomeView
+    component: HomeView,
+    meta: {
+      public: true,
+    },
   },
   {
     path: '/about',
     name: 'about',
-    component: () => import('../views/AboutView.vue')
+    component: () => import('../views/AboutView.vue'),
+    meta: {
+      public: true,
+    },
   },
   {
     path: '/index',
     name: PageName.BLOG,
-    component: () => import('../views/BlogView.vue')
+    component: () => import('../views/BlogView.vue'),
+    meta: {
+      public: true,
+    },
   },
   {
     path: '/login',
     name: PageName.LOGIN_PAGE,
     component: () => import('../views/Login/LoginView.vue'),
     meta: {
-      // onlyWhenLoggedOut: true,
       public: true,
     },
   },

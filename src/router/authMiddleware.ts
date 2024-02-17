@@ -29,47 +29,35 @@ export default async (
     const RoleRouter=to?.meta?.role || Role.USER
     const IS_AUTHENTICATED = tokenExpiredAt && !isExpired && hasToken;
     // console.log("IS_AUTHENTICATED: "+IS_AUTHENTICATED)
-    if(to.name===PageName.LOGIN_PAGE)
+    if(IS_PUBLIC)
     {
       return next()
     }
-    if(isExpired)
+    if(IS_AUTHENTICATED)
     {
-      // alert("hết hạn rồi")
-      if(localStorageAuthService.getAccessToken()!==localStorageAuthService.getRefreshToken())
-      {
-        // alert("khác")
-        localStorageAuthService.setAccessToken(localStorageAuthService.getRefreshToken())
-        localStorageAuthService.setAccessTokenExpiredAt(localStorageAuthService.getRefresh_TokenExpiredAt())
+      if(role===RoleRouter)
         return next()
-      }
-      else(localStorageAuthService.getAccessToken()===localStorageAuthService.getRefreshToken())
-      {
-        // alert("giống")
-        localStorageAuthService.removeAll()
-        return next({ name: PageName.LOGIN_PAGE });
-      }
+      else
+        return next({ name: PageName.NOT_FOUND_PAGE });
     }
     if (!IS_AUTHENTICATED && to.name !== PageName.LOGIN_PAGE) {
-      // sessionStorage.setItem('redirect', to.fullPath);
-      // alert("Hết hạn và ko có quyền")
-      localStorageAuthService.removeAll()
-      return next({ name: PageName.LOGIN_PAGE });
-    }
-    if (role===RoleRouter) {
-      if (!IS_PUBLIC && !IS_AUTHENTICATED) {
-        localStorageAuthService.removeAll()
-        return next({
-          name: PageName.LOGIN_PAGE,
-        });
+      if(isExpired)
+      {
+        if(localStorageAuthService.getAccessToken()!==localStorageAuthService.getRefreshToken())
+        {
+          localStorageAuthService.setAccessToken(localStorageAuthService.getRefreshToken())
+          localStorageAuthService.setAccessTokenExpiredAt(localStorageAuthService.getRefresh_TokenExpiredAt())
+          if(role===RoleRouter)
+            return next()
+          else
+            return next({ name: PageName.NOT_FOUND_PAGE });
+        }
+        else
+        {
+          localStorageAuthService.removeAll()
+          return next({ name: PageName.LOGIN_PAGE });
+        }
       }
-      return next()
     }
-    else
-    {
-      // alert("Bạn ko có quyền")
-      //tạm thời là vào trang 404
-      localStorageAuthService.removeAll()
-      return next({ name: PageName.NOT_FOUND_PAGE });
-    }
+    return next()
 };
