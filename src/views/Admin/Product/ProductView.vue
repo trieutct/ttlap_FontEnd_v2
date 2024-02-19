@@ -8,6 +8,7 @@ const isDialogDelete=ref(false)
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
 let idEdit = ref(null)
 let idDelete = ref(null)
+const lengthPage=ref(null)
 const search=ref('')
 import { formatNumberWithCommas, showErrorNotification, showSuccessNotification } from '../../../common/helper/helpers'
 import { useProduct } from '../Product/product'
@@ -35,7 +36,6 @@ const updateProductById = id => {
 }
 const deleteProductById = async (id) => {
   const data = await productServiceApi._delete(id)
-  // console.log(data)
   if (data.success) {
     loadData()
     isDialogDelete.value=false
@@ -110,8 +110,8 @@ watch(search,(newval)=>{
                   <v-img width="36" height="36" :src="item.imageUrl"></v-img>
                 </td>
                 <td class="text-center">
-                  <v-btn icon="mdi-pencil" @click="updateProductById(item.id)" density="compact" variant="text"></v-btn>
-                  <v-btn icon="mdi-delete" @click="{isDialogDelete=true;idDelete=item.id}" density="compact" variant="text"></v-btn>
+                  <v-btn density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item.id)"></i><i @click="{isDialogDelete=true;idDelete=item.id}" class="fa-solid fa-trash"></i></v-btn>
+                  <!-- <v-btn @click="{isDialogDelete=true;idDelete=item.id}" density="compact" variant="text"><i class="fa-solid fa-trash"></i></v-btn> -->
                 </td>
               </tr>
             </tbody>
