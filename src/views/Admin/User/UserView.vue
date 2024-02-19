@@ -6,7 +6,7 @@
         append-inner-icon="mdi mdi-magnify" single-line hide-details class="mr-2"></v-text-field>
     </v-col>
     <v-col cols="9" class="text-right">
-      <v-btn @click="showDialog = true" color="primary" prepend-icon="mdi mdi-plus" class="text-uppercase">Thêm</v-btn>
+      <v-btn @click="addUser()" color="primary" prepend-icon="mdi mdi-plus" class="text-uppercase">Thêm</v-btn>
     </v-col>
   </v-row>
   <v-row>
@@ -50,7 +50,7 @@
                 {{ i.phone }}
               </td>
               <td class="text-center">
-                <v-btn density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4"></i><i class="fa-solid fa-trash"></i></v-btn>
+                <v-btn density="compact" variant="text"><i @click="updateUserById(i.id)" class="fa-regular fa-pen-to-square mr-4"></i><i class="fa-solid fa-trash"></i></v-btn>
                 <!-- <v-btn variant="text"><v-icon>mdi-pencil</v-icon></v-btn>
                 <v-btn variant="text"><v-icon>mdi-delete</v-icon></v-btn> -->
               </td>
@@ -68,14 +68,14 @@
             </v-row>
           </v-col>
           <v-col cols="4" class="text-right">
-            <v-pagination active-color="#0F60FF" variant="text" density="compact" :length="lengthPage"></v-pagination>
+            <v-pagination active-color="#red" variant="text" density="compact" :length="lengthPage"></v-pagination>
           </v-col>
         </v-row>
       </v-card>
     </v-col>
   </v-row>
   </div>
-  <DialogViewVue v-model="showDialog" />
+  <DialogViewVue v-model="isShowDialog" :idEdit="idEdit" @close="close()" @loadData="loadData()" />
 </template>
 <script setup>
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
@@ -85,10 +85,12 @@ import {useUser} from '../User/user'
 
 
 
-const showDialog = ref(false);
+const isShowDialog = ref(false);
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
 const { fetchUsers, users, query,getCountUser,searchUsers} = useUser()
 const search=ref('')
+let idEdit = ref(null)
+let idDelete = ref(null)
 let lengthPage=ref(1)
 onMounted(async () => {
   loadData()
@@ -101,9 +103,21 @@ const loadData = async () => {
 const loadlengthPage=async()=>{
   lengthPage.value= Math.ceil(await getCountUser(query) / 10);
 }
+const addUser = () => {
+  isShowDialog.value = true
+  idEdit = null
+}
 
+const updateUserById = id => {
+  isShowDialog.value = true
+  idEdit = id
+}
 const searchData = async () => {
   users.value = await searchUsers();
+}
+
+const close = () => {
+  isShowDialog.value = false
 }
 watch(seletedValue,(newval)=>{
   query.limit=newval

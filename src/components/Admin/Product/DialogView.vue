@@ -46,7 +46,7 @@
                 </v-container>
                 <v-card-actions class="pr-4">
                     <v-spacer></v-spacer>
-                    <v-btn @click="emit('close')" class="text-capitalize" text="Hủy"></v-btn>
+                    <v-btn @click="close()" class="text-capitalize" text="Hủy"></v-btn>
                     <v-btn type="submit" color="primary" class="text-capitalize" variant="elevated">{{ idEdit?"Update":"Thêm" }}<span
                             class="text-lowercase">{{ idEdit?"":"mới" }}</span></v-btn>
                 </v-card-actions>
@@ -71,8 +71,11 @@ const emit = defineEmits(['close', 'loadData'])
 let id = props.idEdit
 watch(() => props.idEdit, (newValue, oldValue) => {
     resetForm()
-    id = newValue
-    getProductById(id)
+    if(props.idEdit!==null)
+    {
+        id = newValue
+        getProductById(id)
+    }
 });
 
 
@@ -130,13 +133,13 @@ const submit = handleSubmit(async () => {
         const data = await productServiceApi.createProduct(formData);
         // console.log(data)
         if (!data.success) {
-            emit('close')
+            close()
             loading.setLoading(false)
             showWarningsNotification(data.message)
             empty()
         }
         else {
-            emit('close')
+            close()
             emit('loadData')
             loading.setLoading(false)
             showSuccessNotification("Thêm thành công")
@@ -146,13 +149,13 @@ const submit = handleSubmit(async () => {
     else {
         const data = await productServiceApi.updateProduct(id, formData);
         if (!data.success) {
-            emit('close')
+            close()
             loading.setLoading(false)
             showWarningsNotification(data.message)
             empty()
         }
         else {
-            emit('close')
+            close()
             emit('loadData')
             loading.setLoading(false)
             showSuccessNotification("cập nhật thành công")
@@ -185,6 +188,7 @@ const handleImageChange = (event) => {
     imageFile.value = file;
 };
 const close = () => {
+    emit('close')
     resetForm()
 }
 

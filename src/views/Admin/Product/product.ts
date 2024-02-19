@@ -11,12 +11,13 @@ export const useProduct = () => {
       try {
         loading.setLoading(true)
         const res = await productServiceApi._getList<IProduct>(query);
-        // console.log(res)
+        // console.log(res.items)
         loading.setLoading(false)
         if(res.success)
-        {
-          return res.items
-        }
+          return {
+            data:res.items,
+            totalItems:res.totalItems
+          }
         return null
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -26,30 +27,19 @@ export const useProduct = () => {
       try {
         const res = await productServiceApi._getList<IProduct>(query);
         if(res.success)
-            return res.items
+            return {
+              data:res.items,
+              totalItems:res.totalItems
+            }
         return null
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     };
-    const getCountProduct=async()=>{
-      try {
-        const res = await productServiceApi._getList<IProduct>(query);
-        // console.log(res)
-        if(res.success)
-        {
-          return res.totalItems
-        }
-        return null
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    }
   return {
     products,
     fetchProducts,
     query,
     searchProducts,
-    getCountProduct
   };
 };

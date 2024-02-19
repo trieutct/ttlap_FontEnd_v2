@@ -15,20 +15,20 @@ import { formatNumberWithCommas, showErrorNotification, showSuccessNotification 
 import { useProduct } from '../Product/product'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
 import { productServiceApi } from '@/service/product.api';
-const { fetchProducts, products, query, getAll,searchProducts ,getCountProduct} = useProduct()
+const { fetchProducts, products, query, getAll,searchProducts} = useProduct()
 onMounted(async () => {
   loadData()
-  loadlengthPage()
 })
 
 const loadData = async () => {
-  products.value = await fetchProducts();
-}
-const loadlengthPage=async()=>{
-  lengthPage.value= Math.ceil(await getCountProduct(query) / 10);
+  const res=await fetchProducts()
+  products.value = res.data;
+  lengthPage.value=Math.ceil(res.totalItems / seletedValue.value);
 }
 const searchData = async () => {
-  products.value = await searchProducts();
+  const res=await searchProducts()
+  products.value = res.data;
+  lengthPage.value=Math.ceil(res.totalItems / seletedValue.value);
 }
 const addProduct = () => {
   isShowDialog.value = true
@@ -40,9 +40,9 @@ const updateProductById = id => {
 }
 const deleteProductById = async (id) => {
   const data = await productServiceApi._delete(id)
+  // console.log(data)
   if (data.success) {
     loadData()
-    loadlengthPage()
     isDialogDelete.value=false
     showSuccessNotification("Xóa thành công")
   }
@@ -59,19 +59,18 @@ const close = () => {
 watch(seletedValue,(newval)=>{
   // alert(newval)
   query.limit=newval
+  query.page=1
+  page.value=1
   loadData()
-  // loadlengthPage()
 })
 watch(search,(newval)=>{
   query.keyword=newval
   query.page=1
   searchData()
-  // loadlengthPage()
 })
 watch(page,(newVal)=>{
   query.page=newVal
   loadData()
-  // loadlengthPage()
 })
 </script>
 <template>

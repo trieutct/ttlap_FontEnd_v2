@@ -41,9 +41,9 @@ export class ApiService {
     ): Promise<IBodyResponse<IGetListResponse<T>>> {
         return this.client.get(`${this.baseUrl}`, {
             params: queryString,
-            // headers: {
-            //     'Authorization': 'Bearer '+localStorageAuthService.getAccessToken()
-            //   }
+            headers: {
+                'Authorization': 'Bearer '+localStorageAuthService.getAccessToken()
+              }
             }
         );
     }
