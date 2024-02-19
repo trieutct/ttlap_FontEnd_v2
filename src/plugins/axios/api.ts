@@ -1,4 +1,5 @@
 import type { IBodyResponse, ICommonListQuery, IGetListResponse } from '@/common/interface/interfaces';
+import localStorageAuthService from '@/common/storages/authStorage';
 import { type AxiosInstance } from 'axios';
 
 
@@ -40,7 +41,11 @@ export class ApiService {
     ): Promise<IBodyResponse<IGetListResponse<T>>> {
         return this.client.get(`${this.baseUrl}`, {
             params: queryString,
-        });
+            headers: {
+                'Authorization': 'Bearer '+localStorageAuthService.getAccessToken()
+              }
+            }
+        );
     }
 
     _getDetail<R>(id: number | string): Promise<R> {

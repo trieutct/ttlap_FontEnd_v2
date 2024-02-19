@@ -23,7 +23,6 @@ class ProductApiService extends ApiService {
       },
     });
   }
- 
 }
 export const productServiceApi = new ProductApiService(
   { baseUrl: "/product" },

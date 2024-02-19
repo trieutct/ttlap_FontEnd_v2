@@ -35,7 +35,7 @@ export const useProduct = () => {
     const getCountProduct=async()=>{
       try {
         const res = await productServiceApi._getList<IProduct>(query);
-        console.log(res)
+        // console.log(res)
         if(res.success)
         {
           return res.totalItems

@@ -4,9 +4,10 @@ import { ApiService } from '@/plugins/axios/api';
 // import { IBodyUser } from '@/views/Admin/Product/interfaces';
 
 class UserApiService extends ApiService {
-  async getAll(): Promise<IBodyResponse<any>> {
-    return this.client.get(`${this.baseUrl}`);
-  }
+  // async getAll(): Promise<IBodyResponse<any>> {
+  //   return this.client.get(`${this.baseUrl}`);
+  // }
+  
 }
 
 export const userServiceApi = new UserApiService({ baseUrl: '/user' }, axiosInstance);

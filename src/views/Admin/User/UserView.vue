@@ -2,7 +2,7 @@
   <div style="margin: 1.5%;">
     <v-row>
     <v-col cols="3">
-      <v-text-field style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
+      <v-text-field v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
         append-inner-icon="mdi mdi-magnify" single-line hide-details class="mr-2"></v-text-field>
     </v-col>
     <v-col cols="9" class="text-right">
@@ -36,22 +36,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="i in 10" :key="i">
+            <tr v-for="i in users" :key="i">
               <td>
                 <v-img class="ma-1" style="border-radius: 2px;"  width="36" height="36"
-                  src="https://scontent.fhan5-11.fna.fbcdn.net/v/t39.30808-1/405270929_3734295376897775_6745873818454262834_n.jpg?stp=dst-jpg_p240x240&_nc_cat=111&ccb=1-7&_nc_sid=5740b7&_nc_ohc=Fx16hJQ0c-YAX8npNMO&_nc_ht=scontent.fhan5-11.fna&oh=00_AfDA9BplOnOtkPOHh8ZsOK6TD3weclF8709krzGu7QAf4Q&oe=65B6015F"></v-img>
+                  :src="i.avatar"></v-img>
               </td>
-              <td>Trịnh Công Triệu</td>
-              <td>trieu@gmail.com</td>
+              <td>{{ i.name }}</td>
+              <td>{{ i.email }}</td>
               <td class="v-text-truncate">
-                29/07/2002
+                {{ i.birthday }}
               </td>
               <td>
-                0941590356
+                {{ i.phone }}
               </td>
               <td class="text-center">
-                <v-btn variant="text"><v-icon>mdi-pencil</v-icon></v-btn>
-                <v-btn variant="text"><v-icon>mdi-delete</v-icon></v-btn>
+                <v-btn density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4"></i><i class="fa-solid fa-trash"></i></v-btn>
+                <!-- <v-btn variant="text"><v-icon>mdi-pencil</v-icon></v-btn>
+                <v-btn variant="text"><v-icon>mdi-delete</v-icon></v-btn> -->
               </td>
             </tr>
           </tbody>
@@ -61,13 +62,13 @@
             <v-row>
               <p class="mt-5 opacity">Showing</p>
               <v-col cols="2">
-                <v-select v-model="seletedValue" density="compact" :items="['10', '20', '25', '30', 'All']" variant="outlined"></v-select>
+                <v-select v-model="seletedValue" density="compact" :items="['10', '20', '25', '30', '50']" variant="outlined"></v-select>
               </v-col>
               <p class="mt-5 opacity">of 50</p>
             </v-row>
           </v-col>
           <v-col cols="4" class="text-right">
-            <v-pagination active-color="#0F60FF" variant="elevated" density="compact" :length="6"></v-pagination>
+            <v-pagination active-color="#0F60FF" variant="text" density="compact" :length="lengthPage"></v-pagination>
           </v-col>
         </v-row>
       </v-card>
@@ -77,11 +78,42 @@
   <DialogViewVue v-model="showDialog" />
 </template>
 <script setup>
-import { ref } from 'vue';
+import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
+import { onMounted, ref, watch } from 'vue';
 import DialogViewVue from '@/components/Admin/User/DialogView.vue';
-const showDialog = ref(false);
-const seletedValue=ref(10)
+import {useUser} from '../User/user'
 
+
+
+const showDialog = ref(false);
+const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
+const { fetchUsers, users, query,getCountUser,searchUsers} = useUser()
+const search=ref('')
+let lengthPage=ref(1)
+onMounted(async () => {
+  loadData()
+  loadlengthPage()
+})
+const loadData = async () => {
+  users.value = await fetchUsers();
+}
+
+const loadlengthPage=async()=>{
+  lengthPage.value= Math.ceil(await getCountUser(query) / 10);
+}
+
+const searchData = async () => {
+  users.value = await searchUsers();
+}
+watch(seletedValue,(newval)=>{
+  query.limit=newval
+  loadData()
+})
+watch(search,(newval)=>{
+  query.keyword=newval
+  query.page=1
+  searchData()
+})
 </script>
   
 <style scoped>

@@ -60,17 +60,18 @@ watch(seletedValue,(newval)=>{
   // alert(newval)
   query.limit=newval
   loadData()
-  loadlengthPage()
+  // loadlengthPage()
 })
 watch(search,(newval)=>{
   query.keyword=newval
+  query.page=1
   searchData()
-  loadlengthPage()
+  // loadlengthPage()
 })
 watch(page,(newVal)=>{
   query.page=newVal
   loadData()
-  loadlengthPage()
+  // loadlengthPage()
 })
 </script>
 <template>
@@ -113,8 +114,8 @@ watch(page,(newVal)=>{
             <tbody>
               <tr v-for="(item, index) in products" :key="index">
                 <td>{{ item.name }}</td>
-                <td>{{ formatNumberWithCommas(item.price) }}</td>
-                <td>{{ item.quantity }}</td>
+                <td>{{ formatNumberWithCommas(item.price) }} đ</td>
+                <td>{{ formatNumberWithCommas(item.quantity) }}</td>
                 <td style="width: 250px;" class="v-text-truncate">
                   {{ item.description }}
                 </td>
