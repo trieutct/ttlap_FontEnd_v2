@@ -8,21 +8,25 @@ const isDialogDelete=ref(false)
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
 let idEdit = ref(null)
 let idDelete = ref(null)
-const lengthPage=ref(null)
+let lengthPage=ref(1)
+let page=ref(1)
 const search=ref('')
 import { formatNumberWithCommas, showErrorNotification, showSuccessNotification } from '../../../common/helper/helpers'
 import { useProduct } from '../Product/product'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
 import { productServiceApi } from '@/service/product.api';
-const { fetchProducts, products, query, getAll,searchProducts } = useProduct()
+const { fetchProducts, products, query, getAll,searchProducts ,getCountProduct} = useProduct()
 onMounted(async () => {
   loadData()
+  loadlengthPage()
 })
 
 const loadData = async () => {
   products.value = await fetchProducts();
 }
-
+const loadlengthPage=async()=>{
+  lengthPage.value= Math.ceil(await getCountProduct(query) / 10);
+}
 const searchData = async () => {
   products.value = await searchProducts();
 }
@@ -38,6 +42,7 @@ const deleteProductById = async (id) => {
   const data = await productServiceApi._delete(id)
   if (data.success) {
     loadData()
+    loadlengthPage()
     isDialogDelete.value=false
     showSuccessNotification("Xóa thành công")
   }
@@ -55,10 +60,17 @@ watch(seletedValue,(newval)=>{
   // alert(newval)
   query.limit=newval
   loadData()
+  loadlengthPage()
 })
 watch(search,(newval)=>{
   query.keyword=newval
   searchData()
+  loadlengthPage()
+})
+watch(page,(newVal)=>{
+  query.page=newVal
+  loadData()
+  loadlengthPage()
 })
 </script>
 <template>
@@ -127,8 +139,8 @@ watch(search,(newval)=>{
                 <p class="mt-5 opacity">of 50</p>
               </v-row>
             </v-col>
-            <v-col cols="4" class="text-right">
-              <v-pagination active-color="#0F60FF" variant="text" density="compact" :length="6"></v-pagination>
+            <v-col cols="4" class="">
+              <v-pagination v-model="page" active-color="#0F60FF" variant="text" density="compact" :length="lengthPage"></v-pagination>
             </v-col>
           </v-row>
         </v-card>

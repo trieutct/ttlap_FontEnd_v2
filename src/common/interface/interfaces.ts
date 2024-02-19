@@ -27,6 +27,7 @@ export interface IBodyResponse<T> extends AxiosResponse {
   data: T;
   items:T;
   errors?: IResponseError<any>[];
+  totalItems:number
 }
 
 export interface ICommonListQuery {

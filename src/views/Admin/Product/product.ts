@@ -5,16 +5,18 @@ import { IProduct } from "./interfaces";
 import { useLoadingStore } from "@/store/loading";
 export const useProduct = () => {
     const loading=useLoadingStore()
-
     const products = ref<IProduct[]>([])
     const query=DEFAULT_COMMON_LIST_QUERY
     const fetchProducts = async () => {
       try {
         loading.setLoading(true)
         const res = await productServiceApi._getList<IProduct>(query);
+        // console.log(res)
         loading.setLoading(false)
         if(res.success)
-            return res.items
+        {
+          return res.items
+        }
         return null
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -30,10 +32,24 @@ export const useProduct = () => {
         console.error('Error fetching products:', error);
       }
     };
+    const getCountProduct=async()=>{
+      try {
+        const res = await productServiceApi._getList<IProduct>(query);
+        console.log(res)
+        if(res.success)
+        {
+          return res.totalItems
+        }
+        return null
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    }
   return {
     products,
     fetchProducts,
     query,
-    searchProducts
+    searchProducts,
+    getCountProduct
   };
 };
