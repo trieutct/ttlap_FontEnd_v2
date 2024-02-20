@@ -94,7 +94,7 @@
     <v-col cols="12" sm="12" md="12" lg="4">
       <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
         style="min-height: 156px; background-color: #EDEDF0;">
-        <img width="80" height="80" src="../assets/footer1.png">
+        <img width="80" height="80" :src="footer1">
         <v-card-title class="text-center">Clear & Usable user flows</v-card-title>
         <v-card-subtitle class="text-center">Let’s boost your marketplace</v-card-subtitle>
       </v-card>
@@ -102,7 +102,7 @@
     <v-col cols="12" sm="12" md="12" lg="4">
       <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
         style="min-height: 156px; background-color: #EDEDF0;">
-        <img width="80" height="80" src="../assets/footer2.png">
+        <img width="80" height="80" :src="footer2">
         <v-card-title class="text-center">Fine & Styled components</v-card-title>
         <v-card-subtitle class="text-center">Speed up with Setproduct templates</v-card-subtitle>
       </v-card>
@@ -110,7 +110,7 @@
     <v-col cols="12" sm="12" md="12" lg="4">
       <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
         style="min-height: 156px; background-color: #EDEDF0;">
-        <img width="80" height="80" src="../assets/footer3.png">
+        <img width="80" height="80" :src="footer3">
         <v-card-title class="text-center">Customizable & Reusable</v-card-title>
         <v-card-subtitle class="text-center">Take our UX patterns and rebuild</v-card-subtitle>
       </v-card>
@@ -118,9 +118,11 @@
   </v-row>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import {ref,reactive, computed} from "vue"
-
+import footer1 from "@/assets/footer1.png"
+import footer2 from "@/assets/footer2.png"
+import footer3 from "@/assets/footer3.png"
 const products=reactive([
   {
     name:"Áo Polo Nam Cafe Phối Nẹp Thấm Hút Mồ Hôi",image:"https://bizweb.dktcdn.net/thumb/large/100/438/408/products/ao-polo-nam-yody-apm3635-gre.jpg?v=1702633518457",description:"Eligible for Shipping To Mars or somewhere else",price:"12.8",sale:"10",feedback:"4.8"
