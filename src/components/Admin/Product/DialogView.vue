@@ -125,8 +125,8 @@ const submit = handleSubmit(async () => {
     loading.setLoading(true)
     const formData = new FormData();
     formData.append('name', name.value);
-    formData.append('price', price.value);
-    formData.append('quantity', quantity.value);
+    formData.append('price',parseFloat(price.value));
+    formData.append('quantity', parseInt(quantity.value));
     formData.append('description', description.value);
     formData.append('file', imageFile.value);
     if (id == null) {
@@ -148,6 +148,7 @@ const submit = handleSubmit(async () => {
     }
     else {
         const data = await productServiceApi.updateProduct(id, formData);
+        console.log(data)
         if (!data.success) {
             close()
             loading.setLoading(false)
