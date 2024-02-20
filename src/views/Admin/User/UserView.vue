@@ -44,7 +44,7 @@
               <td>{{ i.name }}</td>
               <td>{{ i.email }}</td>
               <td class="v-text-truncate">
-                {{ i.birthday }}
+                {{ formatDateString(i.birthday,DD_MM_YYYY) }}
               </td>
               <td>
                 {{ i.phone }}
@@ -79,7 +79,9 @@
   <ConfirmVue v-model="isDialogDelete" :idDelete="idDelete" @delete="deleteUserById"/>
 </template>
 <script setup>
+import {DATE_TIME_FORMAT} from '../../../common/contant/contants'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
+import {formatDateString} from '../../../common/helper/helpers'
 import { onMounted, ref, watch } from 'vue';
 import DialogViewVue from '@/components/Admin/User/DialogView.vue';
 import {useUser} from '../User/user'
@@ -88,7 +90,7 @@ import { userServiceApi } from '@/service/user.api';
 import { showErrorNotification, showSuccessNotification } from '@/common/helper/helpers';
 
 
-
+const DD_MM_YYYY=DATE_TIME_FORMAT.DD_MM_YYYY_DASH
 const isShowDialog = ref(false);
 const isDialogDelete=ref(false)
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)

@@ -1,5 +1,5 @@
 // import { ToastType, useToasts } from '@/components/toast/store';
-// import dayjs from '@/plugins/dayjs';
+import dayjs from '@/plugins/dayjs';
 // import i18n from '../plugins/vue-i18n';
 import {
   DATE_TIME_FORMAT,
@@ -157,9 +157,9 @@ export const getDiffFormData = (
   return differences;
 };
 
-// export const formatDateString = (ds: string, format: string): string => {
-//   return dayjs(ds).format(format);
-// };
+export const formatDateString = (ds: string, format: string): string => {
+  return dayjs(ds).format(format);
+};
 
 // remove undefined/null items of array, if not have item return undefined
 export const removeEmptyValue = (arrays: any[]) => {
