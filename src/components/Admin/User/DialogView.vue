@@ -2,10 +2,10 @@
     <v-dialog max-width="500px">
         <v-form @submit.prevent="submit">
             <v-card>
-            <v-card-title style="font-weight: bold;">
-                <h4>{{ id?"Sửa user":"Thêm user" }}</h4>
-            </v-card-title>
-            <v-container style="background-color: rgb(247, 247, 247);">
+                <v-card-title style="font-weight: bold;position:fixed;width: 100%;top: 0;background-color: white;z-index: 100;">
+                    <h4>{{ id?"Sửa user":"Thêm user" }}</h4>
+                </v-card-title>
+            <v-container class="mt-10" style="background-color: rgb(247, 247, 247);">
                 <v-row>
                     <v-col cols="12" style="font-size: 13px;">
                         <span>Tên người dùng</span> <span class="text-blue ml-2">*</span>
@@ -35,7 +35,7 @@
                     <v-col cols="12" style="font-size: 13px;">
                         <span>Quyền</span><span class="text-blue ml-2">*</span>
                         <v-radio-group v-model="role" style="font-size: 13px;" class="mt-2" inline single-line hide-details>
-                            <v-radio color="primary"  density="compact" :label="Role.ADMIN" :value="Role.Admin"></v-radio>
+                            <v-radio color="primary"  density="compact" :label="Role.ADMIN" :value="Role.ADMIN"></v-radio>
                             <v-radio color="primary" density="compact"  :label="Role.USER" :value="Role.USER"></v-radio>
                         </v-radio-group>
                         <span style="color:red">{{ roleError }}</span>
@@ -84,12 +84,19 @@ watch(() => props.idEdit, (newValue, oldValue) => {
 const getUserById = async (id) => {
     try {
         const data = await userServiceApi._getDetail(id);
-        name.value = data.data.name;
-        email.value = data.data.email;
-        birthday.value = data.data.birthday;
-        phone.value = data.data.phone;
-        role.value = data.data.role;
-        avatar.value = data.data.avatar;
+        if(data.success)
+        {
+            name.value = data.data.name;
+            email.value = data.data.email;
+            birthday.value = data.data.birthday;
+            phone.value = data.data.phone;
+            role.value = data.data.role;
+            avatar.value = data.data.avatar;
+        }
+        else
+        {
+            showWarningsNotification(data.message)
+        }
     } catch (error) {
         console.error('Error fetching product detail:', error);
     }
@@ -153,7 +160,7 @@ const { value: avatar, errorMessage: avatarError } = useField(
     'avatar',
     yup
         .string()
-        // .required('Không được bỏ trống')
+        .required('Không được bỏ trống')
         .matches(
             /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
             'Đây không phải là một URL hợp lệ'
@@ -177,36 +184,32 @@ const submit = handleSubmit(async () => {
         const data=await userServiceApi.createUser(formData);
         if(!data.success){
             loading.setLoading(false)
-            emit('close')
+            close()
             showWarningsNotification(data.message)
-            empty()
         }
         else{
             loading.setLoading(false)
-            emit('close')
+            close()
             emit('loadData')
             showSuccessNotification("Thêm thành công")
-            empty()
         }
     }
     else
     {
         // alert("sửa")
         const data=await userServiceApi.updateUser(id,formData);
-        console.log(data)
+        // console.log(data)
         if(!data.success){
-            emit('close')
+            close()
             loading.setLoading(false)
             showWarningsNotification(data.message)
             showWarningsNotification(data.error)
-            empty()
         }
         else{
             loading.setLoading(false)
-            emit('close')
+            close()
             emit('loadData')
             showSuccessNotification("Cập nhật thành công")
-            empty()
         }
     }
 });

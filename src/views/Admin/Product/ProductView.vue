@@ -133,7 +133,7 @@ watch(page,(newVal)=>{
               <v-row>
                 <p class="mt-5 opacity">Showing</p>
                 <v-col cols="2">
-                  <v-select v-model="seletedValue" density="compact" :items="['10', '20', '25', '30', 'All']"
+                  <v-select v-model="seletedValue" density="compact" :items="['10', '20', '25', '30', '50']"
                     variant="outlined"></v-select>
                 </v-col>
                 <p class="mt-5 opacity">of 50</p>

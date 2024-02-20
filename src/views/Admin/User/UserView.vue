@@ -50,7 +50,7 @@
                 {{ i.phone }}
               </td>
               <td class="text-center">
-                <v-btn density="compact" variant="text"><i @click="updateUserById(i.id)" class="fa-regular fa-pen-to-square mr-4"></i><i class="fa-solid fa-trash"></i></v-btn>
+                <v-btn density="compact" variant="text"><i @click="updateUserById(i.id)" class="fa-regular fa-pen-to-square mr-4"></i><i @click="{isDialogDelete=true;idDelete=i.id}" class="fa-solid fa-trash"></i></v-btn>
                 <!-- <v-btn variant="text"><v-icon>mdi-pencil</v-icon></v-btn>
                 <v-btn variant="text"><v-icon>mdi-delete</v-icon></v-btn> -->
               </td>
@@ -68,7 +68,7 @@
             </v-row>
           </v-col>
           <v-col cols="4" class="text-right">
-            <v-pagination active-color="#red" variant="text" density="compact" :length="lengthPage"></v-pagination>
+            <v-pagination v-model="page" active-color="#red" variant="text" density="compact" :length="lengthPage"></v-pagination>
           </v-col>
         </v-row>
       </v-card>
@@ -76,32 +76,35 @@
   </v-row>
   </div>
   <DialogViewVue v-model="isShowDialog" :idEdit="idEdit" @close="close()" @loadData="loadData()" />
+  <ConfirmVue v-model="isDialogDelete" :idDelete="idDelete" @delete="deleteUserById"/>
 </template>
 <script setup>
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
 import { onMounted, ref, watch } from 'vue';
 import DialogViewVue from '@/components/Admin/User/DialogView.vue';
 import {useUser} from '../User/user'
+import ConfirmVue from '@/components/confirm/IndexView.vue'
+import { userServiceApi } from '@/service/user.api';
+import { showErrorNotification, showSuccessNotification } from '@/common/helper/helpers';
 
 
 
 const isShowDialog = ref(false);
+const isDialogDelete=ref(false)
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
-const { fetchUsers, users, query,getCountUser,searchUsers} = useUser()
+const { fetchUsers, users, query,searchUsers} = useUser()
 const search=ref('')
 let idEdit = ref(null)
 let idDelete = ref(null)
 let lengthPage=ref(1)
+let page=ref(1)
 onMounted(async () => {
   loadData()
-  loadlengthPage()
 })
 const loadData = async () => {
-  users.value = await fetchUsers();
-}
-
-const loadlengthPage=async()=>{
-  lengthPage.value= Math.ceil(await getCountUser(query) / 10);
+  const res=await fetchUsers()
+  users.value = res.data;
+  lengthPage.value=Math.ceil(res.totalItems / seletedValue.value);
 }
 const addUser = () => {
   isShowDialog.value = true
@@ -116,17 +119,36 @@ const searchData = async () => {
   users.value = await searchUsers();
 }
 
+const deleteUserById = async (id) => {
+  const data = await userServiceApi._delete(id)
+  if (data.success) {
+    loadData()
+    isDialogDelete.value=false
+    showSuccessNotification("Xóa thành công")
+  }
+  else {
+    isDialogDelete.value=false
+    showErrorNotification(data.message)
+  }
+}
 const close = () => {
   isShowDialog.value = false
 }
 watch(seletedValue,(newval)=>{
   query.limit=newval
+  query.page=1
+  page.value=1
   loadData()
 })
 watch(search,(newval)=>{
   query.keyword=newval
   query.page=1
   searchData()
+})
+
+watch(page,(newVal)=>{
+  query.page=newVal
+  loadData()
 })
 </script>
   

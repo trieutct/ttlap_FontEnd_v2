@@ -2,10 +2,10 @@
     <v-dialog max-width="500px">
         <v-form @submit.prevent="submit">
             <v-card>
-                <v-card-title style="font-weight: bold;">
+                <v-card-title style="font-weight: bold;position:fixed;width: 100%;top: 0;background-color: white;z-index: 100;">
                     <h4>{{ idEdit?"Sửa sản phẩm":"Thêm mới sản phẩm" }}</h4>
                 </v-card-title>
-                <v-container style="background-color: rgb(247, 247, 247);">
+                <v-container class="mt-10" style="background-color: rgb(247, 247, 247);">
                     <v-row>
                         <v-col cols="12" style="font-size: 13px;">
                             <span>Tên sản phẩm </span> <span class="text-blue ml-2">*</span>

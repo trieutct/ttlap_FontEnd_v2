@@ -14,26 +14,16 @@ export const useUser=()=>{
           loading.setLoading(false)
           if(res.success)
           {
-            return res.items
+            return {
+              data:res.items,
+              totalItems:res.totalItems
+            }
           }
           return null
         } catch (error) {
           console.error('Error fetching user:', error);
         }
       };
-      const getCountUser=async()=>{
-        try {
-          const res = await userServiceApi._getList<IUser>(query);
-          // console.log(res)
-          if(res.success)
-          {
-            return res.totalItems
-          }
-          return null
-        } catch (error) {
-          console.error('Error fetching products:', error);
-        }
-      }
       const searchUsers = async () => {
         try {
           const res = await userServiceApi._getList<IUser>(query);
@@ -48,7 +38,6 @@ export const useUser=()=>{
         users,
         fetchUsers,
         query,
-        getCountUser,
         searchUsers
     }
 }
