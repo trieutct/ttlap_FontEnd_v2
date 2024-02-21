@@ -7,7 +7,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" variant="text" >Hủy</v-btn>
+          <v-btn color="primary" @click="emit('close')" variant="text" >Hủy</v-btn>
           <v-btn color="error"  @click="emit('delete',props.idDelete)" variant="text">Xóa</v-btn>
         </v-card-actions>
       </v-card>
@@ -15,5 +15,5 @@
 </template>
 <script setup>
 const props = defineProps(['idDelete'])
-const emit = defineEmits(['delete'])
+const emit = defineEmits(['delete','close'])
 </script>

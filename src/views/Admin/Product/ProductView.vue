@@ -129,8 +129,8 @@ watch(page,(newVal)=>{
                   <v-img width="36" height="36" :src="item.imageUrl"></v-img>
                 </td>
                 <td class="text-center">
-                  <v-btn density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item.id)"></i><i @click="{isDialogDelete=true;idDelete=item.id}" class="fa-solid fa-trash"></i></v-btn>
-                  <!-- <v-btn @click="{isDialogDelete=true;idDelete=item.id}" density="compact" variant="text"><i class="fa-solid fa-trash"></i></v-btn> -->
+                  <span style="cursor: pointer;"  density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item.id)"></i></span>
+                  <span style="cursor: pointer;" @click="{isDialogDelete=true;idDelete=item.id}" density="compact" variant="text"><i class="fa-solid fa-trash"></i></span>
                 </td>
               </tr>
             </tbody>
@@ -155,7 +155,7 @@ watch(page,(newVal)=>{
     </v-row>
   </div>
   <DialogViewVue v-model="isShowDialog" :idEdit="idEdit" @close="close()" @loadData="loadData()" />
-  <ConfirmVue v-model="isDialogDelete" :idDelete="idDelete" @delete="deleteProductById"/>
+  <ConfirmVue v-model="isDialogDelete" @close="close()"  :idDelete="idDelete" @delete="deleteProductById"/>
 </template>
 <style scoped>
 .text-truncate {

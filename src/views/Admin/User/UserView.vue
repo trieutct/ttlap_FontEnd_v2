@@ -50,9 +50,8 @@
                 {{ i.phone }}
               </td>
               <td class="text-center">
-                <v-btn density="compact" variant="text"><i @click="updateUserById(i.id)" class="fa-regular fa-pen-to-square mr-4"></i><i @click="{isDialogDelete=true;idDelete=i.id}" class="fa-solid fa-trash"></i></v-btn>
-                <!-- <v-btn variant="text"><v-icon>mdi-pencil</v-icon></v-btn>
-                <v-btn variant="text"><v-icon>mdi-delete</v-icon></v-btn> -->
+                <span style="cursor: pointer;" density="compact" variant="text"><i @click="updateUserById(i.id)" class="fa-regular fa-pen-to-square mr-4"></i></span>
+                <span style="cursor: pointer;" density="compact" variant="text"><i @click="{isDialogDelete=true;idDelete=i.id}" class="fa-solid fa-trash"></i></span>
               </td>
             </tr>
           </tbody>
@@ -76,7 +75,7 @@
   </v-row>
   </div>
   <DialogViewVue v-model="isShowDialog" :idEdit="idEdit" @close="close()" @loadData="loadData()" />
-  <ConfirmVue v-model="isDialogDelete" :idDelete="idDelete" @delete="deleteUserById"/>
+  <ConfirmVue v-model="isDialogDelete" @close="close()" :idDelete="idDelete" @delete="deleteUserById"/>
 </template>
 <script setup>
 import {DATE_TIME_FORMAT} from '../../../common/contant/contants'
@@ -141,6 +140,7 @@ const deleteUserById = async (id) => {
 }
 const close = () => {
   isShowDialog.value = false
+  isDialogDelete.value=false
 }
 watch(seletedValue,(newval)=>{
   query.limit=newval
