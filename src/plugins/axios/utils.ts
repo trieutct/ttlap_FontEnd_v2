@@ -6,6 +6,7 @@ import { showErrorNotification, showWarningsNotification } from '@/common/helper
 
 export const logout = (redirectToLogin = true) => {
   localStorageAuthService.removeAll();
+  showWarningsNotification("Hết phiên đăng nhập. Vui lòng đăng nhập lại")
   const currentPage = router.currentRoute;
   if (redirectToLogin && currentPage.value.name !== PageName.LOGIN_PAGE) {
     sessionStorage.setItem('redirect', currentPage.value.fullPath);
@@ -32,19 +33,15 @@ export const sendRefreshToken = async () => {
         }
       }
     );
-    // alert("refresh token")
-    console.log(111111)
-    console.log(response)
     if (response?.status === HttpStatus.CREATA_AT) {
       localStorageAuthService.setAccessToken(response.data?.access_token_new);
       localStorageAuthService.setAccessTokenExpiredAt(response.data?.expiresIn);
       return;
     }
-    alert("lấy token lỗi")
-    // showWarningsNotification(response?.message)
     logout(true);
     return;
   } catch (error) {
+    alert("lỗi lấy lại token")
     logout(true);
     return;
   }

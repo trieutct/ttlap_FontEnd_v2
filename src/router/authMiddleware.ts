@@ -3,7 +3,7 @@ import localStorageAuthService from "@/common/storages/authStorage";
 import dayjs from "@/plugins/dayjs";
 import { get } from "lodash";
 import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
-
+import { showWarningsNotification } from '@/common/helper/helpers';
 export default async (
   to: RouteLocationNormalized,
   _: RouteLocationNormalized,
@@ -32,12 +32,11 @@ export default async (
     // sessionStorage.setItem('redirect', to.fullPath);
     if(isExpiredRefresh)
     {
-      alert("refresh hết hạn")
+      showWarningsNotification("Hết phiên đăng nhập. Vui lòng đăng nhập lại")
       return next({ name: PageName.LOGIN_PAGE });
     }
     else
     {
-      alert("lấy token mới")
       return next()
     }
   }
