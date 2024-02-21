@@ -2,7 +2,7 @@
   <div style="margin: 1.5%;">
     <v-row>
     <v-col cols="3">
-      <v-text-field v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
+      <v-text-field @blur="searchEnter()" @keyup.enter="searchEnter()" v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
         append-inner-icon="mdi mdi-magnify" single-line hide-details class="mr-2"></v-text-field>
     </v-col>
     <v-col cols="9" class="text-right">
@@ -113,6 +113,12 @@ const addUser = () => {
   idEdit = null
 }
 
+const searchEnter=()=>{
+  // alert(1)
+  query.keyword=search.value
+  query.page=1
+  searchData()
+}
 const updateUserById = id => {
   isShowDialog.value = true
   idEdit = id
@@ -143,6 +149,8 @@ watch(seletedValue,(newval)=>{
   loadData()
 })
 watch(search,(newval)=>{
+  if(newval!=="")
+      return
   query.keyword=newval
   query.page=1
   searchData()

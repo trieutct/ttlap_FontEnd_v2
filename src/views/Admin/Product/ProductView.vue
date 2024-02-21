@@ -55,7 +55,12 @@ const close = () => {
   isShowDialog.value = false
   isDialogDelete.value=false
 }
-
+const searchEnter=()=>{
+  // alert(1)
+  query.keyword=search.value
+  query.page=1
+  searchData()
+}
 watch(seletedValue,(newval)=>{
   // alert(newval)
   query.limit=newval
@@ -65,6 +70,8 @@ watch(seletedValue,(newval)=>{
 })
 watch(search,(newval)=>{
   query.keyword=newval
+  if(newval!="")
+    return
   query.page=1
   searchData()
 })
@@ -77,7 +84,7 @@ watch(page,(newVal)=>{
   <div style="margin: 1.5%;">
     <v-row>
       <v-col cols="3">
-        <v-text-field v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
+        <v-text-field @blur="searchEnter()" @keyup.enter="searchEnter()" v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
           append-inner-icon="mdi mdi-magnify" single-line hide-details class="mr-2"></v-text-field>
       </v-col>
       <v-col cols="9" class="text-right">

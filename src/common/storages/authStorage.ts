@@ -82,6 +82,12 @@ class LocalStorageAuthService {
     this.removeRefresh_TokenExpiredAt()
     this.removeUserRole()
   }
+
+  getHeader() {
+    return {
+      Authorization: `Bearer ${this.getAccessToken()}`
+    };
+  }
 }
 export const localStorageAuthService = new LocalStorageAuthService();
 export default localStorageAuthService;

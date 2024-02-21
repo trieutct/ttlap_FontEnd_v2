@@ -45,16 +45,6 @@
 import indent from "@/assets/indent.png"
 import NavigrationDrawerVue from '@/components/NavigrationDrawer.vue'
 import { ref } from "vue"
-// export default {
-//     components: { NavigrationDrawerVue },
-//     data()
-//     {
-//         return{
-//             drawer: true,
-//             rail: false,
-//         }
-//     }
-// }
 const drawer=ref(true)
 const rail=ref(false)
 </script>

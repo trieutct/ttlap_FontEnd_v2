@@ -2,9 +2,10 @@ import { HttpStatus, PageName } from '@/common/contant/contants';
 import localStorageAuthService from '@/common/storages/authStorage';
 import axios from 'axios';
 import router from '@/router';
+import { showErrorNotification, showWarningsNotification } from '@/common/helper/helpers';
 
 export const logout = (redirectToLogin = true) => {
-  localStorageAuthService.resetAll();
+  localStorageAuthService.removeAll();
   const currentPage = router.currentRoute;
   if (redirectToLogin && currentPage.value.name !== PageName.LOGIN_PAGE) {
     sessionStorage.setItem('redirect', currentPage.value.fullPath);
@@ -19,12 +20,28 @@ export const sendRefreshToken = async () => {
   let response;
   try {
     const API_URL = process.env.VUE_APP_API_URL;
-    response = await axios.get(`${API_URL}/auth/token`, { withCredentials: true });
-    if (response?.status === HttpStatus.OK) {
-      localStorageAuthService.setAccessToken(response.data?.data.accessToken);
-      localStorageAuthService.setAccessTokenExpiredAt(response.data?.data.expiresIn);
+    const formData=new FormData()
+    formData.append("refresh_token",localStorageAuthService.getRefreshToken())
+    response = await axios.post(
+      `${API_URL}/auth/refresh`,
+      formData,
+      { 
+        // withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json' 
+        }
+      }
+    );
+    // alert("refresh token")
+    console.log(111111)
+    console.log(response)
+    if (response?.status === HttpStatus.CREATA_AT) {
+      localStorageAuthService.setAccessToken(response.data?.access_token_new);
+      localStorageAuthService.setAccessTokenExpiredAt(response.data?.expiresIn);
       return;
     }
+    alert("lấy token lỗi")
+    // showWarningsNotification(response?.message)
     logout(true);
     return;
   } catch (error) {
