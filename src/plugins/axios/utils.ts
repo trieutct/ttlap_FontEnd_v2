@@ -1,8 +1,8 @@
 import { HttpStatus, PageName } from '@/common/contant/contants';
 import localStorageAuthService from '@/common/storages/authStorage';
 import axios from 'axios';
+import { showWarningsNotification } from '@/common/helper/helpers';
 import router from '@/router';
-import { showErrorNotification, showWarningsNotification } from '@/common/helper/helpers';
 
 export const logout = (redirectToLogin = true) => {
   localStorageAuthService.removeAll();

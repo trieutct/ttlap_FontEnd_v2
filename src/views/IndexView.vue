@@ -11,7 +11,7 @@
                             </v-toolbar-title>
                         </v-col>
                         <v-col class="text-center" cols="4">
-                            <img @click.stop="rail=!rail" style="margin-top: 18%;" :src="indent" alt="">
+                            <img @click.stop="rail=!rail" style="margin-top: 18%;" src="https://res.cloudinary.com/dgtjdhrnq/image/upload/v1708508357/indent_oymmcm.png" alt="">
                         </v-col>
                     </v-row>
                 </v-toolbar>
@@ -40,13 +40,18 @@
         </v-layout>
     </v-app>
 </template>
-
-<script setup>
-import indent from "@/assets/indent.png"
+<script>
 import NavigrationDrawerVue from '@/components/NavigrationDrawer.vue'
-import { ref } from "vue"
-const drawer=ref(true)
-const rail=ref(false)
+export default {
+    components: { NavigrationDrawerVue },
+    data()
+    {
+        return{
+            drawer: true,
+            rail: false,
+        }
+    }
+}
 </script>
 
 <style scoped>
