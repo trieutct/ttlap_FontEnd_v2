@@ -32,9 +32,23 @@
                     <v-icon>mdi-bell</v-icon>
                 </v-badge>
             </v-btn>
-            <v-avatar>
-                <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"></v-img>
-            </v-avatar>
+            <v-menu open-on-hover>
+                <template v-slot:activator="{ props }">
+                    <v-btn v-bind="props">
+                        <v-avatar>
+                        <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"></v-img>
+                    </v-avatar>
+                    </v-btn>
+                </template>
+          <v-list class="ma-2">
+            <v-list-item>
+              <v-list-item-title style="cursor: pointer;">Xem hồ sơ</v-list-item-title>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-title @click="this.$router.push({name:'login_page'})" style="cursor: pointer;" >Đăng xuất</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
         </v-app-bar>
         <v-main style="background-color: rgb(247, 247, 247);min-height: 100vh;">
             <router-view></router-view>
@@ -51,6 +65,13 @@ export default {
             rail: true,
         }
     },
+    methods:
+    {
+        to()
+        {
+            alert(1)
+        }
+    }
 }
 </script>
 
