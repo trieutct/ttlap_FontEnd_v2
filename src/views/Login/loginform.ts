@@ -1,12 +1,14 @@
 import { useField, useForm } from 'vee-validate';
 import { loginWithPasswordSchema } from './schema';
 import { computed } from 'vue';
-import { useAuthUserStore } from '@/store/auth/useAuthUserStore';
+// import { useAuthUserStore } from '@/store/auth/useAuthUserStore';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import router from '@/router';
 // const {login} =useAuthUserStore()
 import { AuthStore } from '@/store/auth/authStore';
+import { useLoadingStore } from '@/store/loading';
 export const userLoginForm=()=>{
+  const loading=useLoadingStore()
   const authStore=AuthStore()
     const {
         handleSubmit,
@@ -31,11 +33,13 @@ export const userLoginForm=()=>{
         //console.log(values)
         // alert(process.env.VUE_APP_API_URL)
         // const res=await login(values)
+        loading.setLoading(true)
         const res=await authStore.login(
           {
             email:values.email,
             password:values.password
           });
+        loading.setLoading(false)
         if(res)
         {
           showSuccessNotification("Đăng nhập thành công")

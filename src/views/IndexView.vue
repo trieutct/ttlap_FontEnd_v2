@@ -1,11 +1,11 @@
 <template>
     <v-app>
         <v-layout>
-            <v-navigation-drawer @click.stop="rail=!rail"  v-model="drawer" :rail="rail" class="navigation_drawer" permanent>
+            <v-navigation-drawer v-model="drawer" :rail="rail" class="navigation_drawer" permanent>
                 <v-toolbar style="background-color: white;">
                     <v-row>
                         <v-col cols="8">
-                            <v-toolbar-title @click.stop="rail=!rail" class="ma-3">
+                            <v-toolbar-title @mouseover="rail=false" @click.stop="rail=!rail" class="ma-3">
                                 <v-img  width="250"
                                     src="https://res.cloudinary.com/dgtjdhrnq/image/upload/v1705460127/logo1_adshdl.png"></v-img>
                             </v-toolbar-title>
