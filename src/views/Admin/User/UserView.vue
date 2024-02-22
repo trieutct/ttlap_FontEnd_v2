@@ -1,11 +1,12 @@
 <template>
   <div style="margin: 1.5%;">
     <v-row>
-    <v-col cols="3">
-      <v-text-field @blur="searchEnter()" @keyup.enter="searchEnter()" v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
+    <v-col cols="5" sm="4" md="4" lg="3">
+      <!-- @blur="searchEnter()" -->
+      <v-text-field  @keyup.enter="searchEnter()" v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
         append-inner-icon="mdi mdi-magnify" single-line hide-details class="mr-2"></v-text-field>
     </v-col>
-    <v-col cols="9" class="text-right">
+    <v-col cols="7" class="text-right" lg="9" sm="8" md="8" >
       <v-btn @click="addUser()" color="primary" prepend-icon="mdi mdi-plus" class="text-uppercase">Thêm</v-btn>
     </v-col>
   </v-row>
@@ -57,17 +58,23 @@
           </tbody>
         </v-table>
         <v-row class="ma-2">
-          <v-col cols="8">
+          <v-col cols="8" sm="8" md="8" lg="8">
             <v-row>
               <p class="mt-5 opacity">Showing</p>
-              <v-col cols="2">
+              <v-col cols="5" sm="4" md="5" lg="2">
                 <v-select v-model="seletedValue" density="compact" :items="['10', '20', '25', '30', '50']" variant="outlined"></v-select>
               </v-col>
               <p class="mt-5 opacity">of 50</p>
             </v-row>
           </v-col>
-          <v-col cols="4" class="text-right">
-            <v-pagination v-model="page" active-color="#red" variant="text" density="compact" :length="lengthPage"></v-pagination>
+          <v-col cols="4" sm="4" md="4" lg="4">
+            <p class="text-center page-table1" style="font-size: 15px;display: none">
+                <span @click="page=page-1" :class="{ 'text-grey-lighten-2': page === 1, 'text-black': page !== 1 }"><i class="fa-solid fa-angle-left" style="cursor: pointer;"></i></span>
+                <span style="background-color: rgb(109, 148, 227);color: blue;opacity: 0.6;;border-radius: 2px;padding: 5px;" class="ml-2 mr-2">{{ page }}</span>
+                <span @click="page=page+1" :class="{ 'text-grey-lighten-2': page === lengthPage, 'text-black': page !== lengthPage }"><i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i></span>
+              </p>
+              <v-pagination class="page-table2" v-model="page" active-color="#0F60FF" variant="text" density="compact"
+                :length="lengthPage"></v-pagination>
           </v-col>
         </v-row>
       </v-card>
@@ -170,5 +177,33 @@ watch(page,(newVal)=>{
 }
 .opacity {
   opacity: 0.6;
+}
+.text-truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.opacity {
+  opacity: 0.6;
+}
+
+@media (max-width: 500px) {
+  .opacity {
+    display: none;
+  }
+
+  .v-btn__content {
+    font-size: 10px;
+  }
+  .text-medium-emphasis{
+    font-size: 12px;
+  }
+  .page-table1{
+    display: inline !important;
+  }
+  .page-table2{
+    display: none !important;
+  }
 }
 </style>

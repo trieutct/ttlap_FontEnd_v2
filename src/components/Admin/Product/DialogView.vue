@@ -167,11 +167,18 @@ const submit = handleSubmit(async () => {
 
 const getProductById = async (id) => {
     try {
+        loading.setLoading(true)
         const data = await productServiceApi._getDetail(id);
-        name.value = data.data.name;
-        price.value = data.data.price;
-        description.value = data.data.description;
-        quantity.value = data.data.quantity;
+        loading.setLoading(false)
+        if(data.success)
+        {
+            name.value = data.data.name;
+            price.value = data.data.price;
+            description.value = data.data.description;
+            quantity.value = data.data.quantity;
+        }
+        else
+            showWarningsNotification(data.message)
     } catch (error) {
         console.error('Error fetching product detail:', error);
     }

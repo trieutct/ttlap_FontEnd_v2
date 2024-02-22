@@ -41,7 +41,7 @@ export default async (
     }
   }
   if (!IS_PUBLIC) {
-    alert(2)
+    // alert(2)
     if (IS_AUTHENTICATED) {
       if (role===RoleRouter) {
         return next();
@@ -52,11 +52,11 @@ export default async (
     }
   }
   if (!IS_PUBLIC && !IS_AUTHENTICATED) {
-    alert(3)
+    // alert(3)
     return next({
       name: PageName.LOGIN_PAGE,
     });
   }
-  alert(5)
+  // alert(5)
   return next();
 };

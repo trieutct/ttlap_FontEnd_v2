@@ -26,7 +26,9 @@ export const useUser=()=>{
       };
       const searchUsers = async () => {
         try {
+          loading.setLoading(true)
           const res = await userServiceApi._getList<IUser>(query);
+          loading.setLoading(false)
           if(res.success)
               return res.items
           return null

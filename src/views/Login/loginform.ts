@@ -7,6 +7,8 @@ import router from '@/router';
 // const {login} =useAuthUserStore()
 import { AuthStore } from '@/store/auth/authStore';
 import { useLoadingStore } from '@/store/loading';
+import localStorageAuthService from '@/common/storages/authStorage';
+import { Role } from '@/common/contant/contants';
 export const userLoginForm=()=>{
   const loading=useLoadingStore()
   const authStore=AuthStore()
@@ -42,8 +44,18 @@ export const userLoginForm=()=>{
         loading.setLoading(false)
         if(res)
         {
-          showSuccessNotification("Đăng nhập thành công")
-          router.push('/admin/product')
+          if(localStorageAuthService.getUserRole()===Role.ADMIN)
+          {
+            showSuccessNotification("Đăng nhập thành công")
+            router.push('/admin/product')
+          }
+          else if(localStorageAuthService.getUserRole()===Role.USER)
+          {
+            showSuccessNotification("Đăng nhập thành công")
+            router.push('/')
+          }
+          else
+            showWarningsNotification("Lỗi Role ở login")
         }
         else
         {

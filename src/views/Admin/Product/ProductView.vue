@@ -94,7 +94,8 @@ watch(page, (newVal,oldVal) => {
   <div style="margin: 1.5%;">
     <v-row>
       <v-col cols="5" sm="4" md="4" lg="3">
-        <v-text-field @blur="searchEnter()" @keyup.enter="searchEnter()" v-model="search" style="background-color: white;"
+        <!-- @blur="searchEnter()" -->
+        <v-text-field  @keyup.enter="searchEnter()" v-model="search" style="background-color: white;"
           density="compact" variant="outlined" label="Tìm kiếm" append-inner-icon="mdi mdi-magnify" single-line
           hide-details class="mr-2"></v-text-field>
       </v-col>
@@ -131,7 +132,7 @@ watch(page, (newVal,oldVal) => {
             <tbody>
               <tr v-for="(item, index) in products" :key="index">
                 <td>{{ item.name }}</td>
-                <td>{{ formatNumberWithCommas(item.price) }} đ</td>
+                <td>$ {{ formatNumberWithCommas(item.price) }}</td>
                 <td>{{ formatNumberWithCommas(item.quantity) }}</td>
                 <td style="width: 250px;" class="v-text-truncate">
                   {{ item.description }}
@@ -160,9 +161,9 @@ watch(page, (newVal,oldVal) => {
               </v-row>
             </v-col>
             <v-col cols="4" sm="4" md="4" lg="4">
-              <p class="text-center page-table1" style="font-size: 17px;display: none">
+              <p class="text-center page-table1" style="font-size: 15px;display: none">
                 <span @click="page=page-1" :class="{ 'text-grey-lighten-2': page === 1, 'text-black': page !== 1 }"><i class="fa-solid fa-angle-left" style="cursor: pointer;"></i></span>
-                <span style="background-color: #5f8fef;color: #1d51ba;border-radius: 2px;" class="ml-2 mr-2 pa-1">{{ page }}</span>
+                <span style="background-color: rgb(109, 148, 227);color: blue;opacity: 0.6;;border-radius: 2px;padding: 5px;" class="ml-2 mr-2">{{ page }}</span>
                 <span @click="page=page+1" :class="{ 'text-grey-lighten-2': page === lengthPage, 'text-black': page !== lengthPage }"><i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i></span>
               </p>
               <v-pagination class="page-table2" v-model="page" active-color="#0F60FF" variant="text" density="compact"

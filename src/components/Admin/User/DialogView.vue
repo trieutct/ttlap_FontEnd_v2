@@ -83,7 +83,9 @@ watch(() => props.idEdit, (newValue, oldValue) => {
 });
 const getUserById = async (id) => {
     try {
+        loading.setLoading(true)
         const data = await userServiceApi._getDetail(id);
+        loading.setLoading(false)
         if(data.success)
         {
             name.value = data.data.name;
@@ -126,7 +128,8 @@ const { value: email, errorMessage: emailError } = useField(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             'Email không hợp lệ'
         )
-);const { value: birthday, errorMessage: birthdayError } = useField(
+);
+const { value: birthday, errorMessage: birthdayError } = useField(
     'birthday',
     yup
         .string()
@@ -135,6 +138,11 @@ const { value: email, errorMessage: emailError } = useField(
             /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
             'Ngày sinh không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD.'
         )
+        .test('not-in-future', 'Ngày sinh không được trong tương lai', function(value) {
+            const birthdayDate = new Date(value);
+            const currentDate = new Date();
+            return birthdayDate <= currentDate;
+        })
 );
 
 
@@ -145,7 +153,7 @@ const { value: phone, errorMessage: phoneError } = useField(
         .string()
         .required('Không được bỏ trống')
         .matches(
-            /^[0-9]{10}$/,
+            /^0\d{9,10}$/,
             'Số điện thoại không hợp lệ. Số điện thoại phải có 10 chữ số.'
         )
 );
