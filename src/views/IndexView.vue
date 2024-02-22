@@ -4,7 +4,8 @@
             <v-toolbar style="background-color: white;">
                 <v-row>
                     <v-col cols="8">
-                        <v-toolbar-title @mouseover="rail = false" @click.stop="rail = !rail" class="ma-3">
+                        <!-- @mouseover="rail = false" -->
+                        <v-toolbar-title  @click.stop="rail = !rail" class="ma-3">
                             <v-img width="250"
                                 src="https://res.cloudinary.com/dgtjdhrnq/image/upload/v1705460127/logo1_adshdl.png"></v-img>
                         </v-toolbar-title>
@@ -24,7 +25,7 @@
             </v-list>
         </v-navigation-drawer>
         <v-app-bar class="px-4 v-app-bar" color="rgb(247, 247, 247)" :elevation="0" rounded="0">
-            <h3 class="reposive">Danh sách sản phẩm</h3>
+            <h3 class="reposive"><i @click="this.drawer=!this.drawer;this.rail=true" class="fa-solid icon-menu fa-bars mr-4" style="cursor: pointer;display: none;"></i>Danh sách sản phẩm</h3>
             <v-spacer></v-spacer>
             <v-btn>
                 <v-badge content="5" color="red">
@@ -49,14 +50,15 @@ export default {
             drawer: true,
             rail: true,
         }
-    }
+    },
 }
 </script>
 
 <style scoped>
-@media (max-width: 414px) {
+@media (max-width: 500px) {
     .reposive {
-        color: red;
+        color: black;
+        font-size: 15px;
     }
 
     .navigation_drawer {
@@ -64,6 +66,9 @@ export default {
     }
     .text-item{
         display: none;
+    }
+    .icon-menu{
+        display: inline !important;
     }
 }
 </style>

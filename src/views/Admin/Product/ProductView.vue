@@ -4,31 +4,31 @@ import { computed, onMounted, reactive, ref, watch, watchEffect } from 'vue';
 import DialogViewVue from '@/components/Admin/Product/DialogView.vue';
 import ConfirmVue from '@/components/confirm/IndexView.vue'
 const isShowDialog = ref(false);
-const isDialogDelete=ref(false)
+const isDialogDelete = ref(false)
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
 let idEdit = ref(null)
 let idDelete = ref(null)
-let lengthPage=ref(1)
-let page=ref(1)
-const search=ref('')
+let lengthPage = ref(1)
+let page = ref(1)
+const search = ref('')
 import { formatNumberWithCommas, showErrorNotification, showSuccessNotification } from '../../../common/helper/helpers'
 import { useProduct } from '../Product/product'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
 import { productServiceApi } from '@/service/product.api';
-const { fetchProducts, products, query, getAll,searchProducts} = useProduct()
+const { fetchProducts, products, query, getAll, searchProducts } = useProduct()
 onMounted(async () => {
   loadData()
 })
 
 const loadData = async () => {
-  const res=await fetchProducts()
+  const res = await fetchProducts()
   products.value = res.data;
-  lengthPage.value=Math.ceil(res.totalItems / seletedValue.value);
+  lengthPage.value = Math.ceil(res.totalItems / seletedValue.value);
 }
 const searchData = async () => {
-  const res=await searchProducts()
+  const res = await searchProducts()
   products.value = res.data;
-  lengthPage.value=Math.ceil(res.totalItems / seletedValue.value);
+  lengthPage.value = Math.ceil(res.totalItems / seletedValue.value);
 }
 const addProduct = () => {
   isShowDialog.value = true
@@ -43,40 +43,50 @@ const deleteProductById = async (id) => {
   // console.log(data)
   if (data.success) {
     loadData()
-    isDialogDelete.value=false
+    isDialogDelete.value = false
     showSuccessNotification("Xóa thành công")
   }
   else {
-    isDialogDelete.value=false
+    isDialogDelete.value = false
     showErrorNotification(data.message)
   }
 }
 const close = () => {
   isShowDialog.value = false
-  isDialogDelete.value=false
+  isDialogDelete.value = false
 }
-const searchEnter=()=>{
+const searchEnter = () => {
   // alert(1)
-  query.keyword=search.value
-  query.page=1
+  query.keyword = search.value
+  query.page = 1
   searchData()
 }
-watch(seletedValue,(newval)=>{
+watch(seletedValue, (newval) => {
   // alert(newval)
-  query.limit=newval
-  query.page=1
-  page.value=1
+  query.limit = newval
+  query.page = 1
+  page.value = 1
   loadData()
 })
-watch(search,(newval)=>{
-  query.keyword=newval
-  if(newval!="")
+watch(search, (newval) => {
+  query.keyword = newval
+  if (newval != "")
     return
-  query.page=1
+  query.page = 1
   searchData()
 })
-watch(page,(newVal)=>{
-  query.page=newVal
+watch(page, (newVal,oldVal) => {
+  if(page.value<1)
+  {
+    page.value=oldVal
+    return 
+  }
+  if(page.value>lengthPage.value)
+  {
+    page.value=oldVal
+    return
+  }
+  query.page = newVal
   loadData()
 })
 </script>
@@ -84,8 +94,9 @@ watch(page,(newVal)=>{
   <div style="margin: 1.5%;">
     <v-row>
       <v-col cols="5" sm="4" md="4" lg="3">
-        <v-text-field @blur="searchEnter()" @keyup.enter="searchEnter()" v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
-          append-inner-icon="mdi mdi-magnify" single-line hide-details class="mr-2"></v-text-field>
+        <v-text-field @blur="searchEnter()" @keyup.enter="searchEnter()" v-model="search" style="background-color: white;"
+          density="compact" variant="outlined" label="Tìm kiếm" append-inner-icon="mdi mdi-magnify" single-line
+          hide-details class="mr-2"></v-text-field>
       </v-col>
       <v-col cols="7" class="text-right" lg="9" sm="8" md="8">
         <v-btn @click="addProduct()" color="primary" prepend-icon="mdi mdi-plus" class="text-uppercase">Thêm</v-btn>
@@ -129,25 +140,33 @@ watch(page,(newVal)=>{
                   <v-img width="36" height="36" :src="item.imageUrl"></v-img>
                 </td>
                 <td class="text-center">
-                  <span style="cursor: pointer;"  density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item.id)"></i></span>
-                  <span style="cursor: pointer;" @click="{isDialogDelete=true;idDelete=item.id}" density="compact" variant="text"><i class="fa-solid fa-trash"></i></span>
+                  <span style="cursor: pointer;" density="compact" variant="text"><i
+                      class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item.id)"></i></span>
+                  <span style="cursor: pointer;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
+                    variant="text"><i class="fa-solid fa-trash"></i></span>
                 </td>
               </tr>
             </tbody>
           </v-table>
-          <v-row class="ma-2">
-            <v-col cols="8">
+          <v-row class="ma-2 ">
+            <v-col cols="8" sm="8" md="8" lg="8">
               <v-row>
-                <p class="mt-5 opacity">Showing</p>
-                <v-col cols="2">
+                <span class="mt-5 opacity">Showing</span>
+                <v-col cols="5" sm="4" md="5" lg="2">
                   <v-select v-model="seletedValue" density="compact" :items="['10', '20', '25', '30', '50']"
-                    variant="outlined"></v-select>
+                    variant="outlined" ></v-select>
                 </v-col>
-                <p class="mt-5 opacity">of 50</p>
+                <span class="mt-5 opacity">of 50</span>
               </v-row>
             </v-col>
-            <v-col cols="4" class="">
-              <v-pagination v-model="page" active-color="#0F60FF" variant="text" density="compact" :length="lengthPage"></v-pagination>
+            <v-col cols="4" sm="4" md="4" lg="4">
+              <p class="text-center page-table1" style="font-size: 17px;display: none">
+                <span @click="page=page-1" :class="{ 'text-grey-lighten-2': page === 1, 'text-black': page !== 1 }"><i class="fa-solid fa-angle-left" style="cursor: pointer;"></i></span>
+                <span style="background-color: #5f8fef;color: #1d51ba;border-radius: 2px;" class="ml-2 mr-2 pa-1">{{ page }}</span>
+                <span @click="page=page+1" :class="{ 'text-grey-lighten-2': page === lengthPage, 'text-black': page !== lengthPage }"><i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i></span>
+              </p>
+              <v-pagination class="page-table2" v-model="page" active-color="#0F60FF" variant="text" density="compact"
+                :length="lengthPage"></v-pagination>
             </v-col>
           </v-row>
         </v-card>
@@ -155,7 +174,7 @@ watch(page,(newVal)=>{
     </v-row>
   </div>
   <DialogViewVue v-model="isShowDialog" :idEdit="idEdit" @close="close()" @loadData="loadData()" />
-  <ConfirmVue v-model="isDialogDelete" @close="close()"  :idDelete="idDelete" @delete="deleteProductById"/>
+  <ConfirmVue v-model="isDialogDelete" @close="close()" :idDelete="idDelete" @delete="deleteProductById" />
 </template>
 <style scoped>
 .text-truncate {
@@ -167,4 +186,22 @@ watch(page,(newVal)=>{
 .opacity {
   opacity: 0.6;
 }
-</style>
+
+@media (max-width: 500px) {
+  .opacity {
+    display: none;
+  }
+
+  .v-btn__content {
+    font-size: 10px;
+  }
+  .text-medium-emphasis{
+    font-size: 12px;
+  }
+  .page-table1{
+    display: inline !important;
+  }
+  .page-table2{
+    display: none !important;
+  }
+}</style>

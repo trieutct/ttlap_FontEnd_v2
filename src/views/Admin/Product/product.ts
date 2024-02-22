@@ -25,7 +25,9 @@ export const useProduct = () => {
     };
     const searchProducts = async () => {
       try {
+        loading.setLoading(true)
         const res = await productServiceApi._getList<IProduct>(query);
+        loading.setLoading(false)
         if(res.success)
             return {
               data:res.items,
