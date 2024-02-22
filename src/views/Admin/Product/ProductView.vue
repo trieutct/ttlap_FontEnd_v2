@@ -83,11 +83,11 @@ watch(page,(newVal)=>{
 <template>
   <div style="margin: 1.5%;">
     <v-row>
-      <v-col cols="3">
+      <v-col cols="5" sm="4" md="4" lg="3">
         <v-text-field @blur="searchEnter()" @keyup.enter="searchEnter()" v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
           append-inner-icon="mdi mdi-magnify" single-line hide-details class="mr-2"></v-text-field>
       </v-col>
-      <v-col cols="9" class="text-right">
+      <v-col cols="7" class="text-right" lg="9" sm="8" md="8">
         <v-btn @click="addProduct()" color="primary" prepend-icon="mdi mdi-plus" class="text-uppercase">Thêm</v-btn>
       </v-col>
     </v-row>
