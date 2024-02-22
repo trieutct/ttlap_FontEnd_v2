@@ -135,7 +135,7 @@ watch(page, (newVal,oldVal) => {
                 <td>$ {{ formatNumberWithCommas(item.price) }}</td>
                 <td>{{ formatNumberWithCommas(item.quantity) }}</td>
                 <td style="width: 250px;" class="v-text-truncate">
-                  {{ item.description }}
+                  <p style="width: 100%;max-height: 65px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;">{{ item.description }}</p>
                 </td>
                 <td>
                   <v-img width="36" height="36" :src="item.imageUrl"></v-img>
