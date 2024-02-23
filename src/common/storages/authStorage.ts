@@ -9,6 +9,7 @@ export const enum AUTH_SERVICE_KEY {
   LANGUAGE = "LANGUAGE",
   ACCESS_TOKEN_EXPIRED_AT = "ACCESS_TOKEN_EXPIRED_AT",
   REFRESH_TOKEN_EXPIRED_AT = "REFRESH_TOKEN_EXPIRED_AT",
+  AVATAR="AVATAR"
 }
 class LocalStorageAuthService {
   setAccessToken(token: string): void {
@@ -63,6 +64,17 @@ class LocalStorageAuthService {
     storage.removeLocalStorage(AUTH_SERVICE_KEY.ROLE)
   }
 
+
+  setAvatarUrl(avatar: string): void {
+    storage.setLocalStorage(AUTH_SERVICE_KEY.AVATAR, avatar);
+  }
+  getAvatarUrl():string{
+    return storage.getLocalStorage(AUTH_SERVICE_KEY.AVATAR); 
+  }
+  removeAvatarUrl():void{
+    storage.removeLocalStorage(AUTH_SERVICE_KEY.AVATAR)
+  }
+
   resetAccessToken(): void {
     storage.setLocalStorage(AUTH_SERVICE_KEY.ACCESS_TOKEN, '');
   }
@@ -81,6 +93,7 @@ class LocalStorageAuthService {
     this.removeRefreshToken()
     this.removeRefresh_TokenExpiredAt()
     this.removeUserRole()
+    this.removeAvatarUrl()
   }
 
   getHeader() {

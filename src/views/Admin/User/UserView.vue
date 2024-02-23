@@ -15,7 +15,7 @@
       <v-card>
         <v-table density="compact">
           <thead>
-            <tr>
+            <tr style="height: 47px;">
               <th class="text-left text-uppercase text-medium-emphasis">
                 Avatar
               </th>
@@ -32,27 +32,27 @@
                 Số điện thoại
               </th>
               <th class="text-center text-uppercase text-medium-emphasis">
-                Acction
+                Hành động
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="i in users" :key="i">
+            <tr v-for="i in users" :key="i" style="height: 58px;">
               <td>
-                <v-img class="ma-1" style="border-radius: 2px;"  width="36" height="36"
+                <v-img style="border-radius: 2px;"  width="36" height="36"
                   :src="i.avatar"></v-img>
               </td>
-              <td>{{ i.name }}</td>
+              <td><b>{{ i.name }}</b></td>
               <td>{{ i.email }}</td>
               <td class="v-text-truncate">
-                {{ formatDateString(i.birthday,DD_MM_YYYY) }}
+                {{ formatDateString(i.birthday,YYYY_MM_DD_DASH) }}
               </td>
               <td>
-                {{ i.phone }}
+                {{ formatPhoneNumber(i.phone) }}
               </td>
               <td class="text-center">
-                <span style="cursor: pointer;" density="compact" variant="text"><i @click="updateUserById(i.id)" class="fa-regular fa-pen-to-square mr-4"></i></span>
-                <span style="cursor: pointer;" density="compact" variant="text"><i @click="{isDialogDelete=true;idDelete=i.id}" class="fa-solid fa-trash"></i></span>
+                <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i @click="updateUserById(i.id)" class="fa-regular fa-pen-to-square mr-4"></i></span>
+                <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i @click="{isDialogDelete=true;idDelete=i.id}" class="fa-solid fa-trash"></i></span>
               </td>
             </tr>
           </tbody>
@@ -87,7 +87,7 @@
 <script setup>
 import {DATE_TIME_FORMAT} from '../../../common/contant/contants'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
-import {formatDateString} from '../../../common/helper/helpers'
+import {formatDateString,formatPhoneNumber} from '../../../common/helper/helpers'
 import { onMounted, ref, watch } from 'vue';
 import DialogViewVue from '@/components/Admin/User/DialogView.vue';
 import {useUser} from '../User/user'
@@ -96,7 +96,7 @@ import { userServiceApi } from '@/service/user.api';
 import { showErrorNotification, showSuccessNotification } from '@/common/helper/helpers';
 
 
-const DD_MM_YYYY=DATE_TIME_FORMAT.DD_MM_YYYY_DASH
+const YYYY_MM_DD_DASH=DATE_TIME_FORMAT.YYYY_MM_DD_DASH
 const isShowDialog = ref(false);
 const isDialogDelete=ref(false)
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
@@ -177,6 +177,9 @@ watch(page,(newVal)=>{
 }
 .opacity {
   opacity: 0.6;
+}
+.v-table{
+  font-size: 15px;
 }
 .text-truncate {
   overflow: hidden;

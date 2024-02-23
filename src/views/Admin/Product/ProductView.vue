@@ -108,7 +108,7 @@ watch(page, (newVal,oldVal) => {
         <v-card>
           <v-table density="compact">
             <thead>
-              <tr>
+              <tr style="height: 47px;">
                 <th class="text-left text-uppercase text-medium-emphasis">
                   Tên sản phẩm
                 </th>
@@ -125,25 +125,25 @@ watch(page, (newVal,oldVal) => {
                   Ảnh
                 </th>
                 <th class="text-center text-uppercase text-medium-emphasis">
-                  Acction
+                  Hành động
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(item, index) in products" :key="index">
-                <td>{{ item.name }}</td>
-                <td>$ {{ formatNumberWithCommas(item.price) }}</td>
+                <td><b>{{ item.name }}</b></td>
+                <td>${{ formatNumberWithCommas(item.price) }}</td>
                 <td>{{ formatNumberWithCommas(item.quantity) }}</td>
-                <td style="width: 250px;" class="v-text-truncate">
-                  <p style="width: 100%;max-height: 65px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;">{{ item.description }}</p>
+                <td style="width: 250px;height: 58px;" class="v-text-truncate">
+                  <p style="width: 100%;max-height: 58px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;">{{ item.description }}</p>
                 </td>
                 <td>
-                  <v-img width="36" height="36" :src="item.imageUrl"></v-img>
+                  <v-img style="border-radius: 2px;" width="36" height="36" :src="item.imageUrl"></v-img>
                 </td>
                 <td class="text-center">
-                  <span style="cursor: pointer;" density="compact" variant="text"><i
+                  <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i
                       class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item.id)"></i></span>
-                  <span style="cursor: pointer;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
+                  <span style="cursor: pointer;opacity: 0.7;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
                     variant="text"><i class="fa-solid fa-trash"></i></span>
                 </td>
               </tr>
@@ -160,13 +160,13 @@ watch(page, (newVal,oldVal) => {
                 <span class="mt-5 opacity">of 50</span>
               </v-row>
             </v-col>
-            <v-col cols="4" sm="4" md="4" lg="4">
+            <v-col  cols="4" sm="4" md="4" lg="4">
               <p class="text-center page-table1" style="font-size: 15px;display: none">
                 <span @click="page=page-1" :class="{ 'text-grey-lighten-2': page === 1, 'text-black': page !== 1 }"><i class="fa-solid fa-angle-left" style="cursor: pointer;"></i></span>
                 <span style="background-color: rgb(109, 148, 227);color: blue;opacity: 0.6;;border-radius: 2px;padding: 5px;" class="ml-2 mr-2">{{ page }}</span>
                 <span @click="page=page+1" :class="{ 'text-grey-lighten-2': page === lengthPage, 'text-black': page !== lengthPage }"><i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i></span>
               </p>
-              <v-pagination class="page-table2" v-model="page" active-color="#0F60FF" variant="text" density="compact"
+                <v-pagination class="page-table2 mt-1" v-model="page" active-color="#0F60FF" variant="text" density="compact"
                 :length="lengthPage"></v-pagination>
             </v-col>
           </v-row>
@@ -186,6 +186,9 @@ watch(page, (newVal,oldVal) => {
 
 .opacity {
   opacity: 0.6;
+}
+.v-table{
+  font-size: 15px;
 }
 
 @media (max-width: 500px) {
