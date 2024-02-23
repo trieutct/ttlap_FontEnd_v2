@@ -95,8 +95,8 @@ watch(page, (newVal,oldVal) => {
     <v-row>
       <v-col cols="5" sm="4" md="4" lg="3">
         <!-- @blur="searchEnter()" -->
-        <v-text-field  @keyup.enter="searchEnter()" v-model="search" style="background-color: white;"
-          density="compact" variant="outlined" label="Tìm kiếm" append-inner-icon="mdi mdi-magnify" single-line
+        <v-text-field @keyup.enter="searchEnter()" v-model="search" style="background-color: white;"
+          density="compact" variant="solo" label="Tìm kiếm" append-inner-icon="mdi mdi-magnify" single-line
           hide-details class="mr-2"></v-text-field>
       </v-col>
       <v-col cols="7" class="text-right" lg="9" sm="8" md="8">
@@ -190,7 +190,6 @@ watch(page, (newVal,oldVal) => {
 .v-table{
   font-size: 15px;
 }
-
 @media (max-width: 500px) {
   .opacity {
     display: none;

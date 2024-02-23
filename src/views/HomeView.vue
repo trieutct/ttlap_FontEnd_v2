@@ -31,7 +31,7 @@
       </v-btn>
     </v-col>
   </v-row>
-  <v-row class="mr-3 ml-3 mt-3">
+  <v-row class="mr-3 ml-3">
     <v-col cols="12">
       <v-chip variant="text">Related</v-chip>
       <v-chip class="mr-2 mt-2">
@@ -57,11 +57,11 @@
   <v-card class="custom-shadow">
     <v-row class="mr-3 ml-3 mt-1">
       <v-col class="d-flex flex-column justify-center align-center" v-for="item in filteredProducts" :key="item" cols="12" sm="6" md="4" lg="3">
-        <v-card hover variant="flat" width="259px" style="min-height: 472px;" class="mb-3 my-card">
+        <v-card hover variant="flat" style="min-height: 447px;" class="mb-3 my-card">
           <v-img class="mx-auto mt-2" width="227px" height="224px"
             :src="item.image"
             alt="Product Image"></v-img>
-          <v-card-text class="my-card-text" style="font-size: 16px;line-height: 24px; height: 85px;"> {{ item.name }}</v-card-text>
+          <v-card-text class="my-card-text" style="font-size: 16px;line-height: 24px; height: 60px;"> {{ item.name }}</v-card-text>
           <v-card-text class="mt-2" style="font-size: 24px;font-weight: 700;padding: auto;height: 36px;">
             ${{ item.price }} 
             <span v-if="item.sale>0" style="margin-right: -1.5%;font-size: 12px;float: right;min-width: 70px;min-height: 24px;padding: 2px;background-color: #e2f3e8;text-align: center;color: #1cee65;font-weight: 300;">
