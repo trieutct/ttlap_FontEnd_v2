@@ -5,6 +5,7 @@ import type { IBodyLogin } from '@/views/Login/interfaces';
 import { computed } from 'vue';
 import dayjs from '@/plugins/dayjs';
 import { logout } from '@/plugins/axios/utils';
+import { showErrorNotification } from '@/common/helper/helpers';
 
 export const AuthStore = defineStore('authStore', () => {
 
@@ -29,6 +30,7 @@ export const AuthStore = defineStore('authStore', () => {
 
       return true
     }
+    showErrorNotification(res.message)
     return false;
   }
 

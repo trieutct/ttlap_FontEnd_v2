@@ -43,13 +43,13 @@ export function isStringify<T>(obj: T | Record<string, unknown>): boolean {
   return true;
 }
 
-export function showErrorNotification(message: string, title?: string, duration = 2) {
+export function showErrorNotification(message: string) {
   if (!message) return;
   const toast = useToast();
   toast.error(message);
 }
 
-export function showSuccessNotification(message: string, title?: string, duration = 2) {
+export function showSuccessNotification(message: string) {
   if (!message) return;
   const toast = useToast();
   toast.success(message);
