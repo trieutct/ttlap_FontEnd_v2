@@ -185,5 +185,12 @@ export const scrollToIdElement = (id: string) => {
 };
 
 export const formatNumberWithCommas=(value:string)=> {
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+
+export const checkSearchEnter = (str:string) => {
+  const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+  return regex.test(str);
+};
+

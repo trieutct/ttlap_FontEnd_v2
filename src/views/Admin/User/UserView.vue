@@ -3,11 +3,13 @@
     <v-row>
     <v-col cols="5" sm="4" md="4" lg="3">
       <!-- @blur="searchEnter()" -->
-      <v-text-field  @keyup.enter="searchEnter()" v-model="search" style="background-color: white;" density="compact" variant="outlined" label="Tìm kiếm"
+      <v-text-field  @keyup.enter="searchEnter()" v-model="search" style="background-color: white;" density="compact" variant="solo" label="Tìm kiếm"
         append-inner-icon="mdi mdi-magnify" single-line hide-details class="mr-2"></v-text-field>
     </v-col>
     <v-col cols="7" class="text-right" lg="9" sm="8" md="8" >
-      <v-btn @click="addUser()" color="primary" prepend-icon="mdi mdi-plus" class="text-uppercase">Thêm</v-btn>
+      <v-btn @click="addUser()"  color="primary" prepend-icon="mdi mdi-plus" class="text-capitalize">
+          Tạo<span class="text-lowercase">mới</span>
+        </v-btn>
     </v-col>
   </v-row>
   <v-row>
@@ -55,6 +57,7 @@
                 <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i @click="{isDialogDelete=true;idDelete=i.id}" class="fa-solid fa-trash"></i></span>
               </td>
             </tr>
+            <tr></tr>
           </tbody>
         </v-table>
         <v-row class="ma-2">
@@ -64,7 +67,7 @@
               <v-col style="max-width: 105px" cols="5" sm="4" md="5" lg="2">
                 <v-select v-model="seletedValue" density="compact" :items="['10', '20', '25', '30', '50']" variant="outlined"></v-select>
               </v-col>
-              <p class="mt-5 opacity">of 50</p>
+              <p class="mt-5 opacity">of {{ TotalUsers }}</p>
             </v-row>
           </v-col>
           <v-col cols="4" sm="4" md="4" lg="4">
@@ -87,7 +90,7 @@
 <script setup>
 import {DATE_TIME_FORMAT} from '../../../common/contant/contants'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
-import {formatDateString,formatPhoneNumber} from '../../../common/helper/helpers'
+import {checkSearchEnter, formatDateString,formatPhoneNumber, showWarningsNotification} from '../../../common/helper/helpers'
 import { onMounted, ref, watch } from 'vue';
 import DialogViewVue from '@/components/Admin/User/DialogView.vue';
 import {useUser} from '../User/user'
@@ -106,13 +109,23 @@ let idEdit = ref(null)
 let idDelete = ref(null)
 let lengthPage=ref(1)
 let page=ref(1)
+const TotalUsers=ref(null)
 onMounted(async () => {
+  query.keyword=''
   loadData()
 })
 const loadData = async () => {
   const res=await fetchUsers()
   users.value = res.data;
   lengthPage.value=Math.ceil(res.totalItems / seletedValue.value);
+  if(res.data)
+  {
+    users.value = res.data;
+    lengthPage.value = Math.ceil(res.totalItems / seletedValue.value);
+    TotalUsers.value=res.totalItems
+    return
+  }
+  users.value=[]
 }
 const addUser = () => {
   isShowDialog.value = true
@@ -121,16 +134,31 @@ const addUser = () => {
 
 const searchEnter=()=>{
   // alert(1)
-  query.keyword=search.value
-  query.page=1
-  searchData()
+  if(!checkSearchEnter(search.value))
+  {
+    query.keyword = search.value
+    query.page = 1
+    searchData()
+  }
+  else
+  {
+    showWarningsNotification("Không nhập ký tự đặc biệt")
+  }
 }
 const updateUserById = id => {
   isShowDialog.value = true
   idEdit = id
 }
 const searchData = async () => {
-  users.value = await searchUsers();
+  const res = await searchUsers()
+  if(res.data)
+  {
+    users.value = res.data;
+    lengthPage.value = Math.ceil(res.totalItems / seletedValue.value);
+    TotalUsers.value=res.totalItems
+    return
+  }
+  users.value=[]
 }
 
 const deleteUserById = async (id) => {
@@ -166,6 +194,11 @@ watch(search,(newval)=>{
 watch(page,(newVal)=>{
   query.page=newVal
   loadData()
+})
+
+watch(isShowDialog,(newVal)=>{
+  if(newVal==false)
+    idEdit=null
 })
 </script>
   

@@ -16,7 +16,6 @@
                     </v-col>
                 </v-row>
             </v-toolbar>
-            <v-divider></v-divider>
             <v-list density="compact" nav>
                 <v-list-item v-show="this.rail == false" class="text-uppercase text-item"
                     style="opacity: 0.6;font-size: 13px;">Quản lý sản phẩm</v-list-item>

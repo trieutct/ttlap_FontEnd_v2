@@ -66,7 +66,7 @@
 <script setup>
 import { useForm, useField } from 'vee-validate';
 import * as yup from 'yup';
-import { ref, watch } from 'vue';
+import { onUpdated, ref, watch } from 'vue';
 import { productServiceApi } from '@/service/product.api';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import { useLoadingStore } from '@/store/loading';
@@ -85,6 +85,10 @@ watch(() => props.idEdit, (newValue, oldValue) => {
         getUserById(id)
     }
 });
+
+onUpdated(()=>{
+    resetForm()
+})
 const getUserById = async (id) => {
     try {
         loading.setLoading(true)

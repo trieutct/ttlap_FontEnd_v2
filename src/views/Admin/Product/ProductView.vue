@@ -10,25 +10,40 @@ let idEdit = ref(null)
 let idDelete = ref(null)
 let lengthPage = ref(1)
 let page = ref(1)
-const search = ref('')
-import { formatNumberWithCommas, showErrorNotification, showSuccessNotification } from '../../../common/helper/helpers'
+const search = ref(null)
+const TotalProducts=ref(null)
+import { formatNumberWithCommas, showErrorNotification, showSuccessNotification, showWarningsNotification } from '../../../common/helper/helpers'
 import { useProduct } from '../Product/product'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
 import { productServiceApi } from '@/service/product.api';
+import {checkSearchEnter} from '../../../common/helper/helpers'
 const { fetchProducts, products, query, getAll, searchProducts } = useProduct()
 onMounted(async () => {
+  query.keyword=''
   loadData()
 })
 
 const loadData = async () => {
   const res = await fetchProducts()
-  products.value = res.data;
-  lengthPage.value = Math.ceil(res.totalItems / seletedValue.value);
+  if(res.data)
+  {
+    products.value = res.data;
+    lengthPage.value = Math.ceil(res.totalItems / seletedValue.value);
+    TotalProducts.value=res.totalItems
+    return
+  }
+  products.value=[]
 }
 const searchData = async () => {
   const res = await searchProducts()
-  products.value = res.data;
-  lengthPage.value = Math.ceil(res.totalItems / seletedValue.value);
+  if(res.data)
+  {
+    products.value = res.data;
+    lengthPage.value = Math.ceil(res.totalItems / seletedValue.value);
+    TotalProducts.value=res.totalItems
+    return
+  }
+  products.value=[]
 }
 const addProduct = () => {
   isShowDialog.value = true
@@ -56,10 +71,16 @@ const close = () => {
   isDialogDelete.value = false
 }
 const searchEnter = () => {
-  // alert(1)
-  query.keyword = search.value
-  query.page = 1
-  searchData()
+  if(!checkSearchEnter(search.value))
+  {
+    query.keyword = search.value
+    query.page = 1
+    searchData()
+  }
+  else
+  {
+    showWarningsNotification("Không nhập ký tự đặc biệt")
+  }
 }
 watch(seletedValue, (newval) => {
   // alert(newval)
@@ -69,11 +90,12 @@ watch(seletedValue, (newval) => {
   loadData()
 })
 watch(search, (newval) => {
-  query.keyword = newval
-  if (newval != "")
-    return
-  query.page = 1
-  searchData()
+  if(search.value==="")
+  {
+    query.keyword = search.value
+    query.page = 1
+    searchData()
+  }
 })
 watch(page, (newVal,oldVal) => {
   if(page.value<1)
@@ -89,6 +111,10 @@ watch(page, (newVal,oldVal) => {
   query.page = newVal
   loadData()
 })
+watch(isShowDialog,(newVal)=>{
+  if(newVal==false)
+    idEdit=null
+})
 </script>
 <template>
   <div style="margin: 1.5%;">
@@ -100,7 +126,9 @@ watch(page, (newVal,oldVal) => {
           hide-details class="mr-2"></v-text-field>
       </v-col>
       <v-col cols="7" class="text-right" lg="9" sm="8" md="8">
-        <v-btn @click="addProduct()" color="primary" prepend-icon="mdi mdi-plus" class="text-uppercase">Thêm</v-btn>
+        <v-btn @click="addProduct()"  color="primary" prepend-icon="mdi mdi-plus" class="text-capitalize">
+          Tạo<span class="text-lowercase">mới</span>
+        </v-btn>
       </v-col>
     </v-row>
     <v-row>
@@ -141,12 +169,17 @@ watch(page, (newVal,oldVal) => {
                   <v-img style="border-radius: 2px;" width="36" height="36" :src="item.imageUrl"></v-img>
                 </td>
                 <td class="text-center">
-                  <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i
+                  <v-row>
+                    <v-col cols="9" class="text-center">
+                      <span style="cursor: pointer;opacity: 0.6;margin-left: 2%;" density="compact" variant="text"><i
                       class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item.id)"></i></span>
-                  <span style="cursor: pointer;opacity: 0.7;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
+                      <span style="cursor: pointer;opacity: 0.6;margin-right: 2%;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
                     variant="text"><i class="fa-solid fa-trash"></i></span>
+                    </v-col>
+                  </v-row>
                 </td>
               </tr>
+              <tr></tr>
             </tbody>
           </v-table>
           <v-row class="ma-2 ">
@@ -157,7 +190,7 @@ watch(page, (newVal,oldVal) => {
                   <v-select v-model="seletedValue" density="compact" :items="['10', '20', '25', '30', '50']"
                     variant="outlined" ></v-select>
                 </v-col>
-                <span class="mt-5 opacity">of 50</span>
+                <span class="mt-5 opacity">of {{ TotalProducts }}</span>
               </v-row>
             </v-col>
             <v-col  cols="4" sm="4" md="4" lg="4">

@@ -22,6 +22,7 @@ export const useUser=()=>{
           return null
         } catch (error) {
           console.error('Error fetching user:', error);
+          return null
         }
       };
       const searchUsers = async () => {
@@ -30,10 +31,16 @@ export const useUser=()=>{
           const res = await userServiceApi._getList<IUser>(query);
           loading.setLoading(false)
           if(res.success)
-              return res.items
+          {
+            return {
+              data:res.items,
+              totalItems:res.totalItems
+            }
+          }
           return null
         } catch (error) {
           console.error('Error fetching products:', error);
+          return null
         }
       };
     return{

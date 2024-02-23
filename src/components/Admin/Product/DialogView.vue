@@ -45,7 +45,7 @@
                 <v-card-actions class="pr-4">
                     <v-spacer></v-spacer>
                     <v-btn width="70px" variant="outlined" height="32px" style="font-family: Public Sans;font-size: 14px;margin-right: 16px;" @click="close()" class="text-capitalize" text="Hủy"></v-btn>
-                    <v-btn width="105px" height="32px" style="font-family: Public Sans;font-size: 14px;" type="submit" color="primary" class="text-capitalize" variant="elevated">{{ idEdit?"Update":"Thêm" }}<span
+                    <v-btn width="105px" height="32px" style="font-family: Public Sans;font-size: 14px;" type="submit" color="primary" class="text-capitalize" variant="elevated">{{ idEdit?"Update":"Tạo" }}<span
                             class="text-lowercase">{{ idEdit?"":"mới" }}</span></v-btn>
                 </v-card-actions>
             </v-card>
@@ -56,7 +56,7 @@
 <script setup>
 import { useForm, useField } from 'vee-validate';
 import * as yup from 'yup';
-import { ref, watch } from 'vue';
+import { ref, watch,onUpdated } from 'vue';
 import { productServiceApi } from '@/service/product.api';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import { useLoadingStore } from '@/store/loading';
@@ -75,6 +75,9 @@ watch(() => props.idEdit, (newValue, oldValue) => {
         getProductById(id)
     }
 });
+onUpdated(()=>{
+    resetForm()
+})
 
 
 

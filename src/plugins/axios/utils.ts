@@ -39,8 +39,10 @@ export const sendRefreshToken = async () => {
 
       localStorageAuthService.setRefreshToken(response.data?.refreshToken.token);
       localStorageAuthService.setRefresh_TokenExpiredAt(response.data?.refreshToken.expiresIn);
+      alert("Lấy xong token và refresh token")
       return;
     }
+    alert("Lấy lại token lỗi khi gửi lên ko lấy về đc")
     logout(true);
     return;
   } catch (error) {

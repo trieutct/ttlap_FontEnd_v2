@@ -21,6 +21,7 @@ export const useProduct = () => {
         return null
       } catch (error) {
         console.error('Error fetching products:', error);
+        return null
       }
     };
     const searchProducts = async () => {
@@ -36,6 +37,7 @@ export const useProduct = () => {
         return null
       } catch (error) {
         console.error('Error fetching products:', error);
+        return null
       }
     };
   return {
