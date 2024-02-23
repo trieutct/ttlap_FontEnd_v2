@@ -63,7 +63,7 @@ export default {
     data() {
         return {
             drawer: true,
-            rail: true,
+            rail: false,
             avatar: localStorageAuthService.getAvatarUrl(),
             title:commonStore().title
         }

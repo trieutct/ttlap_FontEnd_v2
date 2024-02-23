@@ -5,7 +5,7 @@
                 <v-card-title style="font-weight: bold;position:fixed;width: 100%;top: 0;background-color: white;z-index: 100;border-top-left-radius:12px ;border-top-right-radius: 12px;">
                     <h4 style="font-size: 18px;">{{ idEdit?"Sửa sản phẩm":"Tạo mới sản phẩm" }}</h4>
                 </v-card-title>
-                <v-container class="mt-10" style="background-color: rgb(247, 247, 247);">
+                <v-container class="mt-10" style="background-color: #F7F8FA">
                         <div style="display: block; margin-top: 8px;">
                             <span>Tên sản phẩm </span> <span class="text-blue ml-2">*</span>
                             <v-text-field class="mt-1" v-model="name" placeholder="Nhập tên sản phẩm" :error-messages="nameError"
@@ -199,7 +199,7 @@ const close = () => {
 }
 
 </script>
-<style>
+<style scoped>
 .custom-file-input {
     display: inline-block;
     width: 100%;
