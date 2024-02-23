@@ -21,7 +21,7 @@
                 <v-list-item v-show="this.rail == false" class="text-uppercase text-item"
                     style="opacity: 0.6;font-size: 13px;">Quản lý sản phẩm</v-list-item>
                 <v-list-item @click="setTilteStore('Danh sách sản phẩm')" prepend-icon="mdi-hexagon-slice-6" to='product'><p>Sản phẩm</p></v-list-item>
-                <v-list-item prepend-icon="mdi-account-supervisor" @click="setTilteStore('Danh sách user')" to='user'><p>User</p></v-list-item>
+                <v-list-item prepend-icon="mdi-account-supervisor" @click="setTilteStore('Danh sách người dùng')" to='user'><p>User</p></v-list-item>
             </v-list>
         </v-navigation-drawer>
         <v-app-bar class="px-4 v-app-bar" color="rgb(247, 247, 247)" :elevation="0" rounded="0">

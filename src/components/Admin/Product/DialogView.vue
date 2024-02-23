@@ -1,53 +1,51 @@
 <template>
     <v-dialog max-width="500px">
         <v-form @submit.prevent="submit">
-            <v-card>
-                <v-card-title style="font-weight: bold;position:fixed;width: 100%;top: 0;background-color: white;z-index: 100;">
-                    <h4>{{ idEdit?"Sửa sản phẩm":"Thêm mới sản phẩm" }}</h4>
+            <v-card style="border-radius: 12px !important;">
+                <v-card-title style="font-weight: bold;position:fixed;width: 100%;top: 0;background-color: white;z-index: 100;border-top-left-radius:12px ;border-top-right-radius: 12px;">
+                    <h4 style="font-size: 18px;">{{ idEdit?"Sửa sản phẩm":"Tạo mới sản phẩm" }}</h4>
                 </v-card-title>
                 <v-container class="mt-10" style="background-color: rgb(247, 247, 247);">
-                    <v-row>
-                        <v-col cols="12" style="font-size: 13px;">
+                        <div style="display: block; margin-top: 8px;">
                             <span>Tên sản phẩm </span> <span class="text-blue ml-2">*</span>
-                            <v-text-field v-model="name" placeholder="Nhập tên sản phẩm" :error-messages="nameError"
+                            <v-text-field class="mt-1" v-model="name" placeholder="Nhập tên sản phẩm" :error-messages="nameError"
                                 style="background-color: white;" density="compact" single-line hide-details
                                 variant="outlined"></v-text-field>
                             <span style="color:red">{{ nameError }}</span>
-                        </v-col>
-                        <v-col cols="12" style="font-size: 13px;">
+                        </div>
+                        <div style="display: block; margin-top: 12px;">
                             <span>Giá</span><span class="text-blue ml-2">*</span>
-                            <v-text-field v-model="price" placeholder="Nhập giá sản phẩm" :error-messages="priceError"
+                            <v-text-field class="mt-1" v-model="price" placeholder="Nhập giá sản phẩm" :error-messages="priceError"
                                 required style="background-color: white;" density="compact" single-line hide-details
                                 variant="outlined"></v-text-field>
                             <span style="color:red">{{ priceError }}</span>
-                        </v-col>
-                        <v-col cols="12" style="font-size: 13px;">
+                        </div>
+                        <div style="display: block; margin-top: 12px;">
                             <span>Số lượng</span><span class="text-blue ml-2">*</span>
-                            <v-text-field v-model="quantity" placeholder="Nhập số lượng sản phẩm"
+                            <v-text-field class="mt-1" v-model="quantity" placeholder="Nhập số lượng sản phẩm"
                                 :error-messages="quantityError" required style="background-color: white;" density="compact"
                                 single-line hide-details variant="outlined"></v-text-field>
                             <span style="color:red">{{ quantityError }}</span>
-                        </v-col>
-                        <v-col cols="12" style="font-size: 13px;">
+                        </div>
+                        <div style="display: block; margin-top: 12px;">
                             <span>Mô tả</span><span class="text-blue ml-2">*</span>
-                            <v-textarea v-model="description" placeholder="Nhập mô tả" :error-messages="descriptionError"
+                            <v-textarea class="mt-1" v-model="description" placeholder="Nhập mô tả" :error-messages="descriptionError"
                                 required style="background-color: white;" density="compact" single-line hide-details
                                 variant="outlined"></v-textarea>
                             <span style="color:red">{{ descriptionError }}</span>
-                        </v-col>
-                        <v-col cols="12" style="font-size: 13px;">
+                        </div>
+                        <div style="display: block; margin-top: 12px;">
                             <span>Ảnh sản phẩm</span><span class="text-blue ml-2">*</span><br>
-                            <input @change="handleImageChange" type="file" class="custom-file-input" />
+                            <input  @change="handleImageChange" type="file" class="custom-file-input mt-1" />
                             <!-- <v-text-field placeholder="Nhập link ảnh" style="background-color: white;" density="compact"
                                 single-line hide-details variant="outlined"></v-text-field> -->
                             <!-- <v-file-input single-line hide-details variant="outlined" label="Chọn ảnh" density="compact" color="white" style="background-color: white;"></v-file-input> -->
-                        </v-col>
-                    </v-row>
+                        </div>
                 </v-container>
                 <v-card-actions class="pr-4">
                     <v-spacer></v-spacer>
-                    <v-btn @click="close()" class="text-capitalize" text="Hủy"></v-btn>
-                    <v-btn type="submit" color="primary" class="text-capitalize" variant="elevated">{{ idEdit?"Update":"Thêm" }}<span
+                    <v-btn width="70px" variant="outlined" height="32px" style="font-family: Public Sans;font-size: 14px;margin-right: 16px;" @click="close()" class="text-capitalize" text="Hủy"></v-btn>
+                    <v-btn width="105px" height="32px" style="font-family: Public Sans;font-size: 14px;" type="submit" color="primary" class="text-capitalize" variant="elevated">{{ idEdit?"Update":"Thêm" }}<span
                             class="text-lowercase">{{ idEdit?"":"mới" }}</span></v-btn>
                 </v-card-actions>
             </v-card>
@@ -218,5 +216,10 @@ const close = () => {
 
 .custom-file-input:hover {
     background-color: #e0e0e0;
+}
+
+*{
+    font-family: Public Sans;
+    font-size: 14px;
 }
 </style>

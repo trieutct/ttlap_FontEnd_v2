@@ -15,9 +15,9 @@
       <v-card>
         <v-table density="compact">
           <thead>
-            <tr style="height: 47px;">
-              <th class="text-left text-uppercase text-medium-emphasis">
-                Avatar
+            <tr style="height: 47px">
+              <th style="width: 5px !important;padding-right: 0px;" class="text-left text-uppercase text-medium-emphasis">
+                <span>Avatar</span>
               </th>
               <th class="text-left text-uppercase text-medium-emphasis">
                 Tên người dùng
@@ -61,7 +61,7 @@
           <v-col cols="8" sm="8" md="8" lg="8">
             <v-row>
               <p class="mt-5 opacity">Showing</p>
-              <v-col cols="5" sm="4" md="5" lg="2">
+              <v-col style="max-width: 105px" cols="5" sm="4" md="5" lg="2">
                 <v-select v-model="seletedValue" density="compact" :items="['10', '20', '25', '30', '50']" variant="outlined"></v-select>
               </v-col>
               <p class="mt-5 opacity">of 50</p>

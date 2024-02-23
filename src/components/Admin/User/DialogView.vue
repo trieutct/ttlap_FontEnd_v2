@@ -1,61 +1,66 @@
 <template>
-    <v-dialog max-width="500px">
+    <v-dialog  max-width="500px">
         <v-form @submit.prevent="submit">
-            <v-card>
-                <v-card-title style="font-weight: bold;position:fixed;width: 100%;top: 0;background-color: white;z-index: 100;">
-                    <h4>{{ id?"Sửa user":"Thêm user" }}</h4>
+            <v-card style="border-radius: 12px !important;">
+                <v-card-title
+                    style="font-weight: bold;position:fixed;width: 100%;top: 0;background-color: white;z-index: 100;border-top-left-radius:12px ;border-top-right-radius: 12px;">
+                    <h4 style="font-size: 18px;">{{ id ? "Sửa người dùng" : "Tạo mới người dùng" }}</h4>
                 </v-card-title>
-            <v-container class="mt-10" style="background-color: rgb(247, 247, 247);">
-                <v-row>
-                    <v-col cols="12" style="font-size: 13px;">
-                        <span>Tên người dùng</span> <span class="text-blue ml-2">*</span>
-                        <v-text-field v-model="name" placeholder="Nhập tên người dùng" style="background-color: white;" density="compact" single-line hide-details
-                            variant="outlined"></v-text-field>
+                <v-container class="mt-9" style="background-color: #F7F8FA">
+                        <div style="display: block; margin-top: 12px;">
+                            <span>Tên người dùng</span> <span class="text-blue ml-2">*</span>
+                            <v-text-field class="mt-1" v-model="name" placeholder="Nhập tên người dùng" style="background-color: white;"
+                                density="compact" single-line hide-details variant="outlined"></v-text-field>
                             <span style="color:red">{{ nameError }}</span>
-                    </v-col>
-                    <v-col cols="12" style="font-size: 13px;">
-                        <span>Email</span><span class="text-blue ml-2">*</span>
-                        <v-text-field v-model="email" placeholder="Nhập email người dùng" style="background-color: white;" density="compact" single-line hide-details
-                            variant="outlined"></v-text-field>
+                        </div>
+                        <div style="display: block; margin-top: 12px;">
+                            <span>Email</span><span class="text-blue ml-2">*</span>
+                            <v-text-field class="mt-1" v-model="email" placeholder="Nhập email"
+                                style="background-color: white;" density="compact" single-line hide-details
+                                variant="outlined"></v-text-field>
                             <span style="color:red">{{ emailError }}</span>
-                    </v-col>
-                    <v-col cols="12" style="font-size: 13px;">
-                        <span>Ngày sinh</span><span class="text-blue ml-2">*</span>
-                        <v-text-field v-model="birthday" type="date" style="background-color: white;" density="compact" single-line hide-details
-                            variant="outlined"></v-text-field>
+                        </div>
+                        <div style="display: block; margin-top: 12px;">
+                            <span>Ngày sinh</span><span class="text-blue ml-2">*</span>
+                            <v-text-field class="mt-1" v-model="birthday" type="date" style="background-color: white;" density="compact"
+                                single-line hide-details variant="outlined"></v-text-field>
                             <span style="color:red">{{ birthdayError }}</span>
-                    </v-col>
-                    <v-col cols="12" style="font-size: 13px;">
-                        <span>Số điện thoại</span><span class="text-blue ml-2">*</span>
-                        <v-text-field v-model="phone" placeholder="Nhập số điện thoại người dùng" style="background-color: white;" density="compact" single-line hide-details
-                            variant="outlined"></v-text-field>
+                        </div>
+                        <div style="display: block; margin-top: 12px;">
+                            <span>Số điện thoại</span><span class="text-blue ml-2">*</span>
+                            <v-text-field class="mt-1" v-model="phone" placeholder="Nhập số điện thoại"
+                                style="background-color: white;" density="compact" single-line hide-details
+                                variant="outlined"></v-text-field>
                             <span style="color:red">{{ phoneError }}</span>
 
-                    </v-col>
-                    <v-col cols="12" style="font-size: 13px;">
-                        <span>Quyền</span><span class="text-blue ml-2">*</span>
-                        <v-radio-group v-model="role" style="font-size: 13px;" class="mt-2" inline single-line hide-details>
-                            <v-radio color="primary"  density="compact" :label="Role.ADMIN" :value="Role.ADMIN"></v-radio>
-                            <v-radio color="primary" density="compact"  :label="Role.USER" :value="Role.USER"></v-radio>
-                        </v-radio-group>
-                        <span style="color:red">{{ roleError }}</span>
-                    </v-col>
-                    <v-col cols="12" style="font-size: 13px;">
-                        <span>Avatar</span><span class="text-blue ml-2">*</span>
-                        <v-text-field v-model="avatar" placeholder="Nhập link ảnh avatar" style="background-color: white;" density="compact"
-                            single-line hide-details variant="outlined"></v-text-field>
+                        </div>
+                        <div style="display: block; margin-top: 12px;">
+                            <span>Quyền</span><span class="text-blue ml-2">*</span>
+                            <v-radio-group style="font-size: 14px;" v-model="role" inline single-line
+                                hide-details>
+                                <v-radio color="primary" density="compact" :label="Role.ADMIN"
+                                    :value="Role.ADMIN"></v-radio>
+                                <v-radio color="primary" density="compact" :label="Role.USER" :value="Role.USER"></v-radio>
+                            </v-radio-group>
+                            <span style="color:red">{{ roleError }}</span>
+                        </div>
+                        <div style="display: block; margin-top: 12px;">
+                            <span>Avatar</span><span class="text-blue ml-2">*</span>
+                            <v-text-field class="mt-1" v-model="avatar" placeholder="Nhập link ảnh avatar"
+                                style="background-color: white;" density="compact" single-line hide-details
+                                variant="outlined"></v-text-field>
                             <span style="color:red">{{ avatarError }}</span>
-                    </v-col>
-                </v-row>
-            </v-container>
-            <v-card-actions class="pr-4">
-                <v-spacer></v-spacer>
-            <v-btn class="text-capitalize" @click="close()" text="Hủy"></v-btn>
-            <v-btn type="submit" color="primary" class="text-capitalize" variant="elevated">{{ idEdit?"Cập":"Thêm" }}<span class="text-lowercase">{{ idEdit?"nhật":"mới" }}</span></v-btn>
-        </v-card-actions>
-    </v-card>
-</v-form>
-</v-dialog>
+                        </div>
+                </v-container>
+                <v-card-actions class="pr-4">
+                    <v-spacer></v-spacer>
+                    <v-btn width="70px" height="32px" style="font-family: Public Sans;font-size: 14px;margin-right: 16px;"  variant="outlined" class="text-capitalize" @click="close()" text="Hủy"></v-btn>
+                    <v-btn width="105px" height="32px" style="font-family: Public Sans;font-size: 14px;" type="submit" color="primary" class="text-capitalize rounded" variant="elevated">{{ idEdit ? "Cập" : "Tạo"
+                    }}<span class="text-lowercase">{{ idEdit ? "nhật" : "mới" }}</span></v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-form>
+    </v-dialog>
 </template>
 
 <script setup>
@@ -76,8 +81,7 @@ let id = props.idEdit
 watch(() => props.idEdit, (newValue, oldValue) => {
     resetForm()
     id = newValue
-    if(props.idEdit!==null)
-    {
+    if (props.idEdit !== null) {
         getUserById(id)
     }
 });
@@ -86,8 +90,7 @@ const getUserById = async (id) => {
         loading.setLoading(true)
         const data = await userServiceApi._getDetail(id);
         loading.setLoading(false)
-        if(data.success)
-        {
+        if (data.success) {
             name.value = data.data.name;
             email.value = data.data.email;
             birthday.value = data.data.birthday;
@@ -95,8 +98,7 @@ const getUserById = async (id) => {
             role.value = data.data.role;
             avatar.value = data.data.avatar;
         }
-        else
-        {
+        else {
             showWarningsNotification(data.message)
         }
     } catch (error) {
@@ -138,7 +140,7 @@ const { value: birthday, errorMessage: birthdayError } = useField(
             /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
             'Ngày sinh không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD.'
         )
-        .test('not-in-future', 'Ngày sinh không được trong tương lai', function(value) {
+        .test('not-in-future', 'Ngày sinh không được trong tương lai', function (value) {
             const birthdayDate = new Date(value);
             const currentDate = new Date();
             return birthdayDate <= currentDate;
@@ -186,34 +188,32 @@ const submit = handleSubmit(async () => {
     formData.append('phone', phone.value);
     formData.append('avatar', avatar.value);
     formData.append('role', role.value);
-    if(id==null)
-    {
+    if (id == null) {
         // alert("Thêm")
-        const data=await userServiceApi.createUser(formData);
-        if(!data.success){
+        const data = await userServiceApi.createUser(formData);
+        if (!data.success) {
             loading.setLoading(false)
             close()
             showWarningsNotification(data.message)
         }
-        else{
+        else {
             loading.setLoading(false)
             close()
             emit('loadData')
             showSuccessNotification("Thêm thành công")
         }
     }
-    else
-    {
+    else {
         // alert("sửa")
-        const data=await userServiceApi.updateUser(id,formData);
+        const data = await userServiceApi.updateUser(id, formData);
         // console.log(data)
-        if(!data.success){
+        if (!data.success) {
             close()
             loading.setLoading(false)
             showWarningsNotification(data.message)
             showWarningsNotification(data.error)
         }
-        else{
+        else {
             loading.setLoading(false)
             close()
             emit('loadData')
@@ -230,3 +230,12 @@ const empty = () => {
     props.idEdit = null
 }
 </script>
+
+
+
+<style scoped>
+*{
+    font-family: Public Sans;
+    font-size: 14px;
+}
+</style>

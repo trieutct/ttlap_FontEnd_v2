@@ -131,7 +131,7 @@ watch(page, (newVal,oldVal) => {
             </thead>
             <tbody>
               <tr v-for="(item, index) in products" :key="index">
-                <td><b>{{ item.name }}</b></td>
+                <td style="width: 250px;height: 58px;"><b><p style="width: 100%;max-height: 58px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;">{{ item.name }}</p></b></td>
                 <td>${{ formatNumberWithCommas(item.price) }}</td>
                 <td>{{ formatNumberWithCommas(item.quantity) }}</td>
                 <td style="width: 250px;height: 58px;" class="v-text-truncate">
@@ -153,7 +153,7 @@ watch(page, (newVal,oldVal) => {
             <v-col cols="8" sm="8" md="8" lg="8">
               <v-row>
                 <span class="mt-5 opacity">Showing</span>
-                <v-col cols="5" sm="4" md="5" lg="2">
+                <v-col style="max-width: 105px" cols="5" sm="4" md="5" lg="2">
                   <v-select v-model="seletedValue" density="compact" :items="['10', '20', '25', '30', '50']"
                     variant="outlined" ></v-select>
                 </v-col>
