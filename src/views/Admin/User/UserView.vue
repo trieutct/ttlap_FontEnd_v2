@@ -90,7 +90,7 @@
 <script setup>
 import {DATE_TIME_FORMAT} from '../../../common/contant/contants'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
-import {checkSearchEnter, formatDateString,formatPhoneNumber, showWarningsNotification} from '../../../common/helper/helpers'
+import {checkSearchUserEnter, formatDateString,formatPhoneNumber, showWarningsNotification} from '../../../common/helper/helpers'
 import { onMounted, ref, watch } from 'vue';
 import DialogViewVue from '@/components/Admin/User/DialogView.vue';
 import {useUser} from '../User/user'
@@ -112,6 +112,7 @@ let page=ref(1)
 const TotalUsers=ref(null)
 onMounted(async () => {
   query.keyword=''
+  query.page=1
   loadData()
 })
 const loadData = async () => {
@@ -134,7 +135,7 @@ const addUser = () => {
 
 const searchEnter=()=>{
   // alert(1)
-  if(!checkSearchEnter(search.value))
+  if(!checkSearchUserEnter(search.value))
   {
     query.keyword = search.value
     query.page = 1

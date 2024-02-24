@@ -20,6 +20,7 @@ import {checkSearchEnter} from '../../../common/helper/helpers'
 const { fetchProducts, products, query, getAll, searchProducts } = useProduct()
 onMounted(async () => {
   query.keyword=''
+  query.page=1
   loadData()
 })
 

@@ -179,7 +179,7 @@ const getProductById = async (id) => {
             quantity.value = data.data.quantity;
         }
         else
-            showWarningsNotification(data.message)
+            showWarningsNotification("lỗi?")
     } catch (error) {
         console.error('Error fetching product detail:', error);
     }

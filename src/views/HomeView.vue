@@ -13,15 +13,17 @@
         variant="outlined"></v-select>
     </v-col>
     <v-col cols="12" sm="6" md="6" lg="6" class="text-right">
-      <v-btn style="background-color: #bbccf6;color:#4d4d50" class="rounded-1 text-capitalize" variant="tonal">
-        Show all
+      <v-btn style="background-color: rgb(212, 227, 255);color:#0f0f13" class="rounded-1 text-capitalize" variant="tonal">
+        <span class="text-capitalize">Show</span>
+        <p class="text-lowercase"> all</p>
       </v-btn>
-      <v-btn style="font-weight: bold;color: #2264D1;" bg-color="white" class="rounded-1 text-capitalize"
-        variant="elevated">
-        Action
+      <v-btn style="font-weight: 400;color: rgb(34, 100, 209);" bg-color="white" class="rounded-1 text-capitalize"
+        variant="elevated" elevation="3">
+        Auction
       </v-btn>
-      <v-btn style="background-color: #bbccf6;color:#4d4d50" class="rounded-1 text-capitalize" variant="tonal">
-        Buy now
+      <v-btn style="background-color:rgb(212, 227, 255);color:#0f0f13" class="rounded-1 text-capitalize" variant="tonal">
+        <span class="text-capitalize">Buy</span>
+        <p class="text-lowercase"> now</p>
       </v-btn>
       <v-btn  style="background-color: #adc4fe" class="ml-5" ariant="tonal">
         <v-icon>mdi mdi-menu</v-icon>
@@ -33,7 +35,7 @@
   </v-row>
   <v-row class="mr-3 ml-3">
     <v-col cols="12">
-      <v-chip variant="text">Related</v-chip>
+      <v-chip variant="text"><span class="mt-2" style="font-weight: 550;">Related</span></v-chip>
       <v-chip class="mr-2 mt-2">
         worldwide shipping
       </v-chip>
@@ -64,7 +66,7 @@
           <v-card-text class="my-card-text" style="font-size: 16px;line-height: 24px; height: 60px;"> {{ item.name }}</v-card-text>
           <v-card-text class="mt-2" style="font-size: 24px;font-weight: 700;padding: auto;height: 36px;">
             ${{ item.price }} 
-            <span v-if="item.sale>0" style="margin-right: -1.5%;font-size: 12px;float: right;min-width: 70px;min-height: 24px;padding: 2px;background-color: #e2f3e8;text-align: center;color: #1cee65;font-weight: 300;">
+            <span v-if="item.sale>0" style="margin-right: -1.3%;font-size: 12px;float: right;min-width: 70px;min-height: 24px;padding: 2px;background-color: #e2f3e8;text-align: center;color: #1cee65;font-weight: 300;">
               {{item.sale}}% OFF
             </span>
           </v-card-text>

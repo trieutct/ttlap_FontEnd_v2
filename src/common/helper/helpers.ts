@@ -193,4 +193,8 @@ export const checkSearchEnter = (str:string) => {
   const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
   return regex.test(str);
 };
+export const checkSearchUserEnter = (str: string) => {
+  const regex = /[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]+/;
+  return regex.test(str);
+};
 
