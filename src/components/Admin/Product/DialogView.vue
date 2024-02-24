@@ -2,51 +2,55 @@
     <v-dialog max-width="500px">
         <v-form @submit.prevent="submit">
             <v-card style="border-radius: 12px !important;">
-                <v-card-title style="font-weight: bold;position:fixed;width: 100%;top: 0;background-color: white;z-index: 100;border-top-left-radius:12px ;border-top-right-radius: 12px;">
-                    <h4 style="font-size: 18px;">{{ idEdit?"Sửa sản phẩm":"Tạo mới sản phẩm" }}</h4>
+                <v-card-title
+                    style="font-weight: bold;position:fixed;width: 100%;top: 0;background-color: white;z-index: 100;border-top-left-radius:12px ;border-top-right-radius: 12px;">
+                    <h4 style="font-size: 18px;">{{ itemEdit ? "Sửa sản phẩm" : "Tạo mới sản phẩm" }}</h4>
                 </v-card-title>
                 <v-container class="mt-10" style="background-color: #F7F8FA">
-                        <div style="display: block; margin-top: 8px;">
-                            <span>Tên sản phẩm </span> <span class="text-blue ml-2">*</span>
-                            <v-text-field class="mt-1" v-model="name" placeholder="Nhập tên sản phẩm" :error-messages="nameError"
-                                style="background-color: white;" density="compact" single-line hide-details
-                                variant="outlined"></v-text-field>
-                            <span style="color:red">{{ nameError }}</span>
-                        </div>
-                        <div style="display: block; margin-top: 12px;">
-                            <span>Giá</span><span class="text-blue ml-2">*</span>
-                            <v-text-field class="mt-1" v-model="price" placeholder="Nhập giá sản phẩm" :error-messages="priceError"
-                                required style="background-color: white;" density="compact" single-line hide-details
-                                variant="outlined"></v-text-field>
-                            <span style="color:red">{{ priceError }}</span>
-                        </div>
-                        <div style="display: block; margin-top: 12px;">
-                            <span>Số lượng</span><span class="text-blue ml-2">*</span>
-                            <v-text-field class="mt-1" v-model="quantity" placeholder="Nhập số lượng sản phẩm"
-                                :error-messages="quantityError" required style="background-color: white;" density="compact"
-                                single-line hide-details variant="outlined"></v-text-field>
-                            <span style="color:red">{{ quantityError }}</span>
-                        </div>
-                        <div style="display: block; margin-top: 12px;">
-                            <span>Mô tả</span><span class="text-blue ml-2">*</span>
-                            <v-textarea class="mt-1" v-model="description" placeholder="Nhập mô tả" :error-messages="descriptionError"
-                                required style="background-color: white;" density="compact" single-line hide-details
-                                variant="outlined"></v-textarea>
-                            <span style="color:red">{{ descriptionError }}</span>
-                        </div>
-                        <div style="display: block; margin-top: 12px;">
-                            <span>Ảnh sản phẩm</span><span class="text-blue ml-2">*</span><br>
-                            <input  @change="handleImageChange" type="file" class="custom-file-input mt-1" />
-                            <!-- <v-text-field placeholder="Nhập link ảnh" style="background-color: white;" density="compact"
+                    <div style="display: block; margin-top: 8px;">
+                        <span>Tên sản phẩm </span> <span class="text-blue ml-2">*</span>
+                        <v-text-field class="mt-1" v-model="name" placeholder="Nhập tên sản phẩm"
+                            :error-messages="nameError" style="background-color: white;" density="compact" single-line
+                            hide-details variant="outlined"></v-text-field>
+                        <span style="color:red">{{ nameError }}</span>
+                    </div>
+                    <div style="display: block; margin-top: 12px;">
+                        <span>Giá</span><span class="text-blue ml-2">*</span>
+                        <v-text-field class="mt-1" v-model="price" placeholder="Nhập giá sản phẩm"
+                            :error-messages="priceError" required style="background-color: white;" density="compact"
+                            single-line hide-details variant="outlined"></v-text-field>
+                        <span style="color:red">{{ priceError }}</span>
+                    </div>
+                    <div style="display: block; margin-top: 12px;">
+                        <span>Số lượng</span><span class="text-blue ml-2">*</span>
+                        <v-text-field class="mt-1" v-model="quantity" placeholder="Nhập số lượng sản phẩm"
+                            :error-messages="quantityError" required style="background-color: white;" density="compact"
+                            single-line hide-details variant="outlined"></v-text-field>
+                        <span style="color:red">{{ quantityError }}</span>
+                    </div>
+                    <div style="display: block; margin-top: 12px;">
+                        <span>Mô tả</span><span class="text-blue ml-2">*</span>
+                        <v-textarea class="mt-1" v-model="description" placeholder="Nhập mô tả"
+                            :error-messages="descriptionError" required style="background-color: white;" density="compact"
+                            single-line hide-details variant="outlined"></v-textarea>
+                        <span style="color:red">{{ descriptionError }}</span>
+                    </div>
+                    <div style="display: block; margin-top: 12px;">
+                        <span>Ảnh sản phẩm</span><span class="text-blue ml-2">*</span><br>
+                        <input @change="handleImageChange" type="file" class="custom-file-input mt-1" />
+                        <!-- <v-text-field placeholder="Nhập link ảnh" style="background-color: white;" density="compact"
                                 single-line hide-details variant="outlined"></v-text-field> -->
-                            <!-- <v-file-input single-line hide-details variant="outlined" label="Chọn ảnh" density="compact" color="white" style="background-color: white;"></v-file-input> -->
-                        </div>
+                        <!-- <v-file-input single-line hide-details variant="outlined" label="Chọn ảnh" density="compact" color="white" style="background-color: white;"></v-file-input> -->
+                    </div>
                 </v-container>
                 <v-card-actions class="pr-4">
                     <v-spacer></v-spacer>
-                    <v-btn width="70px" variant="outlined" height="32px" style="font-family: Public Sans;font-size: 14px;margin-right: 16px;" @click="close()" class="text-capitalize" text="Hủy"></v-btn>
-                    <v-btn width="105px" height="32px" style="font-family: Public Sans;font-size: 14px;" type="submit" color="primary" class="text-capitalize" variant="elevated">{{ idEdit?"Update":"Tạo" }}<span
-                            class="text-lowercase">{{ idEdit?"":"mới" }}</span></v-btn>
+                    <v-btn width="70px" variant="outlined" height="32px"
+                        style="font-family: Public Sans;font-size: 14px;margin-right: 16px;" @click="close()"
+                        class="text-capitalize" text="Hủy"></v-btn>
+                    <v-btn width="105px" height="32px" style="font-family: Public Sans;font-size: 14px;" type="submit"
+                        color="primary" class="text-capitalize" variant="elevated">{{ itemEdit ? "Update" : "Tạo" }}<span
+                            class="text-lowercase">{{ itemEdit ? "" : "mới" }}</span></v-btn>
                 </v-card-actions>
             </v-card>
         </v-form>
@@ -56,7 +60,7 @@
 <script setup>
 import { useForm, useField } from 'vee-validate';
 import * as yup from 'yup';
-import { ref, watch,onUpdated } from 'vue';
+import { ref, watch, onUpdated } from 'vue';
 import { productServiceApi } from '@/service/product.api';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import { useLoadingStore } from '@/store/loading';
@@ -64,19 +68,25 @@ const loading = useLoadingStore()
 
 
 
-const props = defineProps(['idEdit'])
+const props = defineProps(['itemEdit'])
 const emit = defineEmits(['close', 'loadData'])
-let id = props.idEdit
-watch(() => props.idEdit, (newValue, oldValue) => {
+watch(() => props.itemEdit, (newValue, oldValue) => {
     resetForm()
-    if(props.idEdit!==null)
-    {
-        id = newValue
-        getProductById(id)
+    if (props.itemEdit !== null) {
+        getProductById(newValue)
     }
 });
-onUpdated(()=>{
-    resetForm()
+
+const getProductById = (item) => {
+    console.log(item)
+    name.value = item.name;
+    price.value = item.price;
+    description.value = item.description;
+    quantity.value = item.quantity;
+}
+onUpdated(() => {
+    if (props.itemEdit === null)
+        resetForm()
 })
 
 
@@ -100,6 +110,7 @@ const { value: price, errorMessage: priceError } = useField(
         .required('Không được bỏ trống')
         .min(0, 'Giá không được nhỏ hơn 0')
         .typeError('Giá phải là một số')
+        .max(1000000000,'Giá phải nhỏ hơn 1 tỷ')
 );
 
 const { value: quantity, errorMessage: quantityError } = useField(
@@ -110,6 +121,7 @@ const { value: quantity, errorMessage: quantityError } = useField(
         .integer('Số lượng phải là một số nguyên')
         .min(0, 'Số lượng không được nhỏ hơn 0')
         .typeError('Số lượng phải là một số')
+        .max(1000000,'Số lượng phải nhỏ hơn 1 triệu')
 );
 const { value: description, errorMessage: descriptionError } = useField(
     'description',
@@ -122,72 +134,50 @@ const { value: description, errorMessage: descriptionError } = useField(
 
 
 const submit = handleSubmit(async () => {
-    // alert(name.value + "   " + price.value)
-    loading.setLoading(true)
-    const formData = new FormData();
-    formData.append('name', name.value);
-    formData.append('price',parseFloat(price.value));
-    formData.append('quantity', parseInt(quantity.value));
-    formData.append('description', description.value);
-    formData.append('file', imageFile.value);
-    if (id == null) {
-        const data = await productServiceApi.createProduct(formData);
-        // console.log(data)
-        if (!data.success) {
-            close()
-            loading.setLoading(false)
-            showWarningsNotification(data.message)
-            empty()
+    try {
+        loading.setLoading(true)
+        const formData = new FormData();
+        formData.append('name', name.value);
+        formData.append('price', price.value);
+        formData.append('quantity', quantity.value);
+        formData.append('description', description.value);
+        formData.append('file', imageFile.value);
+        if (props.itemEdit == null) {
+            const data = await productServiceApi.createProduct(formData);
+            // console.log(data)
+            if (!data.success) {
+                showWarningsNotification(data.message)
+            }
+            else {
+                close()
+                emit('loadData')
+                showSuccessNotification("Thêm thành công")
+                empty()
+            }
         }
         else {
-            close()
-            emit('loadData')
-            loading.setLoading(false)
-            showSuccessNotification("Thêm thành công")
-            empty()
+            const data = await productServiceApi.updateProduct(props.itemEdit.id, formData);
+            console.log(data)
+            if (!data.success) {
+                showWarningsNotification(data.message)
+            }
+            else {
+                close()
+                emit('loadData')
+                showSuccessNotification("cập nhật thành công")
+                empty()
+            }
         }
-    }
-    else {
-        const data = await productServiceApi.updateProduct(id, formData);
-        console.log(data)
-        if (!data.success) {
-            close()
-            loading.setLoading(false)
-            showWarningsNotification(data.message)
-            empty()
-        }
-        else {
-            close()
-            emit('loadData')
-            loading.setLoading(false)
-            showSuccessNotification("cập nhật thành công")
-            empty()
-        }
+    } catch (error) {
+        showWarningsNotification(error.message)
+    } finally {
+        loading.setLoading(false)
     }
 });
 
-const getProductById = async (id) => {
-    try {
-        loading.setLoading(true)
-        const data = await productServiceApi._getDetail(id);
-        loading.setLoading(false)
-        if(data.success)
-        {
-            name.value = data.data.name;
-            price.value = data.data.price;
-            description.value = data.data.description;
-            quantity.value = data.data.quantity;
-        }
-        else
-            showWarningsNotification("lỗi?")
-    } catch (error) {
-        console.error('Error fetching product detail:', error);
-    }
-}
 const empty = () => {
     imageFile.value = null;
-    id = null;
-    props.idEdit = null
+    props.itemEdit = null
 }
 
 
@@ -221,7 +211,7 @@ const close = () => {
     background-color: #e0e0e0;
 }
 
-*{
+* {
     font-family: Public Sans;
     font-size: 14px;
 }

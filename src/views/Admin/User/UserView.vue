@@ -53,7 +53,7 @@
                 {{ formatPhoneNumber(i.phone) }}
               </td>
               <td class="text-center">
-                <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i @click="updateUserById(i.id)" class="fa-regular fa-pen-to-square mr-4"></i></span>
+                <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i @click="updateUserById(i)" class="fa-regular fa-pen-to-square mr-4"></i></span>
                 <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i @click="{isDialogDelete=true;idDelete=i.id}" class="fa-solid fa-trash"></i></span>
               </td>
             </tr>
@@ -84,7 +84,7 @@
     </v-col>
   </v-row>
   </div>
-  <DialogViewVue v-model="isShowDialog" :idEdit="idEdit" @close="close()" @loadData="loadData()" />
+  <DialogViewVue v-model="isShowDialog" :itemEdit="itemEdit" @close="close()" @loadData="loadData()" />
   <ConfirmVue v-model="isDialogDelete" @close="close()" :idDelete="idDelete" @delete="deleteUserById"/>
 </template>
 <script setup>
@@ -105,7 +105,7 @@ const isDialogDelete=ref(false)
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
 const { fetchUsers, users, query,searchUsers} = useUser()
 const search=ref('')
-let idEdit = ref(null)
+let itemEdit = ref(null)
 let idDelete = ref(null)
 let lengthPage=ref(1)
 let page=ref(1)
@@ -130,7 +130,7 @@ const loadData = async () => {
 }
 const addUser = () => {
   isShowDialog.value = true
-  idEdit = null
+  itemEdit = null
 }
 
 const searchEnter=()=>{
@@ -148,7 +148,7 @@ const searchEnter=()=>{
 }
 const updateUserById = id => {
   isShowDialog.value = true
-  idEdit = id
+  itemEdit = id
 }
 const searchData = async () => {
   const res = await searchUsers()
@@ -199,7 +199,7 @@ watch(page,(newVal)=>{
 
 watch(isShowDialog,(newVal)=>{
   if(newVal==false)
-    idEdit=null
+    itemEdit=null
 })
 </script>
   

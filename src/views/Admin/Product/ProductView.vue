@@ -6,7 +6,7 @@ import ConfirmVue from '@/components/confirm/IndexView.vue'
 const isShowDialog = ref(false);
 const isDialogDelete = ref(false)
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
-let idEdit = ref(null)
+let itemEdit = ref(null)
 let idDelete = ref(null)
 let lengthPage = ref(1)
 let page = ref(1)
@@ -17,7 +17,7 @@ import { useProduct } from '../Product/product'
 import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
 import { productServiceApi } from '@/service/product.api';
 import {checkSearchEnter} from '../../../common/helper/helpers'
-const { fetchProducts, products, query, getAll, searchProducts } = useProduct()
+const { fetchProducts, products, query, searchProducts } = useProduct()
 onMounted(async () => {
   query.keyword=''
   query.page=1
@@ -48,11 +48,11 @@ const searchData = async () => {
 }
 const addProduct = () => {
   isShowDialog.value = true
-  idEdit = null
+  itemEdit = null
 }
-const updateProductById = id => {
+const updateProductById = item => {
   isShowDialog.value = true
-  idEdit = id
+  itemEdit = item
 }
 const deleteProductById = async (id) => {
   const data = await productServiceApi._delete(id)
@@ -114,7 +114,7 @@ watch(page, (newVal,oldVal) => {
 })
 watch(isShowDialog,(newVal)=>{
   if(newVal==false)
-    idEdit=null
+    itemEdit=null
 })
 </script>
 <template>
@@ -173,7 +173,7 @@ watch(isShowDialog,(newVal)=>{
                   <v-row>
                     <v-col cols="9" class="text-center">
                       <span style="cursor: pointer;opacity: 0.6;margin-left: 2%;" density="compact" variant="text"><i
-                      class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item.id)"></i></span>
+                      class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item)"></i></span>
                       <span style="cursor: pointer;opacity: 0.6;margin-right: 2%;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
                     variant="text"><i class="fa-solid fa-trash"></i></span>
                     </v-col>
@@ -208,7 +208,7 @@ watch(isShowDialog,(newVal)=>{
       </v-col>
     </v-row>
   </div>
-  <DialogViewVue v-model="isShowDialog" :idEdit="idEdit" @close="close()" @loadData="loadData()" />
+  <DialogViewVue v-model="isShowDialog" :itemEdit="itemEdit" @close="close()" @loadData="loadData()" />
   <ConfirmVue v-model="isDialogDelete" @close="close()" :idDelete="idDelete" @delete="deleteProductById" />
 </template>
 <style scoped>
