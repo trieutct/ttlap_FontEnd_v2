@@ -146,6 +146,7 @@ const submit = handleSubmit(async () => {
             const data = await productServiceApi.createProduct(formData);
             // console.log(data)
             if (!data.success) {
+                alert("Tạo lỗi")
                 showWarningsNotification(data.message)
             }
             else {

@@ -30,7 +30,7 @@ axiosInstance.interceptors.request.use(async (config: any) => {
     alert("token hết hạn. bắt đầu lấy lại token")
     await throttled();
   }
-  alert("gán header"),
+  // alert("gán header"),
   Object.assign(config,{
     headers: {
       ...localStorageAuthService.getHeader(),

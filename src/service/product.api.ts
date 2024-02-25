@@ -11,7 +11,6 @@ class ProductApiService extends ApiService {
     return await this.client.post(`${this.baseUrl}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
-        'Authorization': 'Bearer '+localStorageAuthService.getAccessToken()
       },
     });
   }
@@ -19,12 +18,7 @@ class ProductApiService extends ApiService {
     id: string,
     formData: FormData
   ): Promise<IBodyResponse<any>> {
-    return await this.client.put(`${this.baseUrl}/${id}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        'Authorization': 'Bearer '+localStorageAuthService.getAccessToken()
-      },
-    });
+    return await this.client.put(`${this.baseUrl}/${id}`, formData);
   }
 }
 export const productServiceApi = new ProductApiService(

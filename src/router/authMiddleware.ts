@@ -22,6 +22,7 @@ export default async (
   if(to.name === PageName.LOGIN_PAGE)
   {
     localStorageAuthService.removeAll()
+    return next()
   }
   if(IS_PUBLIC)
   {

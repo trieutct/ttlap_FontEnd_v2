@@ -10,18 +10,10 @@ class UserApiService extends ApiService {
   //   return this.client.get(`${this.baseUrl}`);
   // }
   async createUser(formData: FormData): Promise<IBodyResponse<any>> {
-    return await this.client.post(`${this.baseUrl}`, formData, {
-      headers: {
-        'Authorization': 'Bearer '+localStorageAuthService.getAccessToken()
-      },
-    });
+    return await this.client.post(`${this.baseUrl}`, formData);
   }
   async updateUser(id:string,formData: FormData): Promise<IBodyResponse<any>> {
-    return await this.client.put(`${this.baseUrl}/${id}`, formData, {
-      headers: {
-        'Authorization': 'Bearer '+localStorageAuthService.getAccessToken()
-      },
-    });
+    return await this.client.put(`${this.baseUrl}/${id}`, formData);
   }
 }
 
