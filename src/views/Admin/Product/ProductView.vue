@@ -170,13 +170,11 @@ watch(isShowDialog,(newVal)=>{
                   <v-img style="border-radius: 2px;" width="36" height="36" :src="item.imageUrl"></v-img>
                 </td>
                 <td class="text-center">
-                  <v-row>
-                    <v-col cols="9" class="text-center">
+                  <v-row class="ml-5">
                       <span style="cursor: pointer;opacity: 0.6;margin-left: 2%;" density="compact" variant="text"><i
                       class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item)"></i></span>
                       <span style="cursor: pointer;opacity: 0.6;margin-right: 2%;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
                     variant="text"><i class="fa-solid fa-trash"></i></span>
-                    </v-col>
                   </v-row>
                 </td>
               </tr>

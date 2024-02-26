@@ -36,8 +36,9 @@
                         <span style="color:red">{{ descriptionError }}</span>
                     </div>
                     <div style="display: block; margin-top: 12px;">
-                        <span>Ảnh sản phẩm</span><span class="text-blue ml-2">*</span><br>
+                        <span>Ảnh sản phẩm</span><span v-show="!itemEdit" class="text-blue ml-2">*</span><br>
                         <input @change="handleImageChange" type="file" class="custom-file-input mt-1" />
+                        <span style="color:red">{{ errorFile }}</span>
                         <!-- <v-text-field placeholder="Nhập link ảnh" style="background-color: white;" density="compact"
                                 single-line hide-details variant="outlined"></v-text-field> -->
                         <!-- <v-file-input single-line hide-details variant="outlined" label="Chọn ảnh" density="compact" color="white" style="background-color: white;"></v-file-input> -->
@@ -65,7 +66,7 @@ import { productServiceApi } from '@/service/product.api';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import { useLoadingStore } from '@/store/loading';
 const loading = useLoadingStore()
-
+const errorFile=ref(null)
 
 
 const props = defineProps(['itemEdit'])
@@ -73,20 +74,42 @@ const emit = defineEmits(['close', 'loadData'])
 watch(() => props.itemEdit, (newValue, oldValue) => {
     resetForm()
     if (props.itemEdit !== null) {
-        getProductById(newValue)
+        // alert(newValue.id)
+        getProductById(newValue.id)
     }
 });
-
-const getProductById = (item) => {
-    console.log(item)
-    name.value = item.name;
-    price.value = item.price;
-    description.value = item.description;
-    quantity.value = item.quantity;
+const getProductById = async (id) => {
+    try {
+        loading.setLoading(true)
+        const data = await productServiceApi._getDetail(id);
+        if (data.success) {
+            name.value = data.data.name;
+            price.value = data.data.price;
+            description.value = data.data.description;
+            quantity.value = data.data.quantity;
+        }
+        else {
+            showWarningsNotification(data.message)
+        }
+    } catch (error) {
+        console.error('Error fetching product detail:', error);
+    }finally{
+        loading.setLoading(false)
+    }
 }
+// const getProductById = (item) => {
+//     console.log(item)
+//     name.value = item.name;
+//     price.value = item.price;
+//     description.value = item.description;
+//     quantity.value = item.quantity;
+// }
 onUpdated(() => {
     if (props.itemEdit === null)
+    {
         resetForm()
+        errorFile.value=null
+    }
 })
 
 
@@ -134,17 +157,28 @@ const { value: description, errorMessage: descriptionError } = useField(
 
 
 const submit = handleSubmit(async () => {
+
+
+    
     try {
+        // alert( typeof parseInt(price.value))
         loading.setLoading(true)
         const formData = new FormData();
         formData.append('name', name.value);
-        formData.append('price', price.value);
-        formData.append('quantity', quantity.value);
+        formData.append('price',parseInt(price.value));
+        formData.append('quantity',parseInt(quantity.value));
         formData.append('description', description.value);
         formData.append('file', imageFile.value);
+
+        
         if (props.itemEdit == null) {
+            if(imageFile.value==null)
+            {
+                errorFile.value="Vui lòng chọn ảnh"
+                return
+            }
             const data = await productServiceApi.createProduct(formData);
-            // console.log(data)
+            console.log(data)
             if (!data.success) {
                 alert("Tạo lỗi")
                 showWarningsNotification(data.message)

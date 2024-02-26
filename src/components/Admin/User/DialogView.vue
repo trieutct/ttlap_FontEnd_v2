@@ -80,7 +80,7 @@ const emit = defineEmits(['close', 'loadData'])
 watch(() => props.itemEdit, (newValue, oldValue) => {
     resetForm()
     if (props.itemEdit !== null) {
-        getUserById(newValue)
+        getUserById(newValue.id)
     }
 });
 
@@ -88,14 +88,35 @@ onUpdated(() => {
     if (props.itemEdit === null)
         resetForm()
 })
-const getUserById = (item) => {
-    name.value = item.name;
-    email.value = item.email;
-    birthday.value = item.birthday;
-    phone.value = item.phone;
-    role.value = item.role;
-    avatar.value = item.avatar;
+const getUserById = async (id) => {
+    try {
+        loading.setLoading(true)
+        const data = await userServiceApi._getDetail(id);
+        if (data.success) {
+            name.value = data.data.name;
+            email.value = data.data.email;
+            birthday.value = data.data.birthday;
+            phone.value = data.data.phone;
+            role.value = data.data.role;
+            avatar.value = data.data.avatar;
+        }
+        else {
+            showWarningsNotification(data.message)
+        }
+    } catch (error) {
+        console.error('Error fetching product detail:', error);
+    }finally{
+        loading.setLoading(false)
+    }
 }
+// const getUserById = (item) => {
+//     name.value = item.name;
+//     email.value = item.email;
+//     birthday.value = item.birthday;
+//     phone.value = item.phone;
+//     role.value = item.role;
+//     avatar.value = item.avatar;
+// }
 
 
 

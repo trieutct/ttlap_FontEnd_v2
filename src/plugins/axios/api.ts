@@ -49,11 +49,7 @@ export class ApiService {
     }
 
     _getDetail<R>(id: number | string): Promise<R> {
-        return this.client.get<R, R>(this.detailUrl + '/' + id,{
-            headers: {
-                'Authorization': 'Bearer '+localStorageAuthService.getAccessToken()
-              }
-        });
+        return this.client.get<R, R>(this.detailUrl + '/' + id);
     }
 
     _create<P, R>(params: P): Promise<R> {

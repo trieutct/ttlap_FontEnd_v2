@@ -53,8 +53,10 @@
                 {{ formatPhoneNumber(i.phone) }}
               </td>
               <td class="text-center">
-                <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i @click="updateUserById(i)" class="fa-regular fa-pen-to-square mr-4"></i></span>
-                <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i @click="{isDialogDelete=true;idDelete=i.id}" class="fa-solid fa-trash"></i></span>
+                <v-row class="ml-5">
+                    <span @click="updateUserById(i)"  style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4"></i></span>
+                    <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i  class="fa-solid fa-trash"></i></span>
+                </v-row>
               </td>
             </tr>
             <tr></tr>
