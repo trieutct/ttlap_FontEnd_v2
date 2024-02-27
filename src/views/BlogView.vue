@@ -106,4 +106,25 @@ h2{
     font-size: 16px;
     line-height: 21px;
 }
+@media (max-width: 600px) {
+    .container{
+        flex-direction: column;
+        align-content: center;
+    }
+    .container >div{
+        width: 70%;
+    }
+    .container >div:last-child(){
+        margin-bottom: 20px;
+    }
+}
+@media ((max-width: 800px)and (min-width: 601px)) {
+    .container{
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    .container >div{
+        width: 40%;
+    }
+}
 </style>
