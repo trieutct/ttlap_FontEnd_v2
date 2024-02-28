@@ -48,9 +48,9 @@
                 <v-card-actions class="pr-4">
                     <v-spacer></v-spacer>
                     <v-btn width="70px" variant="outlined" height="32px"
-                        style="font-family: Public Sans;font-size: 14px;margin-right: 16px;" @click="close()"
+                        style="font-size: 14px;margin-right: 16px;" @click="close()"
                         class="text-capitalize" text="Hủy"></v-btn>
-                    <v-btn width="105px" height="32px" style="font-family: Public Sans;font-size: 14px;" type="submit"
+                    <v-btn width="105px" height="32px" style="font-size: 14px;" type="submit"
                         color="primary" class="text-capitalize" variant="elevated">{{ itemEdit ? "Update" : "Tạo" }}<span
                             class="text-lowercase">{{ itemEdit ? "" : "mới" }}</span></v-btn>
                 </v-card-actions>
@@ -251,8 +251,8 @@ const close = () => {
     background-color: #e0e0e0;
 }
 
-* {
-    font-family: Public Sans;
+body{
+    font-family: 'Public Sans', sans-serif;
     font-size: 14px;
 }
 </style>

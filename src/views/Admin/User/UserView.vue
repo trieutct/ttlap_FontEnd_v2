@@ -39,12 +39,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="i in users" :key="i" style="height: 58px;">
+            <tr v-if="users.length>0" v-for="i in users" :key="i" style="height: 58px;">
               <td>
                 <v-img style="border-radius: 2px;"  width="36" height="36"
                   :src="i.avatar"></v-img>
               </td>
-              <td><b>{{ i.name }}</b></td>
+              <td style="color: #23272E;font-weight: 600;">{{ i.name }}</td>
               <td>{{ i.email }}</td>
               <td class="v-text-truncate">
                 {{ formatDateString(i.birthday,YYYY_MM_DD_DASH) }}
@@ -59,10 +59,13 @@
                 </v-row>
               </td>
             </tr>
+            <tr v-else>
+                <td colspan="6"><p class="text-center text-red">Không có dữ liệu</p></td>
+            </tr>
             <tr></tr>
           </tbody>
         </v-table>
-        <v-row class="ma-2">
+        <v-row v-show="users.length>0" class="ma-2">
           <v-col cols="8" sm="8" md="8" lg="8">
             <v-row>
               <p class="mt-5 opacity">Showing</p>
@@ -206,6 +209,17 @@ watch(isShowDialog,(newVal)=>{
 </script>
   
 <style scoped>
+body{
+  font-family: 'Public Sans', sans-serif;
+}
+th{
+  font-weight: 500;
+  color: #8B909A;
+  font-size: 13px;
+}
+td{
+  font-size: 15px;
+}
 .text-truncate {
   overflow: hidden;
   white-space: nowrap;

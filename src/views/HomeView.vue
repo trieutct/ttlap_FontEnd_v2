@@ -63,8 +63,8 @@
           <v-img class="mx-auto mt-2" width="220px" height="224px"
             src="https://tse3.mm.bing.net/th?id=OIP.MtW1b6JMytoc3I3atOcGVgHaHV&pid=Api&P=0&h=220"
             alt="Product Image"></v-img>
-          <v-card-text class="my-card-text" style="max-width: 227px;font-size: 16px;line-height: 24px; height: 90px;font-family: Inter;color: #19191D;">{{ item.name }}</v-card-text>
-          <v-card-text class="mt-2 mx-auto" style="font-family: Inter;color:#000000;max-width: 250px;font-size: 24px;font-weight: 700;padding: auto;height: 36px;">
+          <v-card-text class="my-card-text" style="max-width: 227px;font-size: 16px;line-height: 24px; height: 90px;font-family: 'Inter', sans-serif;color: #19191D;">{{ item.name }}</v-card-text>
+          <v-card-text class="mt-2 mx-auto" style="font-family: 'Inter', sans-serif;color:#000000;max-width: 250px;font-size: 24px;font-weight: 700;padding: auto;height: 36px;">
             {{ item.price }}
             <span v-if="item.sale>0" style="border-radius: 4px;margin-right: 0.7%;font-size: 12px;float: right;min-width: 70px;min-height: 24px;padding: 2px;background-color: #ECF7ED;text-align: center;color: #37833B;font-weight: 300;font-family: Roboto;">
               {{item.sale}}% OFF
@@ -73,7 +73,7 @@
               Cool deal!
             </span>
           </v-card-text>
-          <p class="ml-4" style="margin-top: 8px;;height: 41px;font-size: 14px;font-family: Inter;color: #787885;">{{ item.description }}</p>
+          <p class="ml-4" style="margin-top: 8px;;height: 41px;font-size: 14px;font-family: 'Inter', sans-serif;color: #787885;">{{ item.description }}</p>
           <v-row style="margin-top: 5px;margin-left: -6px;">
             <v-col class="ml-3 mt-1" cols="5" style="display: flex;">
               <v-icon color="yellow" size="x-small">mdi mdi-star</v-icon>
@@ -85,7 +85,7 @@
               <span style="font-size: 12px;">4.05</span>
             </v-col>
             <v-col class="text-right" cols="6">
-              <v-btn class="text-capitalize" style="margin-right: 6px;font-family: Inter;font-size: 14px;" color="primary" size="small" prepend-icon="mdi-heart-outline"
+              <v-btn class="text-capitalize" style="margin-right: 6px;font-family: 'Inter', sans-serif;font-size: 14px;" color="primary" size="small" prepend-icon="mdi-heart-outline"
                 variant="outlined">
                 Watch
               </v-btn>
@@ -101,7 +101,7 @@
         style="min-height: 156px; background-color: #EDEDF0;">
         <img width="80" height="80" :src="footer1">
         <v-card-title class="text-center" style="font-family: Quicksand;font-weight: 700;font-size: 20px;">Clear & Usable user flows</v-card-title>
-        <v-card-subtitle class="text-center" style="font-family: Inter;font-size: 14px;">Let’s boost your marketplace</v-card-subtitle>
+        <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Let’s boost your marketplace</v-card-subtitle>
       </v-card>
     </v-col>
     <v-col cols="12" sm="12" md="12" lg="4">
@@ -109,7 +109,7 @@
         style="min-height: 156px; background-color: #EDEDF0;">
         <img width="80" height="80" :src="footer2">
         <v-card-title class="text-center" style="font-family: Quicksand;font-weight: 700;font-size: 20px;">Fine & Styled components</v-card-title>
-        <v-card-subtitle class="text-center" style="font-family: Inter;font-size: 14px;">Speed up with Setproduct templates</v-card-subtitle>
+        <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Speed up with Setproduct templates</v-card-subtitle>
       </v-card>
     </v-col>
     <v-col cols="12" sm="12" md="12" lg="4">
@@ -117,7 +117,7 @@
         style="min-height: 156px; background-color: #EDEDF0;">
         <img width="80" height="80" :src="footer3">
         <v-card-title class="text-center" style="font-family: Quicksand;font-weight: 700;font-size: 20px;">Customizable & Reusable</v-card-title>
-        <v-card-subtitle class="text-center" style="font-family: Inter;font-size: 14px;">Take our UX patterns and rebuild</v-card-subtitle>
+        <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Take our UX patterns and rebuild</v-card-subtitle>
       </v-card>
     </v-col>
   </v-row>

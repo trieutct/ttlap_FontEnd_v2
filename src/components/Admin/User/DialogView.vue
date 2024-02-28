@@ -52,9 +52,9 @@
                 </v-container>
                 <v-card-actions class="pr-4">
                     <v-spacer></v-spacer>
-                    <v-btn width="70px" height="32px" style="font-family: Public Sans;font-size: 14px;margin-right: 16px;"
+                    <v-btn width="70px" height="32px" style="font-size: 14px;margin-right: 16px;"
                         variant="outlined" class="text-capitalize" @click="close()" text="Hủy"></v-btn>
-                    <v-btn width="105px" height="32px" style="font-family: Public Sans;font-size: 14px;" type="submit"
+                    <v-btn width="105px" height="32px" style="font-size: 14px;" type="submit"
                         color="primary" class="text-capitalize rounded" variant="elevated">{{ props.itemEdit ? "Cập" : "Tạo"
                         }}<span class="text-lowercase">{{ props.itemEdit ? "nhật" : "mới" }}</span></v-btn>
                 </v-card-actions>
@@ -246,8 +246,8 @@ const empty = () => {
 
 
 <style scoped>
-* {
-    font-family: Public Sans;
-    font-size: 14px;
+body{
+  font-family: 'Public Sans', sans-serif;
+  font-size: 14px;
 }
 </style>

@@ -159,7 +159,7 @@ watch(isShowDialog,(newVal)=>{
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in products" :key="index">
+              <tr v-if="products.length>0" v-for="(item, index) in products" :key="index">
                 <td style="width: 250px;height: 58px;"><b><p style="width: 100%;max-height: 58px;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;">{{ item.name }}</p></b></td>
                 <td>${{ formatNumberWithCommas(item.price) }}</td>
                 <td>{{ formatNumberWithCommas(item.quantity) }}</td>
@@ -178,10 +178,13 @@ watch(isShowDialog,(newVal)=>{
                   </v-row>
                 </td>
               </tr>
+              <tr v-else>
+                <td colspan="6"><p class="text-center text-red">Không có dữ liệu</p></td>
+              </tr>
               <tr></tr>
             </tbody>
           </v-table>
-          <v-row class="ma-2 ">
+          <v-row v-show="products.length>0" class="ma-2 ">
             <v-col cols="8" sm="8" md="8" lg="8">
               <v-row>
                 <span class="mt-5 opacity">Showing</span>
@@ -193,10 +196,10 @@ watch(isShowDialog,(newVal)=>{
               </v-row>
             </v-col>
             <v-col  cols="4" sm="4" md="4" lg="4">
-              <p class="text-center page-table1" style="font-size: 15px;display: none">
-                <span @click="page=page-1" :class="{ 'text-grey-lighten-2': page === 1, 'text-black': page !== 1 }"><i class="fa-solid fa-angle-left" style="cursor: pointer;"></i></span>
+              <p  class="text-center page-table1" style="font-size: 15px;display: none;margin-top: 5px;">
+                <span style="margin-bottom: 2px" @click="page=page-1" :class="{ 'text-grey-lighten-2': page === 1, 'text-black': page !== 1 }"><i class="fa-solid fa-angle-left" style="cursor: pointer;"></i></span>
                 <span style="background-color: rgb(109, 148, 227);color: blue;opacity: 0.6;;border-radius: 2px;padding: 5px;" class="ml-2 mr-2">{{ page }}</span>
-                <span @click="page=page+1" :class="{ 'text-grey-lighten-2': page === lengthPage, 'text-black': page !== lengthPage }"><i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i></span>
+                <span style="margin-bottom: 2px" @click="page=page+1" :class="{ 'text-grey-lighten-2': page === lengthPage, 'text-black': page !== lengthPage }"><i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i></span>
               </p>
                 <v-pagination class="page-table2 mt-1" v-model="page" active-color="#0F60FF" variant="text" density="compact"
                 :length="lengthPage"></v-pagination>
@@ -210,6 +213,17 @@ watch(isShowDialog,(newVal)=>{
   <ConfirmVue v-model="isDialogDelete" @close="close()" :idDelete="idDelete" @delete="deleteProductById" />
 </template>
 <style scoped>
+body{
+  font-family: 'Public Sans', sans-serif;
+}
+th{
+  font-weight: 500;
+  color: #8B909A;
+  font-size: 13px;
+}
+td{
+  font-size: 15px;
+}
 .text-truncate {
   overflow: hidden;
   white-space: nowrap;
@@ -234,7 +248,9 @@ watch(isShowDialog,(newVal)=>{
     font-size: 12px;
   }
   .page-table1{
-    display: inline !important;
+    display: flex !important;
+    align-items: flex-end;
+    justify-content: center;
   }
   .page-table2{
     display: none !important;
