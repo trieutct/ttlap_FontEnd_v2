@@ -55,7 +55,7 @@
               <td class="text-center">
                 <v-row class="ml-5">
                     <span @click="updateUserById(i)"  style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4"></i></span>
-                    <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i  class="fa-solid fa-trash"></i></span>
+                    <span @click="{idDelete=i.id;isDialogDelete=true}" style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i  class="fa-solid fa-trash"></i></span>
                 </v-row>
               </td>
             </tr>
@@ -109,6 +109,8 @@ const isShowDialog = ref(false);
 const isDialogDelete=ref(false)
 const seletedValue = ref(DEFAULT_LIMIT_FOR_PAGINATION)
 const { fetchUsers, users, query,searchUsers} = useUser()
+import { useLoadingStore } from "@/store/loading";
+const loading=useLoadingStore()
 const search=ref('')
 let itemEdit = ref(null)
 let idDelete = ref(null)
@@ -168,6 +170,7 @@ const searchData = async () => {
 }
 
 const deleteUserById = async (id) => {
+  loading.setLoading(true)
   const data = await userServiceApi._delete(id)
   if (data.success) {
     loadData()

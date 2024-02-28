@@ -18,6 +18,8 @@ import { DEFAULT_LIMIT_FOR_PAGINATION } from '@/common/contant/contants';
 import { productServiceApi } from '@/service/product.api';
 import {checkSearchEnter} from '../../../common/helper/helpers'
 const { fetchProducts, products, query, searchProducts } = useProduct()
+import { useLoadingStore } from "@/store/loading";
+const loading=useLoadingStore()
 onMounted(async () => {
   query.keyword=''
   query.page=1
@@ -55,6 +57,7 @@ const updateProductById = item => {
   itemEdit = item
 }
 const deleteProductById = async (id) => {
+  loading.setLoading(true)
   const data = await productServiceApi._delete(id)
   // console.log(data)
   if (data.success) {
@@ -171,14 +174,15 @@ watch(isShowDialog,(newVal)=>{
                 </td>
                 <td class="text-center">
                   <v-row>
-                      <v-col cols="2"></v-col>
-                      <v-col cols="8">
-                        <span class="mt-2" style="cursor: pointer;opacity: 0.6;" density="compact" variant="text"><i
+                    <v-col lg="4"></v-col>
+                        <v-col lg="8" sm="12">
+                          <v-row>
+                            <span style="cursor: pointer;opacity: 0.6;" density="compact" variant="text"><i
                       class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item)"></i></span>
-                      <span class="mt-2" style="cursor: pointer;opacity: 0.6;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
+                      <span style="cursor: pointer;opacity: 0.6;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
                     variant="text"><i class="fa-solid fa-trash"></i></span>
-                      </v-col>
-                      <v-col cols="2"></v-col>
+                          </v-row>
+                        </v-col>
                   </v-row>
                 </td>
               </tr>
