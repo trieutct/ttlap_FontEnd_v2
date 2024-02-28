@@ -20,10 +20,11 @@
                             :error-messages="priceError" required style="background-color: white;" density="compact"
                             single-line hide-details variant="outlined"></v-text-field>
                         <span style="color:red">{{ priceError }}</span>
+                        <span style="color:red">{{ errorPrice2 }}</span>
                     </div>
                     <div style="display: block; margin-top: 12px;">
                         <span>Số lượng</span><span class="text-blue ml-2">*</span>
-                        <v-text-field class="mt-1" v-model="quantity" placeholder="Nhập số lượng sản phẩm"
+                        <v-text-field class="mt-1" type="number" v-model="quantity" placeholder="Nhập số lượng sản phẩm"
                             :error-messages="quantityError" required style="background-color: white;" density="compact"
                             single-line hide-details variant="outlined"></v-text-field>
                         <span style="color:red">{{ quantityError }}</span>
@@ -67,6 +68,7 @@ import { showSuccessNotification, showWarningsNotification } from '@/common/help
 import { useLoadingStore } from '@/store/loading';
 const loading = useLoadingStore()
 const errorFile=ref(null)
+const errorPrice2=ref(null)
 
 
 const props = defineProps(['itemEdit'])
@@ -157,9 +159,12 @@ const { value: description, errorMessage: descriptionError } = useField(
 
 
 const submit = handleSubmit(async () => {
-
-
-    
+    const containsWhiteSpace = /\s/.test(price.value);
+    if (containsWhiteSpace)
+    {
+        errorPrice2.value="Giá không đc nhập khoảng trắng"
+        return
+    }
     try {
         // alert( typeof parseInt(price.value))
         loading.setLoading(true)

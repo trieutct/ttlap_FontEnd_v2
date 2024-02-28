@@ -54,7 +54,7 @@
               </td>
               <td class="text-center">
                 <v-row class="ml-5">
-                    <span @click="updateUserById(i)"  style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4"></i></span>
+                    <span @click="updateUserById(i)"  style="cursor: pointer;opacity: 0.7;margin-left: 10%;" density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4"></i></span>
                     <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i  class="fa-solid fa-trash"></i></span>
                 </v-row>
               </td>

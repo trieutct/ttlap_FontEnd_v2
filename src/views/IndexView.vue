@@ -24,7 +24,11 @@
             </v-list>
         </v-navigation-drawer>
         <v-app-bar class="px-4 v-app-bar" color="rgb(247, 247, 247)" :elevation="0" rounded="0">
-                <h3 style="margin-left: 0.2%;font-size: 24px;" class="reposive"><i @click="this.drawer = !this.drawer; this.rail = true" class="fa-solid icon-menu fa-bars mr-4" style="cursor: pointer;display: none;"></i>{{ title }}</h3>
+                <h3 style="margin-left: 0.2%;font-size: 24px;" class="reposive">
+                    <!-- <i @click="this.drawer = !this.drawer; this.rail = true" class="fa-solid icon-menu fa-bars mr-4" style="cursor: pointer;display: none;"></i> -->
+                    <v-icon size="20" @click="this.drawer = !this.drawer; this.rail = true" class="icon-menu" style="cursor: pointer;display: none;">mdi mdi-menu</v-icon>
+                    {{ title }}
+                </h3>
                 <v-spacer></v-spacer>
                 <v-btn>
                     <v-badge content="5" color="red">
@@ -86,10 +90,13 @@ export default {
 .font-weight-bold {
   font-weight: bold;
 }
-@media (max-width: 500px) {
+@media (max-width: 700px) {
     .reposive {
         color: black;
         font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .navigation_drawer {
@@ -102,6 +109,7 @@ export default {
 
     .icon-menu {
         display: inline !important;
+        margin-right: 10px;
     }
 }
 *{

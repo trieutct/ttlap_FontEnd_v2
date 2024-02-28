@@ -4,36 +4,36 @@
         <div class="container">
             <div>
                 <img :src="icon1" alt="">
-                <p>4pt grid system</p>
-                <p>Base on 4pt gird system. Our UI KIT help you crate perfect white space</p>
+                <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">4pt grid system</p>
+                <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">Base on 4pt gird system. Our UI KIT help you crate perfect white space</p>
             </div>
             <div>
                 <img :src="icon2" alt="">
-                <p>Color style</p>
-                <p>All color in OpenArt are styled. You can change all
+                <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">Color style</p>
+                <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">All color in OpenArt are styled. You can change all
 design color with one click</p>
             </div>
             <div>
                 <img :src="icon3" alt="">
-                <p>Free font</p>
-                <p>OpenArt use Epilogue font family</p>
-                <p>Available with open licence in gooogle font</p>
+                <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">Free font</p>
+                <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">OpenArt use Epilogue font family</p>
+                <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">Available with open licence in gooogle font</p>
             </div>
             <div>
                 <img :src="icon4" alt="">
-                <p>Darkmode avaiable</p>
-                <p>Our UI Kit support darkmode</p>
-                <p>Chage your design to dark mode with one click</p>
+                <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">Darkmode avaiable</p>
+                <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">Our UI Kit support darkmode</p>
+                <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">Chage your design to dark mode with one click</p>
             </div>
             <div>
                 <img :src="icon5" alt="">
-                <p>Easy to customize</p>
-                <p>Create any design with OpenArt UI kits </p>
+                <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">Easy to customize</p>
+                <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">Create any design with OpenArt UI kits </p>
             </div>
             <div>
                 <img :src="icon6" alt="">
-                <p>Variant components</p>
-                <p>All component art variant, easy to design, 
+                <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">Variant components</p>
+                <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;"> All component art variant, easy to design, 
 easy to control</p>
             </div>
         </div>
@@ -71,7 +71,9 @@ h2{
     margin-top: 60px;
     font-size: 40px;
     font-weight: 700;
+    color: #000000;
     text-align: center;
+    font-family: Epilogue;
 }
 .container >div{
     width: 30%;
@@ -79,7 +81,7 @@ h2{
     height: auto;
     margin: 10px;
     color: black;
-    border-radius: 5px;
+    border-radius: 16px;
     padding: 20px;
 }
 .container{
