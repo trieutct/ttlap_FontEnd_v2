@@ -170,11 +170,15 @@ watch(isShowDialog,(newVal)=>{
                   <v-img style="border-radius: 2px;" width="36" height="36" :src="item.imageUrl"></v-img>
                 </td>
                 <td class="text-center">
-                  <v-row class="ml-5">
-                      <span style="cursor: pointer;opacity: 0.6;margin-left: 12%;" density="compact" variant="text"><i
+                  <v-row>
+                      <v-col cols="2"></v-col>
+                      <v-col cols="8">
+                        <span class="mt-2" style="cursor: pointer;opacity: 0.6;" density="compact" variant="text"><i
                       class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item)"></i></span>
-                      <span style="cursor: pointer;opacity: 0.6;margin-right: 2%;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
+                      <span class="mt-2" style="cursor: pointer;opacity: 0.6;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
                     variant="text"><i class="fa-solid fa-trash"></i></span>
+                      </v-col>
+                      <v-col cols="2"></v-col>
                   </v-row>
                 </td>
               </tr>
@@ -217,12 +221,17 @@ body{
   font-family: 'Public Sans', sans-serif;
 }
 th{
+  font-family: 'Public Sans', sans-serif;
   font-weight: 500;
   color: #8B909A;
   font-size: 13px;
 }
 td{
+  font-family: 'Public Sans', sans-serif;
   font-size: 15px;
+}
+p{
+  font-family: 'Public Sans', sans-serif;
 }
 .text-truncate {
   overflow: hidden;

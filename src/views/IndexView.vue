@@ -94,7 +94,7 @@ export default {
 @media (max-width: 700px) {
     .reposive {
         color: #000000;
-        font-size: 12px;
+        font-size: 20px !important;
         display: flex;
         align-items: center;
         justify-content: center;

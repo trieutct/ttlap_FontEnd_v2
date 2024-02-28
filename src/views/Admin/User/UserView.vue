@@ -54,7 +54,7 @@
               </td>
               <td class="text-center">
                 <v-row class="ml-5">
-                    <span @click="updateUserById(i)"  style="cursor: pointer;opacity: 0.7;margin-left: 10%;" density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4"></i></span>
+                    <span @click="updateUserById(i)"  style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i class="fa-regular fa-pen-to-square mr-4"></i></span>
                     <span style="cursor: pointer;opacity: 0.7;" density="compact" variant="text"><i  class="fa-solid fa-trash"></i></span>
                 </v-row>
               </td>
@@ -76,10 +76,10 @@
             </v-row>
           </v-col>
           <v-col cols="4" sm="4" md="4" lg="4">
-            <p class="text-center page-table1" style="font-size: 15px;display: none">
-                <span @click="page=page-1" :class="{ 'text-grey-lighten-2': page === 1, 'text-black': page !== 1 }"><i class="fa-solid fa-angle-left" style="cursor: pointer;"></i></span>
+            <p class="text-center page-table1" style="font-size: 15px;display: none;margin-top: 5px;">
+                <span style="margin-bottom: 2px" @click="page=page-1" :class="{ 'text-grey-lighten-2': page === 1, 'text-black': page !== 1 }"><i class="fa-solid fa-angle-left" style="cursor: pointer;"></i></span>
                 <span style="background-color: rgb(109, 148, 227);color: blue;opacity: 0.6;;border-radius: 2px;padding: 5px;" class="ml-2 mr-2">{{ page }}</span>
-                <span @click="page=page+1" :class="{ 'text-grey-lighten-2': page === lengthPage, 'text-black': page !== lengthPage }"><i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i></span>
+                <span style="margin-bottom: 2px" @click="page=page+1" :class="{ 'text-grey-lighten-2': page === lengthPage, 'text-black': page !== lengthPage }"><i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i></span>
               </p>
               <v-pagination class="page-table2" v-model="page" active-color="#0F60FF" variant="text" density="compact"
                 :length="lengthPage"></v-pagination>
@@ -213,11 +213,13 @@ body{
   font-family: 'Public Sans', sans-serif;
 }
 th{
+  font-family: 'Public Sans', sans-serif;
   font-weight: 500;
   color: #8B909A;
   font-size: 13px;
 }
 td{
+  font-family: 'Public Sans', sans-serif;
   font-size: 15px;
 }
 .text-truncate {
@@ -253,7 +255,9 @@ td{
     font-size: 12px;
   }
   .page-table1{
-    display: inline !important;
+    display: flex !important;
+    align-items: flex-end;
+    justify-content: center;
   }
   .page-table2{
     display: none !important;
