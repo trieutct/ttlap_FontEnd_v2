@@ -19,39 +19,49 @@
             <v-list density="compact" nav>
                 <v-list-item v-show="this.rail == false" class="text-uppercase text-item"
                     style="color: #8B909A;font-size: 11px;">Quản lý sản phẩm</v-list-item>
-                <v-list-item style="color: #8B909A;font-size: 15px;" :class="{ 'font-weight-bold': title === 'Danh sách sản phẩm' }" @click="setTilteStore('Danh sách sản phẩm')" prepend-icon="mdi-hexagon-slice-6" to='product'><p>Sản phẩm</p></v-list-item>
-                <v-list-item style="color: #8B909A; font-size: 15px;" :class="{ 'font-weight-bold': title === 'Danh sách người dùng' }" prepend-icon="mdi-account-supervisor" @click="setTilteStore('Danh sách người dùng')" to='user'><p>Users</p></v-list-item>
+                <v-list-item style="color: #8B909A;font-size: 15px;"
+                    :class="{ 'font-weight-bold': title === 'Danh sách sản phẩm' }"
+                    @click="setTilteStore('Danh sách sản phẩm')" prepend-icon="mdi-hexagon-slice-6" to='product'>
+                    <p>Sản phẩm</p>
+                </v-list-item>
+                <v-list-item style="color: #8B909A; font-size: 15px;"
+                    :class="{ 'font-weight-bold': title === 'Danh sách người dùng' }" prepend-icon="mdi-account-supervisor"
+                    @click="setTilteStore('Danh sách người dùng')" to='user'>
+                    <p>Users</p>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
         <v-app-bar class="px-4 v-app-bar" color="rgb(247, 247, 247)" :elevation="0" rounded="0">
-                <h3 style="margin-left: 0.2%;font-size: 24px;  font-family: 'Public Sans', sans-serif;font-weight: 600;" class="reposive">
-                    <!-- <i @click="this.drawer = !this.drawer; this.rail = true" class="fa-solid icon-menu fa-bars mr-4" style="cursor: pointer;display: none;"></i> -->
-                    <v-icon size="20" @click="this.drawer = !this.drawer; this.rail = true" class="icon-menu" style="cursor: pointer;display: none;">mdi mdi-menu</v-icon>
-                    {{ title }}
-                </h3>
-                <v-spacer></v-spacer>
-                <v-btn>
-                    <v-badge content="5" color="red">
-                        <v-icon style="font-size: 20px;">mdi-bell-outline</v-icon>
-                    </v-badge>
-                </v-btn>
-                <v-menu open-on-hover>
-                    <template v-slot:activator="{ props }">
-                            <v-avatar style="cursor: pointer;" v-bind="props">
-                                <v-img :src="avatar" alt="John"></v-img>
-                            </v-avatar>
-                    </template>
-                    <v-list class="ma-2">
-                        <v-list-item>
-                            <v-list-item-title style="cursor: pointer;">Xem hồ sơ</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title @click="this.$router.push({ name: 'login_page' })" style="cursor: pointer;">Đăng
-                                xuất</v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-            </v-app-bar>
+            <h3 style="margin-left: 0.2%;font-size: 24px;  font-family: 'Public Sans', sans-serif;font-weight: 600;"
+                class="reposive">
+                <!-- <i @click="this.drawer = !this.drawer; this.rail = true" class="fa-solid icon-menu fa-bars mr-4" style="cursor: pointer;display: none;"></i> -->
+                <v-icon size="20" @click="this.drawer = !this.drawer; this.rail = true" class="icon-menu"
+                    style="cursor: pointer;display: none;">mdi mdi-menu</v-icon>
+                {{ title }}
+            </h3>
+            <v-spacer></v-spacer>
+            <v-btn>
+                <v-badge content="5" color="red">
+                    <v-icon style="font-size: 20px;">mdi-bell-outline</v-icon>
+                </v-badge>
+            </v-btn>
+            <v-menu open-on-hover>
+                <template v-slot:activator="{ props }">
+                    <v-avatar style="cursor: pointer;" v-bind="props">
+                        <v-img :src="avatar" alt="John"></v-img>
+                    </v-avatar>
+                </template>
+                <v-list class="ma-2">
+                    <v-list-item>
+                        <v-list-item-title style="cursor: pointer;">Xem hồ sơ</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item>
+                        <v-list-item-title @click="this.$router.push({ name: 'login_page' })" style="cursor: pointer;">Đăng
+                            xuất</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+        </v-app-bar>
         <v-main style="background-color: rgb(247, 247, 247);min-height: 100vh;">
             <router-view></router-view>
         </v-main>
@@ -60,7 +70,7 @@
 <script>
 import NavigrationDrawerVue from '@/components/NavigrationDrawer.vue'
 import localStorageAuthService from '@/common/storages/authStorage'
-import {commonStore} from '../store/common/index'
+import { commonStore } from '../store/common/index'
 export default {
     components: { NavigrationDrawerVue },
     data() {
@@ -68,20 +78,18 @@ export default {
             drawer: true,
             rail: false,
             avatar: localStorageAuthService.getAvatarUrl(),
-            title:commonStore().title
+            title: commonStore().title
         }
     },
     methods:
     {
-        setTilteStore(value)
-        {
+        setTilteStore(value) {
             commonStore().setTitle(value)
-            this.title=commonStore().title
+            this.title = commonStore().title
         }
     },
-    created()
-    {
-        this.title='Danh sách sản phẩm'
+    created() {
+        this.title = 'Danh sách sản phẩm'
     }
 }
 </script>
@@ -89,8 +97,9 @@ export default {
 <style scoped>
 .font-weight-bold {
     color: #23272E !important;
-  font-weight: bold;
+    font-weight: bold;
 }
+
 @media (max-width: 700px) {
     .reposive {
         color: #000000;
@@ -113,8 +122,8 @@ export default {
         margin-right: 10px;
     }
 }
-body{
+
+body {
     font-family: 'Public Sans', sans-serif;
     font-size: 15px;
-}
-</style>
+}</style>

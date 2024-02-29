@@ -21,6 +21,14 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/Home/HomePage.vue'),
+    meta: {
+      public: true,
+    },
+  },
+  {
     path: '/index',
     name: PageName.BLOG,
     component: () => import('../views/BlogView.vue'),

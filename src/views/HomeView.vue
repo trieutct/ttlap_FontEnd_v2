@@ -14,16 +14,16 @@
     </v-col>
     <v-col cols="12" sm="6" md="6" lg="6" class="text-right">
       <v-btn style="background-color: rgb(212, 227, 255);color:#0f0f13" class="rounded-1 text-capitalize" variant="tonal">
-        <span class="text-capitalize">Show</span>
-        <p class="text-lowercase"> all</p>
+        Show
+        <span class="text-lowercase ml-1"> all</span>
       </v-btn>
       <v-btn style="font-weight: 400;color: rgb(34, 100, 209);" bg-color="white" class="rounded-1 text-capitalize"
         variant="elevated" elevation="3">
         Auction
       </v-btn>
       <v-btn style="background-color:rgb(212, 227, 255);color:#0f0f13" class="rounded-1 text-capitalize" variant="tonal">
-        <span class="text-capitalize">Buy</span>
-        <p class="text-lowercase"> now</p>
+        Buy
+        <span class="text-lowercase ml-1"> now</span>
       </v-btn>
       <v-btn  style="background-color: rgb(212, 227, 255)" class="ml-5" ariant="tonal" elevation="0">
         <v-icon>mdi mdi-menu</v-icon>
@@ -61,7 +61,7 @@
       <v-col class="d-flex flex-column justify-center align-center" v-for="item in products" :key="item" cols="12" sm="6" md="4" lg="3">
         <v-card hover variant="flat" style="min-height: 472px;width: 250px;" class="mb-3 my-card">
           <v-img class="mx-auto mt-2" width="220px" height="224px"
-            src="https://tse3.mm.bing.net/th?id=OIP.MtW1b6JMytoc3I3atOcGVgHaHV&pid=Api&P=0&h=220"
+            :src="item.url"
             alt="Product Image"></v-img>
           <v-card-text class="my-card-text" style="max-width: 227px;font-size: 16px;line-height: 24px; height: 90px;font-family: 'Inter', sans-serif;color: #19191D;">{{ item.name }}</v-card-text>
           <v-card-text class="mt-2 mx-auto" style="font-family: 'Inter', sans-serif;color:#000000;max-width: 250px;font-size: 24px;font-weight: 700;padding: auto;height: 36px;">
@@ -128,42 +128,54 @@ import {ref,reactive, computed} from "vue"
 import footer1 from "@/assets/footer1.png"
 import footer2 from "@/assets/footer2.png"
 import footer3 from "@/assets/footer3.png"
+import product1 from "@/assets/01.png"
+import product2 from "@/assets/02.png"
+import product3 from "@/assets/03.png"
+import product4 from "@/assets/04.png"
+import product5 from "@/assets/05.png"
+import product6 from "@/assets/06.png"
+import product7 from "@/assets/07.png"
+import product8 from "@/assets/08.png"
+import product9 from "@/assets/09.png"
+import product10 from "@/assets/010.png"
+import product11 from "@/assets/011.png"
+import product12 from "@/assets/012.png"
 const products=reactive([
   {
-    url:"",name:"Vintage Typewriter to post awesome stories about UI design and webdev.",price:"$49.50",sale:0,cool:false,description:"Eligible for Shipping To Mars or somewhere else",feedback:4.05
+    url:product1,name:"Vintage Typewriter to post awesome stories about UI design and webdev.",price:"$49.50",sale:0,cool:false,description:"Eligible for Shipping To Mars or somewhere else",feedback:4.05
   },
   {
-    url:"",name:"Lee Pucker design. Leather botinki for handsome designers. Free shipping.",price:"$13.95",sale:0,cool:false,description:"1258 bids, 359 watchers $5.95 for shipping",feedback:4.56
+    url:product2,name:"Lee Pucker design. Leather botinki for handsome designers. Free shipping.",price:"$13.95",sale:0,cool:false,description:"1258 bids, 359 watchers $5.95 for shipping",feedback:4.56
   },
   {
-    url:"",name:"Timesaving kitten to save months on development. Playful, cute, cheap!",price:"$128.99",sale:0,cool:false,description:"Eligible for nothing :(",feedback:4.87
+    url:product3,name:"Timesaving kitten to save months on development. Playful, cute, cheap!",price:"$128.99",sale:0,cool:false,description:"Eligible for nothing :(",feedback:4.87
   },
   {
-    url:"",name:"Plastic useless plugs and tubes for high-fidelity prototyping. Fit & Eat!",price:"$12.48",sale:50,cool:false,description:"Wordwide shitting available Buyers protection possible!",feedback:4.99
+    url:product4,name:"Plastic useless plugs and tubes for high-fidelity prototyping. Fit & Eat!",price:"$12.48",sale:50,cool:false,description:"Wordwide shitting available Buyers protection possible!",feedback:4.99
   },
   {
-    url:"",name:"Creativity stimulating lotion. Drink every morning to generate better ideas!",price:"$12.48",sale:0,cool:false,description:"Wordwide shifting available Buyers protection possible!",feedback:4.99
+    url:product5,name:"Creativity stimulating lotion. Drink every morning to generate better ideas!",price:"$12.48",sale:0,cool:false,description:"Wordwide shifting available Buyers protection possible!",feedback:4.99
   },
   {
-    url:"",name:"Prototyping items to create a lot if useless things...",price:"$128.99",sale:0,cool:false,description:"Showcasing onHovered state",feedback:4.87
+    url:product6,name:"Prototyping items to create a lot if useless things...",price:"$128.99",sale:0,cool:false,description:"Showcasing onHovered state",feedback:4.87
   },
   {
-    url:"",name:"John Von Ebalkin SPRING ",price:"$13.95",sale:0,cool:false,description:"1258 bids, 359 watchers $5.95 for shipping",feedback:4.56
+    url:product7,name:"John Von Ebalkin SPRING ",price:"$13.95",sale:0,cool:false,description:"1258 bids, 359 watchers $5.95 for shipping",feedback:4.56
   },
   {
-    url:"",name:"Envelope, Stripes, Pencil and etc. Purchase this kit today and feel OKAY",price:"$9.50",sale:0,cool:false,description:"Eligible for Shipping To Mars or somewhere else",feedback:4.77
+    url:product8,name:"Envelope, Stripes, Pencil and etc. Purchase this kit today and feel OKAY",price:"$9.50",sale:0,cool:false,description:"Eligible for Shipping To Mars or somewhere else",feedback:4.77
   },
   {
-    url:"",name:"Professional teadrinking set for every designer and developer",price:"$128.99",sale:0,cool:false,description:"Eligible for nothing :(",feedback:4.87
+    url:product9,name:"Professional teadrinking set for every designer and developer",price:"$128.99",sale:0,cool:false,description:"Eligible for nothing :(",feedback:4.87
   },
   {
-    url:"",name:"One string Bonsai description",price:"$11.68",sale:0,cool:false,description:"Wordwide shifting available Buyers protection possible!",feedback:4.99
+    url:product10,name:"One string Bonsai description",price:"$11.68",sale:0,cool:false,description:"Wordwide shifting available Buyers protection possible!",feedback:4.99
   },
   {
-    url:"",name:"Simply best item in town to shine bright with your Nine Inch Nails",price:"$1.25",sale:0,cool:true,description:"Eligible for Shipping To Mars or somewhere else",feedback:4.77
+    url:product11,name:"Simply best item in town to shine bright with your Nine Inch Nails",price:"$1.25",sale:0,cool:true,description:"Eligible for Shipping To Mars or somewhere else",feedback:4.77
   },
   {
-    url:"",name:"KISTOCHKI & KRASIBO. Top cosmetics brand from Chelyabinsk is here!",price:"$23.25",sale:0,cool:false,description:"1258 bids, 359 watchers $5.95 for shipping",feedback:4.56
+    url:product12,name:"KISTOCHKI & KRASIBO. Top cosmetics brand from Chelyabinsk is here!",price:"$23.25",sale:0,cool:false,description:"1258 bids, 359 watchers $5.95 for shipping",feedback:4.56
   }
 ])
 const SelectedCategory=ref('Useless first')

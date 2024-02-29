@@ -70,7 +70,7 @@ import { onUpdated, ref, watch } from 'vue';
 import { productServiceApi } from '@/service/product.api';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import { useLoadingStore } from '@/store/loading';
-import { Role } from '@/common/contant/contants';
+import { MESSAGE_ERROR, Regex, Role } from '@/common/contant/contants';
 import { userServiceApi } from '@/service/user.api';
 const loading = useLoadingStore()
 
@@ -126,10 +126,10 @@ const { value: name, errorMessage: nameError } = useField(
     'name',
     yup
         .string()
-        .required('Không được bỏ trống')
+        .required(MESSAGE_ERROR.REQUIRE)
         .matches(
-            /^[a-zA-ZÀ-Ỹà-ỹ ]*$/,
-            'Tên không hợp lệ. Tên chỉ được chứa chữ cái và khoảng trắng.'
+            Regex.NAME,
+            MESSAGE_ERROR.NAME
         )
 );
 
@@ -137,22 +137,22 @@ const { value: email, errorMessage: emailError } = useField(
     'email',
     yup
         .string()
-        .required('Không được bỏ trống')
+        .required(MESSAGE_ERROR.REQUIRE)
         .matches(
-            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            'Email không hợp lệ'
+            Regex.EMAIL,
+            MESSAGE_ERROR.EMAIL
         )
 );
 const { value: birthday, errorMessage: birthdayError } = useField(
     'birthday',
     yup
         .string()
-        .required('Không được bỏ trống')
+        .required(MESSAGE_ERROR.REQUIRE)
         .matches(
-            /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
-            'Ngày sinh không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD.'
+            Regex.BIRTHDAY,
+            MESSAGE_ERROR.BIRTHDAY
         )
-        .test('not-in-future', 'Ngày sinh không được trong tương lai', function (value) {
+        .test('not-in-future', 'Ngày sinh không được chọn ở tương lai', function (value) {
             const birthdayDate = new Date(value);
             const currentDate = new Date();
             return birthdayDate <= currentDate;
@@ -165,27 +165,27 @@ const { value: phone, errorMessage: phoneError } = useField(
     'phone',
     yup
         .string()
-        .required('Không được bỏ trống')
+        .required(MESSAGE_ERROR.REQUIRE)
         .matches(
-            /^0\d{9,10}$/,
-            'Số điện thoại không hợp lệ. Số điện thoại phải có 10 chữ số.'
+            Regex.PHONE,
+            MESSAGE_ERROR.PHONE
         )
 );
 const { value: role, errorMessage: roleError } = useField(
     'role',
     yup
         .string()
-        .required('Không được bỏ trống')
+        .required(MESSAGE_ERROR.REQUIRE)
 );
 
 const { value: avatar, errorMessage: avatarError } = useField(
     'avatar',
     yup
         .string()
-        .required('Không được bỏ trống')
+        .required(MESSAGE_ERROR.REQUIRE)
         .matches(
-            /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
-            'Đây không phải là một URL hợp lệ'
+            Regex.URL,
+            MESSAGE_ERROR.URL
         )
 );
 

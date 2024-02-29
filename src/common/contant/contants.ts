@@ -15,8 +15,6 @@ export const FORM_VALIDATION = {
   tenantMaxLength: 30,
 };
 export const Regex = {
-  // eslint-disable-next-line no-useless-escape
-  /* eslint-disable no-useless-escape */
   EMAIL:
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   NAME: /^[^[\]\\|'";:/?.>,<)(_=+!@#$%^&*`~0-9-]+$/,
@@ -24,6 +22,11 @@ export const Regex = {
   COLOR: /^#(?:[0-9a-fA-F]{3}){1,2}$/,
   TIME: /^(([0-1]\d{0,1})|(2[0-3]{0,1})):[0-5]\d{0,1}$/,
   URL: /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/,
+  BIRTHDAY:/^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
+  PHONE:/^0\d{9,10}$/,
+  MIN:0,
+  MAX_PRICE:1000000000,
+  MAX_QUANTITY:1000000
 };
 
 
@@ -34,6 +37,16 @@ export const MESSAGE_ERROR={
     REGEX_PASSWORD:'Mật khẩu phải có ít nhất 1 số',
     MINLEGHT_PASSWORD:'Mật khẩu tối thiểu '+FORM_VALIDATION.passwordMinLength+' ký tự',
     MAXLEGHT_PASSWORD:'Mật khẩu không quá '+FORM_VALIDATION.textMaxLength+' ký tự',
+    NAME:'Tên không hợp lệ. Tên chỉ được chứa chữ cái và khoảng trắng.',
+    EMAIL:'Email không hợp lệ',
+    BIRTHDAY:'Ngày sinh không hợp lệ. Vui lòng nhập theo định dạng YYYY-MM-DD.',
+    PHONE:'Số điện thoại không hợp lệ. Số điện thoại phải có 10 chữ số.',
+    URL:'URL không hợp lệ',
+    MIN:'Giá không được nhỏ hơn 0',
+    NUMBER:'Giá phải là một số',
+    MAX_PRICE:'Giá phải nhỏ hơn 1 tỷ',
+    NUMBER_INT:'Số lượng phải là một số nguyên',
+    MAX_QUANTITY:'Số lượng phải nhỏ hơn 1 triệu'
 }
 
 

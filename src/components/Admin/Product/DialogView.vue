@@ -66,6 +66,7 @@ import { ref, watch, onUpdated } from 'vue';
 import { productServiceApi } from '@/service/product.api';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import { useLoadingStore } from '@/store/loading';
+import { MESSAGE_ERROR, Regex } from '@/common/contant/contants';
 const loading = useLoadingStore()
 const errorFile=ref(null)
 const errorPrice2=ref(null)
@@ -123,8 +124,8 @@ const { value: name, errorMessage: nameError } = useField(
     'name',
     yup
         .string()
-        .required('Không được bỏ trống')
-        .matches(/^[a-zA-Z0-9\sÀ-ỹ]+$/u, 'Tên sản phẩm chỉ được chứa ký tự chữ cái, số và khoảng trắng')
+        .required(MESSAGE_ERROR.REQUIRE)
+        .matches(Regex.NAME,MESSAGE_ERROR.NAME)
 );
 
 
@@ -132,37 +133,35 @@ const { value: price, errorMessage: priceError } = useField(
     'price',
     yup
         .number()
-        .required('Không được bỏ trống')
-        .min(0, 'Giá không được nhỏ hơn 0')
-        .typeError('Giá phải là một số')
-        .max(1000000000,'Giá phải nhỏ hơn 1 tỷ')
+        .required(MESSAGE_ERROR.REQUIRE)
+        .min(Regex.MIN, MESSAGE_ERROR.MIN)
+        .typeError(MESSAGE_ERROR.NUMBER)
+        .max(Regex.MAX_PRICE,MESSAGE_ERROR.MAX_PRICE)
 );
 
 const { value: quantity, errorMessage: quantityError } = useField(
     'quantity',
     yup
         .number()
-        .required('Không được bỏ trống')
-        .integer('Số lượng phải là một số nguyên')
-        .min(0, 'Số lượng không được nhỏ hơn 0')
-        .typeError('Số lượng phải là một số')
-        .max(1000000,'Số lượng phải nhỏ hơn 1 triệu')
+        .required(MESSAGE_ERROR.REQUIRE)
+        .integer(MESSAGE_ERROR.NUMBER_INT)
+        .min(Regex.MIN, MESSAGE_ERROR.MIN)
+        .typeError(MESSAGE_ERROR.NUMBER)
+        .max(Regex.MAX_QUANTITY,MESSAGE_ERROR.MAX_QUANTITY)
 );
 const { value: description, errorMessage: descriptionError } = useField(
     'description',
     yup
         .string()
-        .required('Không được bỏ trống')
+        .required(MESSAGE_ERROR.REQUIRE)
         .min(10, 'Mô tả phải có ít nhất 10 ký tự')
         .max(500, 'Mô tả không được quá 500 ký tự')
 );
 
 
 const submit = handleSubmit(async () => {
-    const containsWhiteSpace = /\s/.test(price.value);
-    if (containsWhiteSpace)
+    if(errorPrice2.value!=null)
     {
-        errorPrice2.value="Giá không đc nhập khoảng trắng"
         return
     }
     try {
@@ -230,7 +229,13 @@ const close = () => {
     emit('close')
     resetForm()
 }
-
+watch(price,(newVal)=>{
+    const containsWhiteSpace = /\s/.test(newVal);
+    if (containsWhiteSpace)
+        errorPrice2.value="Giá không đc nhập khoảng trắng"
+    else
+        errorPrice2.value=null
+})
 </script>
 <style scoped>
 .custom-file-input {
