@@ -3,6 +3,7 @@ import { productServiceApi } from "@/service/product.api";
 import { DEFAULT_COMMON_LIST_QUERY } from "@/common/contant/contants";
 import { IProduct } from "./interfaces";
 import { useLoadingStore } from "@/store/loading";
+import { logout } from "@/plugins/axios";
 export const useProduct = () => {
     const loading=useLoadingStore()
     const products = ref<IProduct[]>([])
@@ -11,8 +12,8 @@ export const useProduct = () => {
       try {
         loading.setLoading(true)
         const res = await productServiceApi._getList<IProduct>(query);
-        // console.log(res.items)
-        loading.setLoading(false)
+        if(res.status===419)
+          logout()
         if(res.success)
           return {
             data:res.items,
@@ -22,13 +23,16 @@ export const useProduct = () => {
       } catch (error) {
         console.error('Error fetching products:', error);
         return null
+      }finally{
+        loading.setLoading(false)
       }
     };
     const searchProducts = async () => {
       try {
         loading.setLoading(true)
         const res = await productServiceApi._getList<IProduct>(query);
-        loading.setLoading(false)
+        if(res.status===419)
+          logout()
         if(res.success)
             return {
               data:res.items,
@@ -38,6 +42,8 @@ export const useProduct = () => {
       } catch (error) {
         console.error('Error fetching products:', error);
         return null
+      }finally{
+        loading.setLoading(false)
       }
     };
   return {

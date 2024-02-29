@@ -5,7 +5,7 @@ import { showWarningsNotification } from '@/common/helper/helpers';
 import router from '@/router';
 
 export const logout = (redirectToLogin = true) => {
-  showWarningsNotification("Hết phiên đăng nhập")
+  showWarningsNotification("Hết phiên đăng nhập. Vui lòng đăng nhập lại")
   localStorageAuthService.removeAll();
   const currentPage = router.currentRoute;
   if (redirectToLogin && currentPage.value.name !== PageName.LOGIN_PAGE) {

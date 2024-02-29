@@ -100,7 +100,7 @@
       <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
         style="min-height: 156px; background-color: #EDEDF0;">
         <img width="80" height="80" :src="footer1">
-        <v-card-title class="text-center" style="font-family: Quicksand;font-weight: 700;font-size: 20px;">Clear & Usable user flows</v-card-title>
+        <v-card-title class="text-center" style="font-family: Quicksand,sans-serif;font-weight: 700;font-size: 20px;">Clear & Usable user flows</v-card-title>
         <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Let’s boost your marketplace</v-card-subtitle>
       </v-card>
     </v-col>
@@ -108,7 +108,7 @@
       <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
         style="min-height: 156px; background-color: #EDEDF0;">
         <img width="80" height="80" :src="footer2">
-        <v-card-title class="text-center" style="font-family: Quicksand;font-weight: 700;font-size: 20px;">Fine & Styled components</v-card-title>
+        <v-card-title class="text-center" style="font-family: Quicksand,sans-serif;font-weight: 700;font-size: 20px;">Fine & Styled components</v-card-title>
         <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Speed up with Setproduct templates</v-card-subtitle>
       </v-card>
     </v-col>
@@ -116,7 +116,7 @@
       <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
         style="min-height: 156px; background-color: #EDEDF0;">
         <img width="80" height="80" :src="footer3">
-        <v-card-title class="text-center" style="font-family: Quicksand;font-weight: 700;font-size: 20px;">Customizable & Reusable</v-card-title>
+        <v-card-title class="text-center" style="font-family: Quicksand,sans-serif;font-weight: 700;font-size: 20px;">Customizable & Reusable</v-card-title>
         <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Take our UX patterns and rebuild</v-card-subtitle>
       </v-card>
     </v-col>

@@ -1,5 +1,7 @@
 
 <script setup>
+import icon_delete from "@/assets/trash.png"
+import icon_edit from "@/assets/edit.png"
 import { computed, onMounted, reactive, ref, watch, watchEffect } from 'vue';
 import DialogViewVue from '@/components/Admin/Product/DialogView.vue';
 import ConfirmVue from '@/components/confirm/IndexView.vue'
@@ -173,17 +175,10 @@ watch(isShowDialog,(newVal)=>{
                   <v-img style="border-radius: 2px;" width="36" height="36" :src="item.imageUrl"></v-img>
                 </td>
                 <td class="text-center">
-                  <v-row>
-                    <v-col lg="4"></v-col>
-                        <v-col lg="8" sm="12">
-                          <v-row>
-                            <span style="cursor: pointer;opacity: 0.6;" density="compact" variant="text"><i
-                      class="fa-regular fa-pen-to-square mr-4" @click="updateProductById(item)"></i></span>
-                      <span style="cursor: pointer;opacity: 0.6;" @click="{ isDialogDelete = true; idDelete = item.id }" density="compact"
-                    variant="text"><i class="fa-solid fa-trash"></i></span>
-                          </v-row>
-                        </v-col>
-                  </v-row>
+                  <div class="d-flex align-center justify-center">
+                        <span style="cursor: pointer;"  @click="updateProductById(item)" class="mr-3"><img width="24" height="24" :src="icon_edit"></span>
+                        <span style="cursor: pointer;" @click="{ isDialogDelete = true; idDelete = item.id }" ><img width="24" height="24" :src="icon_delete"></span>
+                  </div>
                 </td>
               </tr>
               <tr v-else>
@@ -193,7 +188,7 @@ watch(isShowDialog,(newVal)=>{
             </tbody>
           </v-table>
           <v-row v-show="products.length>0" class="ma-2 ">
-            <v-col cols="8" sm="8" md="8" lg="8">
+            <v-col cols="10" sm="9" md="6" lg="8">
               <v-row>
                 <span class="mt-5 opacity">Showing</span>
                 <v-col style="max-width: 105px" cols="5" sm="4" md="5" lg="2">
@@ -203,11 +198,11 @@ watch(isShowDialog,(newVal)=>{
                 <span class="mt-5 opacity">of {{ TotalProducts }}</span>
               </v-row>
             </v-col>
-            <v-col  cols="4" sm="4" md="4" lg="4">
-              <p  class="text-center page-table1" style="font-size: 15px;display: none;margin-top: 5px;">
+            <v-col  cols="2" sm="3" md="6" lg="4">
+              <p class="text-center page-table1" style="font-size: 15px;display: none;margin-top: 5px;">
                 <span style="margin-bottom: 2px" @click="page=page-1" :class="{ 'text-grey-lighten-2': page === 1, 'text-black': page !== 1 }"><i class="fa-solid fa-angle-left" style="cursor: pointer;"></i></span>
-                <span style="background-color: rgb(109, 148, 227);color: blue;opacity: 0.6;;border-radius: 2px;padding: 5px;" class="ml-2 mr-2">{{ page }}</span>
-                <span style="margin-bottom: 2px" @click="page=page+1" :class="{ 'text-grey-lighten-2': page === lengthPage, 'text-black': page !== lengthPage }"><i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i></span>
+                <span style="font-weight: 700;background-color: rgb(146, 177, 239);color: blue;opacity: 0.6;;border-radius: 2px;padding: 6px 10px;" class="ml-3 mr-3">{{ page }}</span>
+                <span style="margin-bottom: 2px;margin-right: 5px;" @click="page=page+1" :class="{ 'text-grey-lighten-2': page === lengthPage, 'text-black': page !== lengthPage }"><i class="fa-solid fa-chevron-right" style="cursor: pointer;"></i></span>
               </p>
                 <v-pagination class="page-table2 mt-1" v-model="page" active-color="#0F60FF" variant="text" density="compact"
                 :length="lengthPage"></v-pagination>
@@ -249,6 +244,17 @@ p{
 .v-table{
   font-size: 15px;
 }
+
+@media ((min-width: 501px) and (max-width: 650px)){
+  .page-table1{
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  .page-table2{
+    display: none !important;
+  }
+}
 @media (max-width: 500px) {
   .opacity {
     display: none;
@@ -262,7 +268,7 @@ p{
   }
   .page-table1{
     display: flex !important;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
   }
   .page-table2{

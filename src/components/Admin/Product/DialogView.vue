@@ -67,6 +67,7 @@ import { productServiceApi } from '@/service/product.api';
 import { showSuccessNotification, showWarningsNotification } from '@/common/helper/helpers';
 import { useLoadingStore } from '@/store/loading';
 import { MESSAGE_ERROR, Regex } from '@/common/contant/contants';
+import { logout } from '@/plugins/axios';
 const loading = useLoadingStore()
 const errorFile=ref(null)
 const errorPrice2=ref(null)
@@ -85,6 +86,8 @@ const getProductById = async (id) => {
     try {
         loading.setLoading(true)
         const data = await productServiceApi._getDetail(id);
+        if(data.status===419)
+          logout()
         if (data.success) {
             name.value = data.data.name;
             price.value = data.data.price;
@@ -182,6 +185,8 @@ const submit = handleSubmit(async () => {
                 return
             }
             const data = await productServiceApi.createProduct(formData);
+            if(data.status===419)
+                logout()
             console.log(data)
             if (!data.success) {
                 alert("Tạo lỗi")
@@ -196,7 +201,8 @@ const submit = handleSubmit(async () => {
         }
         else {
             const data = await productServiceApi.updateProduct(props.itemEdit.id, formData);
-            console.log(data)
+            if(data.status===419)
+                logout()
             if (!data.success) {
                 showWarningsNotification(data.message)
             }

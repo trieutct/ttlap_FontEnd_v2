@@ -1,6 +1,6 @@
 <template>
     <div class="body">
-        <h2>Inside Open Art</h2>
+        <h2 style="">Inside Open Art</h2>
         <div class="container">
             <div>
                 <img :src="icon1" alt="">
@@ -54,7 +54,7 @@ import icon6 from '../assets/icon6.png'
     margin: 0;
     padding: 0;
     box-shadow: 0;
-    font-family: Epilogue,sans-serif;
+    font-family: Epilogue,sans-serif !important;
 }
 
 .body {

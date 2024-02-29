@@ -72,6 +72,7 @@ import { showSuccessNotification, showWarningsNotification } from '@/common/help
 import { useLoadingStore } from '@/store/loading';
 import { MESSAGE_ERROR, Regex, Role } from '@/common/contant/contants';
 import { userServiceApi } from '@/service/user.api';
+import { logout } from '@/plugins/axios';
 const loading = useLoadingStore()
 
 
@@ -204,6 +205,8 @@ const submit = handleSubmit(async () => {
         if (props.itemEdit == null) {
             // alert("Thêm")
             const data = await userServiceApi.createUser(formData);
+            if(data.status===419)
+                logout()
             if (!data.success) {
                 // alert("Tạo lỗi")
                 showWarningsNotification(data.message)
@@ -217,6 +220,8 @@ const submit = handleSubmit(async () => {
         else {
             // alert("sửa")
             const data = await userServiceApi.updateUser(props.itemEdit.id, formData);
+            if(data.status===419)
+                logout()
             // console.log(data)
             if (!data.success) {
                 showWarningsNotification(data.message)
