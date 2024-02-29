@@ -76,12 +76,12 @@
           <p class="ml-4" style="margin-top: 8px;;height: 41px;font-size: 14px;font-family: 'Inter', sans-serif;color: #787885;">{{ item.description }}</p>
           <v-row style="margin-top: 5px;margin-left: -6px;">
             <v-col class="ml-3 mt-1" cols="5" style="display: flex;">
-              <v-icon color="yellow" size="x-small">mdi mdi-star</v-icon>
-              <v-icon color="yellow" size="x-small">mdi mdi-star</v-icon>
-              <v-icon color="yellow" size="x-small">mdi mdi-star</v-icon>
-              <v-icon color="yellow" size="x-small">mdi mdi-star</v-icon>
-              <v-icon v-if="item.feedback<5 && item.feedback>4" color="yellow" size="x-small">mdi mdi-star-half</v-icon>
-              <v-icon v-else color="yellow" size="x-small">mdi mdi-star</v-icon>
+              <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+              <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+              <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+              <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+              <v-icon v-if="item.feedback<5 && item.feedback>4" color="amber" size="x-small">mdi mdi-star-half</v-icon>
+              <v-icon v-else color="amber" size="x-small">mdi mdi-star</v-icon>
               <span style="font-size: 12px;">4.05</span>
             </v-col>
             <v-col class="text-right" cols="6">

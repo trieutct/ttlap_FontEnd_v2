@@ -88,9 +88,8 @@
                 </v-row>
             </div>
         </v-img>
-
         <div class="d-flex align-center justify-center" style="height: 122px;background-color: #000000;clear: both;">
-            <v-row class="px-auto">
+            <v-row>
                 <v-col cols="1"></v-col>
                 <v-col cols="10">
                     <v-row class="d-flex align-center justify-space-between">
@@ -114,7 +113,64 @@
                 <v-col cols="1"></v-col>
             </v-row>
         </div>
-    </v-app></template>
+        <div>
+            <v-row style="margin-top: 82px;">
+                <v-col cols="1"></v-col>
+                <v-col cols="10">
+                    
+                    <h1 style="font-size: 48px;font-weight: 700;display: block;text-align: center;">NEW ARRIVALS</h1>
+                    <v-row style="margin-top: 55px;" class="d-flex align-center justify-space-between" >
+                       <div class="ma-1" v-for="i in 4" :key="i">
+                        <img width="250" height="250" src="https://tse2.explicit.bing.net/th?id=OIP.2PRv-ZGIdqXcHqspBRx7HwHaHa&pid=Api&P=0&h=220">
+                        <p style="font-size: 18px;font-weight: 700;">T-SHIRT WITH TAPE DETAILS</p>
+                        <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+                        <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+                        <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+                        <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+                        <v-icon color="amber" size="x-small">mdi mdi-star-half</v-icon>
+                        <span style="font-size: 14px;">4.5/<span style="opacity: 0.6;">5</span></span>
+                        <p style="font-size: 20px;font-weight: 700;">$120</p>
+                       </div>
+                    </v-row>
+                    <v-row class="d-flex justify-center " style="margin-top: 36px;">
+                        <v-btn class="text-capitalize" variant="text" border rounded style="width: 218px;">View All</v-btn>
+                    </v-row>
+                    <v-row style="margin-top: 64px;margin-bottom: 10px;">
+                        <v-divider class="border-opacity-100"></v-divider>
+                    </v-row>
+                    
+
+
+
+
+
+
+                    <h1 style="font-size: 48px;font-weight: 700;display: block;text-align: center;">TOP SELLING</h1>
+                    <v-row style="margin-top: 55px;" class="d-flex align-center justify-space-between" >
+                       <div class="ma-1" v-for="i in 4" :key="i">
+                        <img width="250" height="250" src="https://tse2.explicit.bing.net/th?id=OIP.2PRv-ZGIdqXcHqspBRx7HwHaHa&pid=Api&P=0&h=220">
+                        <p style="font-size: 18px;font-weight: 700;">T-SHIRT WITH TAPE DETAILS</p>
+                        <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+                        <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+                        <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+                        <v-icon color="amber" size="x-small">mdi mdi-star</v-icon>
+                        <v-icon color="amber" size="x-small">mdi mdi-star-half</v-icon>
+                        <span style="font-size: 14px;">4.5/<span style="opacity: 0.6;">5</span></span>
+                        <p style="font-size: 20px;font-weight: 700;">$120</p>
+                       </div>
+                    </v-row>
+                    <v-row class="d-flex justify-center " style="margin-top: 36px;">
+                        <v-btn class="text-capitalize" variant="text" border rounded style="width: 218px;">View All</v-btn>
+                    </v-row>
+                    <v-row style="margin-top: 64px;margin-bottom: 10px;">
+                        <v-divider class="border-opacity-100"></v-divider>
+                    </v-row>
+                </v-col>
+                <v-col cols="1"></v-col>
+            </v-row>
+        </div>
+    </v-app>
+    </template>
 <script setup>
 import image from "@/assets/slideer.png"
 import vector1 from "@/assets/Vector1.png"
@@ -124,3 +180,10 @@ import vector3 from "@/assets/Vector3.png"
 import gucci from "@/assets/gucci-logo-1.png"
 import prada from "@/assets/prada-logo-1.png"
 </script>
+
+
+<style scoped>
+body{
+    font-family: 'Satoshi',sans-serif;
+}
+</style>
