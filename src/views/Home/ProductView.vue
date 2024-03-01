@@ -1,18 +1,18 @@
 <template>
   <v-row class="ml-3 mt-3">
-    <v-col cols="4" sm="4" md="6" lg="2">
+    <v-col cols="4" sm="6" md="6" lg="2">
       <v-select v-model="SelectedCategory" density="compact" label="SORT BY"
         :items="['All','Quần','Áo']" variant="outlined"></v-select>
     </v-col>
-    <v-col cols="4" sm="4" md="6" lg="2">
+    <v-col cols="4" sm="6" md="6" lg="2">
       <v-select v-model="selectedSort" density="compact" :items="['Từ cao -> thấp','Từ thấp -> cao']"
         variant="outlined"></v-select>
     </v-col>
-    <v-col cols="4" sm="4" md="6" lg="2">
+    <v-col cols="4" sm="6" md="6" lg="2">
       <v-select v-model="selectedThree" density="compact" :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
         variant="outlined"></v-select>
     </v-col>
-    <v-col cols="12" sm="12" md="6" lg="6" class="text-right">
+    <v-col cols="12" sm="6" md="6" lg="6" class="text-right">
       <v-btn style="background-color: rgb(212, 227, 255);color:#0f0f13" class="rounded-1 text-capitalize" variant="tonal">
         Show
         <span class="text-lowercase ml-1"> all</span>
