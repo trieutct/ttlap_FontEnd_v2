@@ -20,13 +20,11 @@ const vertify=async()=>{
     loading.setLoading(true)
     const res=await authServiceApi.vertify(route.params.token)
     loading.setLoading(false)
-    if(res.success)
-    {
+    if(res.success){
         showSuccessNotification("Xác thực thành công. Vui lòng bạn đăng nhập")
         router.push('/login')
     }
-    else
-    {
+    else{
         showWarningsNotification(res.message)
     }
 }
