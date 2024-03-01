@@ -48,10 +48,10 @@
                 <td style="color: #23272E;font-weight: 600;">{{ i.name }}</td>
                 <td>{{ i.email }}</td>
                 <td class="v-text-truncate">
-                  {{ formatDateString(i.birthday, YYYY_MM_DD_DASH) }}
+                  {{ i.birthday?formatDateString(i.birthday, YYYY_MM_DD_DASH):"" }}
                 </td>
                 <td>
-                  {{ formatPhoneNumber(i.phone) }}
+                  {{ i.phone? formatPhoneNumber(i.phone):"" }}
                 </td>
                 <td class="text-center">
                   <div class="d-flex align-center justify-center">

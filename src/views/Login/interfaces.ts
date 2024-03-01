@@ -51,6 +51,13 @@ export type IBodyLogin = {
   code?: string;
   redirectUri?: string;
 };
+
+export type IBodyRegister = {
+  email?: string;
+  password?: string;
+  code?: string;
+  redirectUri?: string;
+};
 export interface ILoginResponse {
   accessToken: {
     token: string;

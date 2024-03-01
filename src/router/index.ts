@@ -53,6 +53,22 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: '/register',
+    name: PageName.REGISTER_PAGE,
+    component: () => import('../views/Register/IndexView.vue'),
+    meta: {
+      public: true,
+    },
+  },
+  {
+    path: '/vertify/:token',
+    name: PageName.VERTIFY_PAGE,
+    component: () => import('../views/Vertify/IndexView.vue'),
+    meta: {
+      public: true,
+    },
+  },
+  {
     path: '/404',
     name: PageName.NOT_FOUND_PAGE,
     component: () => import('../components/errors/NotFound.vue')

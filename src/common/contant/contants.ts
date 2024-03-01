@@ -32,6 +32,7 @@ export const Regex = {
 
 
 export const MESSAGE_ERROR={
+  PASSWORD_MATCH:"Mật khẩu và xác nhận mật khẩu không khớp",
     REQUIRE:'Không được để trống',
     REGEX_EMAIL:'Email không phù hợp',
     REGEX_PASSWORD:'Mật khẩu phải có ít nhất 1 số',
@@ -51,6 +52,8 @@ export const MESSAGE_ERROR={
 
 
 export enum PageName {
+  REGISTER_PAGE="register_page",
+  VERTIFY_PAGE="vertify_page",
   LOGIN_PAGE = 'login_page',
   DASHBOARD_PAGE = 'dashboard_page',
   NOT_FOUND_PAGE = 'not_found_page',
