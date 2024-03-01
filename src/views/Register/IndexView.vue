@@ -31,9 +31,9 @@
             </v-form>
             <div class="text-center">
                 Bạn đã có tài khoản ?
-                <a class="text-decoration-none text-center" style="color:#0F60FF;">
-                    Đăng Nhập ?
-                </a>
+                <router-link to="/login" class="text-decoration-none text-center" style="color:#0F60FF;">
+                    Đăng nhập ?
+                </router-link>
             </div>
         </v-card>
     </div>

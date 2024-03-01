@@ -7,7 +7,8 @@ import router from '@/router';
 import { authServiceApi } from '@/service/auth.api';
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-
+import { useLoadingStore } from '@/store/loading';
+const loading=useLoadingStore()
 const route = useRoute();
 
 onMounted(() => {
@@ -16,8 +17,9 @@ onMounted(() => {
 
 
 const vertify=async()=>{
+    loading.setLoading(true)
     const res=await authServiceApi.vertify(route.params.token)
-    console.log(res)
+    loading.setLoading(false)
     if(res.success)
     {
         showSuccessNotification("Xác thực thành công. Vui lòng bạn đăng nhập")

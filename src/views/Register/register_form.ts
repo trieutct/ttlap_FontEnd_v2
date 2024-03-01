@@ -5,6 +5,7 @@ import { AuthStore } from '@/store/auth/authStore';
 import { useLoadingStore } from '@/store/loading';
 import localStorageAuthService from '@/common/storages/authStorage';
 import { Role } from '@/common/contant/contants';
+import { showSuccessNotification } from '@/common/helper/helpers';
 export const userRegisterForm=()=>{
     const authStore=AuthStore()
     const loading=useLoadingStore()
@@ -44,11 +45,11 @@ export const userRegisterForm=()=>{
         loading.setLoading(false)
         if(res)
         {
-            alert("Check email")
+            showSuccessNotification("Đăng ký thành công. Vui lòng vào email để xác minh")
         }
         else
         {
-            alert("Lỗi")
+            // alert("Lỗi")
         }
       });
 

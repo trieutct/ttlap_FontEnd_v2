@@ -29,9 +29,9 @@
             </v-form>
             <div class="text-center">
                 Bạn chưa có tài khoản ?
-                <a class="text-decoration-none text-center" style="color:#0F60FF;">
+                <router-link to="/register" class="text-decoration-none text-center" style="color:#0F60FF;">
                     Đăng ký ?
-                </a>
+                </router-link>
             </div>
         </v-card>
     </div>
