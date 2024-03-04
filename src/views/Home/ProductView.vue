@@ -95,32 +95,26 @@
       </v-col>
     </v-row>
   </v-card>
-    <v-row class="ma-1">
-    <v-col cols="12" sm="12" md="12" lg="4">
-      <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
-        style="min-height: 156px; background-color: #EDEDF0;">
-        <img width="80" height="80" :src="footer1">
-        <v-card-title class="text-center" style="font-family: Quicksand,sans-serif;font-weight: 700;font-size: 20px;">Clear & Usable user flows</v-card-title>
-        <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Let’s boost your marketplace</v-card-subtitle>
-      </v-card>
-    </v-col>
-    <v-col cols="12" sm="12" md="12" lg="4">
-      <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
-        style="min-height: 156px; background-color: #EDEDF0;">
-        <img width="80" height="80" :src="footer2">
-        <v-card-title class="text-center" style="font-family: Quicksand,sans-serif;font-weight: 700;font-size: 20px;">Fine & Styled components</v-card-title>
-        <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Speed up with Setproduct templates</v-card-subtitle>
-      </v-card>
-    </v-col>
-    <v-col cols="12" sm="12" md="12" lg="4">
-      <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
-        style="min-height: 156px; background-color: #EDEDF0;">
-        <img width="80" height="80" :src="footer3">
-        <v-card-title class="text-center" style="font-family: Quicksand,sans-serif;font-weight: 700;font-size: 20px;">Customizable & Reusable</v-card-title>
-        <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Take our UX patterns and rebuild</v-card-subtitle>
-      </v-card>
-    </v-col>
-  </v-row>
+  <div class="d-flex justify-space-between " style="margin-top: 40px;margin-bottom: 10px;">
+    <v-card  class="pa-5 d-flex flex-column justify-center align-center rounded-1"
+      style="min-height: 156px; background-color: #EDEDF0; width: 32%;">
+      <img width="80" height="80" :src="footer1">
+      <v-card-title class="text-center" style="font-family: Quicksand,sans-serif;font-weight: 700;font-size: 20px;">Clear & Usable user flows</v-card-title>
+      <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Let’s boost your marketplace</v-card-subtitle>
+    </v-card>
+    <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
+      style="min-height: 156px; background-color: #EDEDF0; width: 32%;">
+      <img width="80" height="80" :src="footer2">
+      <v-card-title class="text-center" style="font-family: Quicksand,sans-serif;font-weight: 700;font-size: 20px;">Fine & Styled components</v-card-title>
+      <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Speed up with Setproduct templates</v-card-subtitle>
+    </v-card>
+    <v-card class="pa-5 d-flex flex-column justify-center align-center rounded-1"
+      style="min-height: 156px; background-color: #EDEDF0; width: 32%;">
+      <img width="80" height="80" :src="footer3">
+      <v-card-title class="text-center" style="font-family: Quicksand,sans-serif;font-weight: 700;font-size: 20px;">Customizable & Reusable</v-card-title>
+      <v-card-subtitle class="text-center" style="font-family: 'Inter', sans-serif;font-size: 14px;">Take our UX patterns and rebuild</v-card-subtitle>
+    </v-card>
+  </div>
 </template>
 
 <script setup>
@@ -202,7 +196,7 @@ const filteredProducts = computed(() => {
 .custom-shadow {
   margin-top: 10px;
   border-radius:4px ;
-  box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
 .my-card {
   max-height: 200px; /* Đặt chiều cao tối đa của thẻ */

@@ -25,8 +25,10 @@
                 </v-avatar>
             </div>
         </v-app-bar>
-        <div class="d-flex mx-auto justify-center justify-space-between" style="margin-top: 90px;height: 64px;width: 99%;">
-            <div class="d-flex flex-column align-center px-2 py-1" style="border-radius: 5px;background-color: #EBF2FF;">
+        <div class="d-flex mx-auto justify-center justify-space-between"
+            style="margin-top: 90px;height: 64px;width: 99%;">
+            <div class="d-flex flex-column align-center px-2 py-1"
+                style="border-radius: 5px;background-color: #EBF2FF;">
                 <v-img width="20px" height="20px" :src="hanger_png"></v-img>
                 <p style="color: #2979FF;font-size: 14px;">Clothing & Shoes</p>
             </div>
@@ -94,40 +96,73 @@
                         <v-icon color="#2264D1" icon="mdi-menu" start />
                         <p style="margin-left: 40px;color: #2264D1;font-size: 20px;font-weight: 700;">Departments</p>
                     </v-btn>
-                    <div class="d-flex align-center" style="display: block;margin-top: 40px;">
-                        <div class="ml-2 mr-3">
-                            <v-icon color="#76A9FF">mdi-chevron-right</v-icon>
-                        </div>
-                        <div>
-                            <p style="color: #19191D;font-size: 16px;">All Categories</p>
-                            <p style="color: #787885;font-size: 14px;">Ecommerce patterns</p>
-                        </div>
-                    </div>
-                    <div style="display: block;">
+                    <div class="d-flex align-center" style="margin-top: 40px;">
                         <v-list>
-                            <v-list-group value="Electronics">
+                            <v-list-group>
                                 <template v-slot:activator="{ props }">
-                                    <v-list-item v-bind="props" prepend-icon="mdi-chevron-right"
-                                        title="Electronics"></v-list-item>
+                                    <v-list-item v-bind="props" prepend-icon="mdi-chevron-right">
+                                        <p style="color: #19191D;font-size: 16px;">All Categories</p>
+                                        <p style="color: #787885;font-size: 14px;">Ecommerce patterns</p>
+                                    </v-list-item>
                                 </template>
-
-                                <v-list-group value="Admin">
+                                <v-list-group value="Electronics">
                                     <template v-slot:activator="{ props }">
-                                        <v-list-item v-bind="props" title="Admin"></v-list-item>
+                                        <v-list-item v-bind="props">
+                                            <p style="color: #19191D;font-size: 16px;font-weight: 500;">Electronics</p>
+                                        </v-list-item>
                                     </template>
-
-                                    <v-list-item v-for="([title, icon], i) in admins" :key="i" :prepend-icon="icon"
-                                        :title="title" :value="title"></v-list-item>
+                                    <v-list-group value="Cell Phones & Smartphones">
+                                        <template v-slot:activator="{ props }">
+                                            <v-list-item style="width: 100%;" v-bind="props">
+                                                <p style="color: #19191D;font-size: 16px; font-weight: 500;">Cell Phones
+                                                    & Smartphones</p>
+                                            </v-list-item>
+                                        </template>
+                                        <v-list-item v-for="(title, i) in CellPhones" :key="i">
+                                            <p>{{ title }}</p>
+                                        </v-list-item>
+                                    </v-list-group>
                                 </v-list-group>
+                            </v-list-group>
+                        </v-list>
+                    </div>
 
-                                <v-list-group value="Actions">
-                                    <template v-slot:activator="{ props }">
-                                        <v-list-item v-bind="props" title="Actions"></v-list-item>
-                                    </template>
 
-                                    <v-list-item v-for="([title, icon], i) in cruds" :key="i" :prepend-icon="icon"
-                                        :title="title" :value="title"></v-list-item>
-                                </v-list-group>
+                    <div>
+                        <v-list-group style="background-color: white;">
+                            <template v-slot:activator="{ props }">
+                                <v-list-item v-bind="props" color="primary">
+                                    <p>Collapsed filters</p>
+                                </v-list-item>
+                            </template>
+                        </v-list-group>
+
+
+                        <v-list>
+                            <v-list-group style="background-color: #F7F7FA;">
+                                <template v-slot:activator="{ props }">
+                                    <v-list-item v-bind="props" color="primary">
+                                        <p style="color: #19191D; font-weight: 500;">Expanded Filters</p>
+                                    </v-list-item>
+                                </template>
+                                <v-list-item v-for="(title, i) in Expanded_Filters" :key="i">
+                                    <v-checkbox class="text-allcategories" color="#4A4B57" :label="title"
+                                        hide-details></v-checkbox>
+                                </v-list-item>
+                            </v-list-group>
+                        </v-list>
+
+
+                        <v-list>
+                            <v-list-group style="background-color: #F7F7FA;">
+                                <template v-slot:activator="{ props }">
+                                    <v-list-item v-bind="props" color="primary">
+                                        <p style="color: #19191D; font-weight: 500;">Year of manufacturing</p>
+                                    </v-list-item>
+                                </template>
+                                <v-list-item v-for="(title, i) in Year_of_manufacturing" :key="i">
+                                    <v-checkbox class="text-allcategories" color="#4A4B57" :label="title" hide-details></v-checkbox>
+                                </v-list-item>
                             </v-list-group>
                         </v-list>
                     </div>
@@ -160,9 +195,11 @@ import SlideBar from "@/views/Home/SildeBar.vue"
 
 
 import { reactive, ref } from 'vue'
-const admins = reactive([
-    ['Management', 'mdi-account-multiple-outline'],
-    ['Settings', 'mdi-cog-outline'],
+const CellPhones = reactive([
+    'Cell Phone Accessories',
+    'Cell Phone Gatgets',
+    'Applications',
+    'Smart Watches',
 ],)
 const crud = reactive([
     ['Create', 'mdi-plus-outline'],
@@ -170,4 +207,15 @@ const crud = reactive([
     ['Update', 'mdi-update'],
     ['Delete', 'mdi-delete'],
 ],)
+const Expanded_Filters=reactive([
+    "Recommended",
+    "Recently Added",
+    "Expiring Soon",
+    "Most Rated",
+    "Price: Low → High",
+    "Price: High → Low"
+])
+const Year_of_manufacturing=reactive([
+    "1954","1955","1956","1957","1958","1959","19560-2020"
+])
 </script>
