@@ -140,7 +140,7 @@ watch(isShowDialog,(newVal)=>{
     <v-row>
       <v-col cols="12">
         <v-card>
-          <v-table density="compact">
+          <v-table density="compact" hover>
             <thead>
               <tr style="height: 47px;">
                 <th class="text-left text-uppercase text-medium-emphasis">

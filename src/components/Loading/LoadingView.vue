@@ -2,8 +2,8 @@
     <div v-if="loadingStore.isLoading"  class="loading-overlay">
       <v-progress-circular
         indeterminate
-        size="50"
-        color="primary"
+        size="45"
+        color="#4764c3"
       ></v-progress-circular>
     </div>
 </template>
@@ -19,7 +19,7 @@ const loadingStore = useLoadingStore()
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(227, 227, 227, 0.5); /* màu lớp mờ */
+  background-color: rgba(255, 255, 255, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -26,7 +26,8 @@ export const Regex = {
   PHONE:/^0\d{9,10}$/,
   MIN:0,
   MAX_PRICE:1000000000,
-  MAX_QUANTITY:1000000
+  MAX_QUANTITY:1000000,
+  NAME_PRODUCT:/^[a-zA-Z0-9\sÀ-ỹ]+$/u
 };
 
 

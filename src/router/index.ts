@@ -95,6 +95,15 @@ const routes: Array<RouteRecordRaw> = [
           role:Role.ADMIN,
           public:false,
         },
+      },
+      {
+        path: 'test',
+        name:'sds',
+        component: () => import('../views/Admin/User/TestView.vue'),
+        meta: {
+          role:Role.ADMIN,
+          public:false,
+        },
       }
     ]
   },

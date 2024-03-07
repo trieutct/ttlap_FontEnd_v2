@@ -128,7 +128,7 @@ const { value: name, errorMessage: nameError } = useField(
     yup
         .string()
         .required(MESSAGE_ERROR.REQUIRE)
-        .matches(Regex.NAME,MESSAGE_ERROR.NAME)
+        .matches(Regex.NAME_PRODUCT,MESSAGE_ERROR.NAME)
 );
 
 

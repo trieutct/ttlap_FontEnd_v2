@@ -47,9 +47,11 @@
             </v-btn>
             <v-menu open-on-hover>
                 <template v-slot:activator="{ props }">
-                    <v-avatar style="cursor: pointer;" v-bind="props">
-                        <v-img :src="avatar" alt="John"></v-img>
-                    </v-avatar>
+                    <v-badge dot color="green">
+                        <v-avatar style="cursor: pointer;" v-bind="props">
+                            <v-img :src="avatar" alt="John"></v-img>
+                        </v-avatar>
+                    </v-badge>
                 </template>
                 <v-list class="ma-2">
                     <v-list-item>
