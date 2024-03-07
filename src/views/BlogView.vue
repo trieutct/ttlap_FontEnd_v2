@@ -3,35 +3,35 @@
         <h2 style="">Inside Open Art</h2>
         <div class="container">
             <div>
-                <img :src="icon1" alt="">
+                <img width="30" height="30" :src="icon1" alt="">
                 <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">4pt grid system</p>
                 <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">Base on 4pt gird system. Our UI KIT help you crate perfect white space</p>
             </div>
             <div>
-                <img :src="icon2" alt="">
+                <img width="30" height="30" :src="icon2" alt="">
                 <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">Color style</p>
                 <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">All color in OpenArt are styled. You can change all
 design color with one click</p>
             </div>
             <div>
-                <img :src="icon3" alt="">
+                <img width="30" height="30" :src="icon3" alt="">
                 <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">Free font</p>
                 <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">OpenArt use Epilogue font family</p>
                 <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">Available with open licence in gooogle font</p>
             </div>
             <div>
-                <img :src="icon4" alt="">
+                <img width="30" height="30" :src="icon4" alt="">
                 <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">Darkmode avaiable</p>
                 <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">Our UI Kit support darkmode</p>
                 <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">Chage your design to dark mode with one click</p>
             </div>
             <div>
-                <img :src="icon5" alt="">
+                <img width="30" height="30" :src="icon5" alt="">
                 <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">Easy to customize</p>
                 <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;">Create any design with OpenArt UI kits </p>
             </div>
             <div>
-                <img :src="icon6" alt="">
+                <img width="30" height="30" :src="icon6" alt="">
                 <p style="color: #333333;font-size: 24px; font-weight: 400;font-family: Epilogue;">Variant components</p>
                 <p style="color: #555555;font-size: 16px; font-weight: 400;font-family: Epilogue;"> All component art variant, easy to design, 
 easy to control</p>
