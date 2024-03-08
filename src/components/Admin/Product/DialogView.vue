@@ -30,9 +30,9 @@
                         <span style="color:red">{{ quantityError }}</span>
                     </div>
                     <div style="display: block; margin-top: 12px;">
-                        <span>Mô tả</span><span class="text-blue ml-2">*</span>
+                        <span>Mô tả</span>
                         <v-textarea class="mt-1" v-model="description" placeholder="Nhập mô tả"
-                            :error-messages="descriptionError" required style="background-color: white;" density="compact"
+                             style="background-color: white;" density="compact"
                             single-line hide-details variant="outlined"></v-textarea>
                         <span style="color:red">{{ descriptionError }}</span>
                     </div>
@@ -152,15 +152,15 @@ const { value: quantity, errorMessage: quantityError } = useField(
         .typeError(MESSAGE_ERROR.NUMBER)
         .max(Regex.MAX_QUANTITY,MESSAGE_ERROR.MAX_QUANTITY)
 );
-const { value: description, errorMessage: descriptionError } = useField(
-    'description',
-    yup
-        .string()
-        .required(MESSAGE_ERROR.REQUIRE)
-        .min(10, 'Mô tả phải có ít nhất 10 ký tự')
-        .max(500, 'Mô tả không được quá 500 ký tự')
-);
-
+//const { value: description, errorMessage: descriptionError } = useField(
+//    'description',
+//    yup
+//        .string()
+//        .required(MESSAGE_ERROR.REQUIRE)
+//        .min(10, 'Mô tả phải có ít nhất 10 ký tự')
+ //       .max(500, 'Mô tả không được quá 500 ký tự')
+//);
+const description=ref(null)
 
 const submit = handleSubmit(async () => {
     if(errorPrice2.value!=null)
@@ -174,7 +174,7 @@ const submit = handleSubmit(async () => {
         formData.append('name', name.value);
         formData.append('price',parseInt(price.value));
         formData.append('quantity',parseInt(quantity.value));
-        formData.append('description', description.value);
+        formData.append('description', description.value?description.value:"");
         formData.append('file', imageFile.value);
 
         
