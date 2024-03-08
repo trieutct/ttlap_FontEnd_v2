@@ -18,7 +18,11 @@ class ProductApiService extends ApiService {
     id: string,
     formData: FormData
   ): Promise<IBodyResponse<any>> {
-    return await this.client.patch(`${this.baseUrl}/${id}`, formData);
+    return await this.client.patch(`${this.baseUrl}/${id}`, formData,{
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 }
 export const productServiceApi = new ProductApiService(
