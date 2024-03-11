@@ -189,7 +189,7 @@ const submit = handleSubmit(async () => {
                 logout()
             console.log(data)
             if (!data.success) {
-                alert("Tạo lỗi")
+              //  alert("Tạo lỗi")
                 showWarningsNotification(data.message)
             }
             else {
